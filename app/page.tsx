@@ -2,21 +2,38 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-black text-white">
-        <div className="absolute inset-0 bg-black/50 z-10" />
-        <div className="relative z-20 text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-light mb-6">
-            Timeless Elegance
-          </h1>
-          <p className="text-xl md:text-2xl mb-8">
-            Discover our collection of exceptional timepieces
-          </p>
-          <button className="border border-white px-8 py-3 hover:bg-white hover:text-black transition-all">
-            Shop Collection
-          </button>
+    <div className="">
+      {/* Hero Section - 2 Column Grid */}
+      <section className="grid grid-cols-2 h-[120vh] gap-0.5">
+        {/* Left Column */}
+        <div className="relative bg-[#F8F5EE]">
+          <div className="absolute inset-0 bg-black/5" />
+          <img
+            src="https://www.breda.com/cdn/shop/files/breda-jane-1741c-fall-3-2023-gold-metal-bracelet-watch-studio-01_e6ee2eb7-61b2-4c1b-b1ad-40501395366b_1440x.jpg?v=1696518796"
+            alt="Luxury Watch"
+            className="w-full h-full object-cover"
+          />
         </div>
+
+        {/* Right Column */}
+        <div className="relative bg-[#F8F5EE]">
+          <div className="absolute inset-0 bg-black/5" />
+          <img
+            src="https://www.breda.com/cdn/shop/files/breda-pulse-tandem-1747b-fall-3-2023-silver-metal-bracelet-watch-lifestyle-06_1440x.jpg?v=1707945649"
+            alt="Luxury Watch"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </section>
+
+      {/* Single Row Section */}
+      <section className="h-[100vh] mt-0.5 relative bg-[#F8F5EE]">
+        <div className="absolute inset-0 bg-black/5" />
+        <img
+          src="https://www.breda.com/cdn/shop/files/breda-jane-1741c-fall-3-2023-gold-metal-bracelet-watch-studio-01_e6ee2eb7-61b2-4c1b-b1ad-40501395366b_1440x.jpg?v=1696518796"
+          alt="Luxury Watch"
+          className="w-full h-full object-cover"
+        />
       </section>
 
       {/* Featured Collections */}

@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import Header from "./components/Header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const ballinger = localFont({
+  src: "./fonts/Ballinger Mono Regular.ttf",
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
   title: "Luxury Watches",
-  description: "Luxury Watch",
+  description: "Discover our curated selection of luxury timepieces",
 };
 
 export default function RootLayout({
@@ -24,10 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={ballinger.className}>
+        <Header />
+        <main className="pt-8">{children}</main>
       </body>
     </html>
   );

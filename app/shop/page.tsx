@@ -1,19 +1,22 @@
 import Image from "next/image";
+import { getProductsWithPrimaryImages } from "@/app/actions/product-actions";
 
-export default function ShopPage() {
-  // Placeholder data for watches
-  const watches = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    name: `Luxury Watch ${i + 1}`,
-    price: 5000 + i * 1000,
-    brand: ["Rolex", "Omega", "Patek Philippe", "Audemars Piguet"][i % 4],
-    image: "/placeholder-watch.jpg",
-  }));
+export default async function ShopPage() {
+  // Fetch products with their primary images
+  const products = await getProductsWithPrimaryImages();
 
-  // Split watches into sections for different grid layouts
-  const firstSectionWatches = watches.slice(0, 4);
-  const secondSectionWatches = watches.slice(4, 12);
-  const thirdSectionWatches = watches.slice(12, 20);
+  // Add this debug section
+  if (process.env.NODE_ENV === "development") {
+    console.log("[ShopPage] Products:", products);
+    if (products.length === 0) {
+      console.warn("[ShopPage] No products found with primary images");
+    } else if (!products[0].primaryImageUrl) {
+      console.error(
+        "[ShopPage] First product missing primaryImageUrl:",
+        products[0]
+      );
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -34,76 +37,241 @@ export default function ShopPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col gap-0.5">
-        <div className="w-full">
-          {/* First Grid Section - 2 columns with promotional */}
-
-          <div className="grid grid-cols-2 gap-0.5">
-            {/* Promotional Column */}
-            <div className="col-span-1">
-              <div className="aspect-[3/4] bg-gray-100 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/5" />
-              </div>
-            </div>
-
-            {/* Watch Columns */}
-            <div className="col-span-1 grid grid-cols-2 gap-0.5">
-              {firstSectionWatches.map((watch) => (
-                <div key={watch.id} className="group">
-                  <div className="h-full bg-gray-100 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Second Grid Section - 4 columns */}
-          <div className="grid grid-cols-4 gap-0.5 mt-0.5">
-            {secondSectionWatches.map((watch) => (
-              <div key={watch.id} className="group">
-                <div className="aspect-[3/4] bg-gray-100 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="grid grid-cols-4 grid-rows-8 gap-0.5">
+        {/* Large Promotional Item */}
+        <div className="col-span-2 row-span-2 bg-[#F8F5EE] relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/5" />
+          <img
+            src="https://www.breda.com/cdn/shop/files/breda-jane-1741c-fall-3-2023-gold-metal-bracelet-watch-studio-01_e6ee2eb7-61b2-4c1b-b1ad-40501395366b_1440x.jpg?v=1696518796"
+            alt="Watch"
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        <div className="w-full">
-          {/* First Grid Section - 2 columns with promotional */}
-
-          <div className="grid grid-cols-2 gap-0.5">
-            {/* Watch Columns */}
-            <div className="col-span-1 grid grid-cols-2 gap-0.5">
-              {firstSectionWatches.map((watch) => (
-                <div key={watch.id} className="group">
-                  <div className="h-full bg-gray-100 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-                  </div>
-                </div>
-              ))}
+        {/* Product Items */}
+        {products.slice(0, 2).map((product, index) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
             </div>
-
-            {/* Promotional Column */}
-            <div className="col-span-1">
-              <div className="aspect-[3/4] bg-gray-100 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/5" />
-              </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
             </div>
           </div>
+        ))}
 
-          {/* Second Grid Section - 4 columns */}
-          <div className="grid grid-cols-4 gap-0.5 mt-0.5">
-            {secondSectionWatches.map((watch) => (
-              <div key={watch.id} className="group">
-                <div className="aspect-[3/4] bg-gray-100 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-                </div>
-              </div>
-            ))}
+        {/* Product Items Row 2 */}
+        {products.slice(2, 4).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
           </div>
+        ))}
+
+        {/* Product Items Row 3 */}
+        {products.slice(4, 8).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        {/* Product Items Row 4 */}
+        {products.slice(8, 12).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        {/* Large Promotional Item */}
+        <div className="col-span-2 row-span-2 col-start-3 row-start-5 bg-[#F8F5EE] relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/5" />
+          <img
+            src="https://www.breda.com/cdn/shop/files/breda-pulse-tandem-1747b-fall-3-2023-silver-metal-bracelet-watch-lifestyle-06_1440x.jpg?v=1707945649"
+            alt="Watch"
+            className="w-full h-full object-cover"
+          />
         </div>
+
+        {/* Product Items Row 5 */}
+        {products.slice(12, 14).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        {/* Product Items Row 6 */}
+        {products.slice(14, 16).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        {/* Product Items Row 7 */}
+        {products.slice(16, 20).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        {products.slice(20, 24).map((product) => (
+          <div
+            key={product.id}
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+          >
+            <div className="flex-1 flex items-center justify-center">
+              {product.primaryImageUrl && (
+                <img
+                  src={product.primaryImageUrl}
+                  alt={product.name}
+                  className="w-2/3 h-auto object-fit"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
+            </div>
+            <div className="px-8 pb-8">
+              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                {product.name}
+              </h3>
+              <p className="mt-2 text-xs text-gray-500">
+                ${product.price.toString()}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
