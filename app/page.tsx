@@ -9,7 +9,7 @@ export default function Home() {
         <div className="relative bg-[#F8F5EE]">
           <div className="absolute inset-0 bg-black/5" />
           <img
-            src="https://media.fastdl.app/get?__sig=2CDNO8OEVLK2uv6sElOlBA&__expires=1747770325&uri=https%3A%2F%2Finstagram.fphl1-1.fna.fbcdn.net%2Fv%2Ft51.2885-15%2F499552837_18508368010027120_8679493673769328971_n.jpg%3Fstp%3Ddst-jpg_e15_fr_p1080x1080_tt6%26_nc_ht%3Dinstagram.fphl1-1.fna.fbcdn.net%26_nc_cat%3D104%26_nc_oc%3DQ6cZ2QFGsBWf20wpM6g1dLA7gbTOqioCgo1ekvIwYXorBl0BuQSPqCh87M9GKfDQp7Vd3VuSLoYjEK60rwgBDdrZOCQW%26_nc_ohc%3DK5n13pmEf9oQ7kNvwFVE5vB%26_nc_gid%3DBUzzBUZAjsmP_vr1GsTCBQ%26edm%3DANTKIIoBAAAA%26ccb%3D7-5%26oh%3D00_AfJFktd-yFVcwEzJkrXR60OX5F168IBGnq9qbsCspVCOwg%26oe%3D68329A6E%26_nc_sid%3Dd885a2&filename=499552837_18508368010027120_8679493673769328971_n.jpg"
+            src="/1.jpg"
             alt="Luxury Watch"
             className="w-full h-full object-cover"
           />
@@ -19,7 +19,7 @@ export default function Home() {
         <div className="relative bg-[#F8F5EE]">
           <div className="absolute inset-0 bg-black/5" />
           <img
-            src="https://pbs.twimg.com/media/Gq6SAUpb0AARcJ0?format=jpg&name=large"
+            src="/2.jpeg"
             alt="Luxury Watch"
             className="w-full h-full object-cover"
           />
