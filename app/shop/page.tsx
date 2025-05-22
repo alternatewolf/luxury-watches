@@ -69,7 +69,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -102,7 +102,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -135,7 +135,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -168,7 +168,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -211,7 +211,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -244,7 +244,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -277,7 +277,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -310,7 +310,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -355,7 +355,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -388,7 +388,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -421,7 +421,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
@@ -454,7 +454,7 @@ export default async function ShopPage({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col"
+            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
           >
             <div className="flex-1 flex items-center justify-center">
               {product.images[0]?.url && (
