@@ -3,6 +3,7 @@ import { getProductsWithPrimaryImages } from "@/app/actions/product-actions";
 import ProductCarousel from "./components/ProductCarousel";
 import ProductCarousel2 from "./components/ProductCarousel2";
 import TestimonialsCarousel from "./components/TestimonialsCarousel";
+import Link from "next/link";
 
 export default async function Home() {
   // Fetch products with their primary images
@@ -17,7 +18,7 @@ export default async function Home() {
   return (
     <div className="">
       {/* Hero Section - 2 Column Grid */}
-      <section className="grid grid-cols-2 h-[120vh] gap-0.5">
+      <section className="grid grid-cols-1 md:grid-cols-2 h-[60vh] md:h-[120vh] gap-0.5">
         {/* Left Column */}
         <div className="relative bg-[#F8F5EE]">
           <div className="absolute inset-0 bg-black/5" />
@@ -40,7 +41,7 @@ export default async function Home() {
       </section>
 
       {/* Single Row Section */}
-      <section className="h-[100vh] mt-0.5 relative bg-[#F8F5EE]">
+      <section className="h-[50vh] md:h-[100vh] mt-0.5 relative bg-[#F8F5EE]">
         <div className="absolute inset-0 bg-black/5" />
         <img
           src="https://images.unsplash.com/photo-1564595076323-71cc27edacf8?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -50,7 +51,7 @@ export default async function Home() {
       </section>
 
       {/* Featured Products Grid */}
-      <section className="grid grid-cols-5 gap-0.5 mt-0.5">
+      <section className="grid grid-cols-2 md:grid-cols-5 gap-0.5 mt-0.5">
         {products.slice(0, 5).map((product) => (
           <div
             key={product.id}
@@ -66,7 +67,7 @@ export default async function Home() {
               )}
               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-4 md:px-8 pb-4 md:pb-8">
               <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
                 {product.name}
               </h3>
@@ -79,21 +80,26 @@ export default async function Home() {
       </section>
 
       {/* Showcase Section */}
-      <section className="pt-20 mx-auto">
-        <h2 className="text-3xl font-light text-center mb-12">Our Showcase</h2>
+      <section className="pt-10 md:pt-20 mx-auto">
+        <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
+          Our Showcase
+        </h2>
 
-        <div className="grid grid-cols-2">
-          <div className="h-[120vh] bg-gray-100 flex items-center justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="h-[60vh] md:h-[120vh] bg-gray-100 flex items-center justify-center">
             <img
               src="https://images.pexels.com/photos/14569229/pexels-photo-14569229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="mt-26">
-            <div className="flex items-center justify-between ml-16 mr-16">
-              <h1 className="text-2xl uppercase">Exclusives</h1>
-              <button className="group relative flex h-12 w-12 items-center justify-between rounded-full cursor-pointer scale-130">
+          <div className="mt-8 md:mt-26">
+            <div className="flex items-center justify-between px-4 md:px-16">
+              <h1 className="text-xl md:text-2xl uppercase">Exclusives</h1>
+              <Link
+                href="/shop?sort=price_desc"
+                className="group relative flex h-12 w-12 items-center justify-between rounded-full cursor-pointer scale-130"
+              >
                 <div className="relative h-9 w-9 overflow-hidden bg-black rounded-full mr-1">
                   <div className="absolute top-[0.8em] left-[-0.0em] grid gap-0.1 place-content-center transition-all w-full h-full duration-200 group-hover:-translate-y-5 group-hover:translate-x-4">
                     <svg
@@ -126,25 +132,28 @@ export default async function Home() {
                     </svg>
                   </div>
                 </div>
-              </button>
+              </Link>
             </div>
-            <div className="mt-8">
+            <div className="mt-4 md:mt-8">
               <ProductCarousel products={clientSafeProducts.slice(0, 4)} />
             </div>
-            <div className="pl-16 mt-8">
+            <div className="px-4 md:pl-16 mt-4 md:mt-8">
               <p className="uppercase text-xs text-gray-500 leading-6">
-                Lorem ipsum dolor sit amet consectetur <br />
-                adipisicing elit. Quisquam,
+                Discover our curated collection of exclusive timepieces, <br />
+                each telling its own unique story of craftsmanship.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2">
-          <div className="mt-32">
-            <div className="flex items-center justify-between ml-16 mr-16">
-              <h1 className="text-2xl uppercase">New Arrivals</h1>
-              <button className="group relative flex h-12 w-12 items-center justify-between rounded-full cursor-pointer scale-130">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="mt-8 md:mt-32">
+            <div className="flex items-center justify-between px-4 md:px-16">
+              <h1 className="text-xl md:text-2xl uppercase">New Arrivals</h1>
+              <Link
+                href="/shop?sort=newest"
+                className="group relative flex h-12 w-12 items-center justify-between rounded-full cursor-pointer scale-130"
+              >
                 <div className="relative h-9 w-9 overflow-hidden bg-black rounded-full mr-1">
                   <div className="absolute top-[0.8em] left-[-0.0em] grid gap-0.1 place-content-center transition-all w-full h-full duration-200 group-hover:-translate-y-5 group-hover:translate-x-4">
                     <svg
@@ -177,19 +186,19 @@ export default async function Home() {
                     </svg>
                   </div>
                 </div>
-              </button>
+              </Link>
             </div>
-            <div className="mt-8">
+            <div className="mt-4 md:mt-8">
               <ProductCarousel2 products={clientSafeProducts.slice(0, 4)} />
             </div>
-            <div className="pl-16 mt-8">
+            <div className="px-4 md:pl-16 mt-4 md:mt-8">
               <p className="uppercase text-xs text-gray-500 leading-6">
-                Lorem ipsum dolor sit amet consectetur <br />
-                adipisicing elit. Quisquam,
+                Explore our latest additions, featuring the most <br />
+                sought-after luxury watches from renowned brands.
               </p>
             </div>
           </div>
-          <div className="h-[120vh] w-full bg-gray-100 flex items-center justify-center">
+          <div className="h-[60vh] md:h-[120vh] w-full bg-gray-100 flex items-center justify-center">
             <img
               src="https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt=""
@@ -200,8 +209,10 @@ export default async function Home() {
       </section>
 
       {/* Brand Showcase */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-light text-center mb-12">Our Brands</h2>
+      <section className="py-10 md:py-20 px-4 max-w-7xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
+          Our Brands
+        </h2>
         <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <ul className="flex items-center justify-center md:justify-start sm:[&_li]:mx-8 [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll">
             <li>
@@ -376,36 +387,36 @@ export default async function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="pt-10 pb-20 px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-light text-center mb-12">
+      <section className="pt-6 md:pt-10 pb-10 md:pb-20 px-4 max-w-7xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
           What Our Clients Say
         </h2>
         <TestimonialsCarousel />
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 pt-20 pb-8 mt-0 relative">
+      <footer className="bg-white border-t border-gray-200 pt-10 md:pt-20 pb-8 mt-0 relative">
         <div
-          className="h-[80vh] bg-cover bg-center bg-fixed"
+          className="h-[40vh] md:h-[80vh] bg-cover bg-center bg-fixed"
           style={{
             backgroundImage:
               "url('https://images.pexels.com/photos/28697832/pexels-photo-28697832/free-photo-of-elegant-display-of-luxury-watches-in-retail-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
           }}
         ></div>
         <div
-          className="w-11/12 max-w-[500px] sm:w-[500px] absolute right-10 top-[calc(theme(spacing.20)+80vh)] 
+          className="w-11/12 max-w-[500px] sm:w-[500px] absolute right-4 md:right-10 top-[calc(theme(spacing.10)+40vh)] md:top-[calc(theme(spacing.20)+80vh)]
                 -translate-y-1/2 
-               bg-[#232323] rounded-none shadow-xl p-10 flex flex-col items-center text-center text-white z-10"
+               bg-[#232323] rounded-none shadow-xl p-6 md:p-10 flex flex-col items-center text-center text-white z-10"
         >
-          <h2 className="text-3xl md:text-4xl font-light mb-4 tracking-wide">
+          <h2 className="text-2xl md:text-4xl font-light mb-4 tracking-wide">
             PLACE YOUR
             <br />
             ORDER TODAY
           </h2>
-          <p className="mb-8 text-gray-300 text-sm">
+          <p className="mb-6 md:mb-8 text-gray-300 text-sm">
             To order your dream watch, whatsapp us at
           </p>
-          <h1 className="text-3xl font-light mb-4 tracking-wide">
+          <h1 className="text-2xl md:text-3xl font-light mb-4 tracking-wide">
             +1 1111-2222-3333
           </h1>
           <div className="flex flex-col items-center justify-center gap-4 mt-4">
@@ -437,8 +448,8 @@ export default async function Home() {
             Our customer service is available 24/7.
           </p>
         </div>
-        <div className="max-w-7xl mx-auto mt-14 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-36">
+        <div className="max-w-7xl mx-auto mt-8 md:mt-14 px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-20 md:mb-36">
             <div>
               <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
                 Follow Us

@@ -1,13 +1,14 @@
 'use server'
 
 import { PrismaClient, Prisma } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 async function findOrCreateMaterial(name: string) {
   if (!name) return null;
   
-  let material = await prisma.material.findFirst({
+  let material = await prismaClient.material.findFirst({
     where: {
       name: {
         equals: name,
@@ -17,7 +18,7 @@ async function findOrCreateMaterial(name: string) {
   });
 
   if (!material) {
-    material = await prisma.material.create({
+    material = await prismaClient.material.create({
       data: { name }
     });
   }
@@ -28,7 +29,7 @@ async function findOrCreateMaterial(name: string) {
 async function findOrCreateColor(name: string) {
   if (!name) return null;
   
-  let color = await prisma.color.findFirst({
+  let color = await prismaClient.color.findFirst({
     where: {
       name: {
         equals: name,
@@ -38,7 +39,7 @@ async function findOrCreateColor(name: string) {
   });
 
   if (!color) {
-    color = await prisma.color.create({
+    color = await prismaClient.color.create({
       data: { name }
     });
   }
@@ -49,7 +50,7 @@ async function findOrCreateColor(name: string) {
 export async function createProduct(data: any) {
   try {
     // Check if product with same model number exists
-    const existingProduct = await prisma.product.findFirst({
+    const existingProduct = await prismaClient.product.findFirst({
       where: {
         modelNumber: data.modelNumber
       }
@@ -71,7 +72,7 @@ export async function createProduct(data: any) {
     }
 
     // Check if SKU already exists
-    const existingSku = await prisma.product.findFirst({
+    const existingSku = await prismaClient.product.findFirst({
       where: {
         sku: sku
       }
@@ -84,7 +85,7 @@ export async function createProduct(data: any) {
     }
 
     // First, find or create the brand
-    let brand = await prisma.brand.findFirst({
+    let brand = await prismaClient.brand.findFirst({
       where: {
         name: {
           equals: data.brandId,
@@ -94,7 +95,7 @@ export async function createProduct(data: any) {
     });
 
     if (!brand) {
-      brand = await prisma.brand.create({
+      brand = await prismaClient.brand.create({
         data: {
           name: data.brandId
         }
@@ -104,7 +105,7 @@ export async function createProduct(data: any) {
     // Find or create the watch style
     let watchStyle = null;
     if (data.watchStyleId) {
-      watchStyle = await prisma.watchStyle.findFirst({
+      watchStyle = await prismaClient.watchStyle.findFirst({
         where: {
           name: {
             equals: data.watchStyleId,
@@ -114,7 +115,7 @@ export async function createProduct(data: any) {
       });
 
       if (!watchStyle) {
-        watchStyle = await prisma.watchStyle.create({
+        watchStyle = await prismaClient.watchStyle.create({
           data: {
             name: data.watchStyleId
           }
@@ -140,7 +141,7 @@ export async function createProduct(data: any) {
     ]);
 
     // Create the base product with all the IDs
-    const product = await prisma.product.create({
+    const product = await prismaClient.product.create({
       data: {
         name: data.name,
         brandId: brand.id,
@@ -225,7 +226,7 @@ export async function createProduct(data: any) {
 
     // Handle complications (many-to-many)
     if (data.complications && data.complications.length > 0) {
-      await prisma.product.update({
+      await prismaClient.product.update({
         where: { id: product.id },
         data: {
           complications: {
@@ -247,9 +248,9 @@ export async function createProduct(data: any) {
         order: index,
       }));
 
-      await prisma.$transaction(
+      await prismaClient.$transaction(
         imagesData.map((img: any) => 
-          prisma.productImage.create({
+          prismaClient.productImage.create({
             data: {
               ...img,
               productId: product.id,
@@ -270,12 +271,12 @@ export async function createProduct(data: any) {
 export async function getProductReferenceData() {
   try {
     const [brands, materials, colors, watchStyles, claspTypes, complications] = await Promise.all([
-      prisma.brand.findMany({ orderBy: { name: 'asc' } }),
-      prisma.material.findMany({ orderBy: { name: 'asc' } }),
-      prisma.color.findMany({ orderBy: { name: 'asc' } }),
-      prisma.watchStyle.findMany({ orderBy: { name: 'asc' } }),
-      prisma.claspType.findMany({ orderBy: { name: 'asc' } }),
-      prisma.complication.findMany({ orderBy: { name: 'asc' } }),
+      prismaClient.brand.findMany({ orderBy: { name: 'asc' } }),
+      prismaClient.material.findMany({ orderBy: { name: 'asc' } }),
+      prismaClient.color.findMany({ orderBy: { name: 'asc' } }),
+      prismaClient.watchStyle.findMany({ orderBy: { name: 'asc' } }),
+      prismaClient.claspType.findMany({ orderBy: { name: 'asc' } }),
+      prismaClient.complication.findMany({ orderBy: { name: 'asc' } }),
     ]);
 
     return {
@@ -292,52 +293,205 @@ export async function getProductReferenceData() {
   }
 }
 
+export async function getProductBySlug(slug: string) {
+  try {
+    const product = await prismaClient.product.findUnique({
+      where: { slug },
+      include: {
+        brand: {
+          select: { name: true },
+        },
+        watchStyle: {
+          select: { name: true },
+        },
+        caseMaterial: {
+          select: { name: true },
+        },
+        dialColor: {
+          select: { name: true },
+        },
+        crystalMaterial: {
+          select: { name: true },
+        },
+        bezelMaterial: {
+          select: { name: true },
+        },
+        braceletStrapMaterial: {
+          select: { name: true },
+        },
+        braceletStrapColor: {
+          select: { name: true },
+        },
+        claspType: {
+          select: { name: true },
+        },
+        complications: {
+          select: { name: true },
+        },
+        images: true,
+      },
+    });
+
+    if (!product) return null;
+
+    // Convert Decimal values to strings
+    return {
+      ...product,
+      price: product.price.toString(),
+      discountPrice: product.discountPrice?.toString() || null,
+      caseDiameterMm: product.caseDiameterMm?.toString() || null,
+      caseThicknessMm: product.caseThicknessMm?.toString() || null,
+    };
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    return null;
+  }
+}
+
 export async function getProductsWithPrimaryImages() {
   try {
-    console.log('Starting product fetch...');
-    const products = await prisma.product.findMany({
+    const products = await prismaClient.product.findMany({
       where: {
         status: 'PUBLISHED',
-        images: {
-          some: {
-            isPrimary: true
-          }
-        }
       },
       include: {
         images: {
-          where: { isPrimary: true },
-          take: 1
+          where: {
+            isPrimary: true,
+          },
+          take: 1,
         },
         brand: {
-          select: { name: true }
-        }
+          select: { name: true },
+        },
       },
-      orderBy: { createdAt: 'asc' },
-      take: 36
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
-    console.log(`Found ${products.length} products with primary images`);
-    console.log('Sample product data:', products.length > 0 ? {
-      id: products[0].id,
-      name: products[0].name,
-      imageCount: products[0].images.length,
-      primaryImage: products[0].images[0]?.url
-    } : 'No products found');
-
-    const mappedProducts = products.map(product => ({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      brand: product.brand.name,
-      primaryImageUrl: product.images[0]?.url || null
+    return products.map((product) => ({
+      ...product,
+      price: product.price.toString(),
+      discountPrice: product.discountPrice?.toString() || null,
+      caseDiameterMm: product.caseDiameterMm?.toString() || null,
+      caseThicknessMm: product.caseThicknessMm?.toString() || null,
+      primaryImageUrl: product.images[0]?.url || null,
     }));
-
-    console.log('Mapped products:', mappedProducts);
-    return mappedProducts;
-    
   } catch (error) {
     console.error('Error fetching products:', error);
     return [];
   }
+}
+
+export async function getProductRecommendations(product: any, limit: number = 4) {
+  try {
+    const recommendations = await prismaClient.product.findMany({
+      where: {
+        AND: [
+          { id: { not: product.id } }, // Exclude current product
+          { status: 'PUBLISHED' },
+          {
+            OR: [
+              { brandId: product.brandId }, // Same brand
+              { gender: product.gender }, // Same gender
+              { watchStyleId: product.watchStyleId }, // Same style
+            ],
+          },
+        ],
+      },
+      include: {
+        brand: {
+          select: { name: true },
+        },
+        images: {
+          where: { isPrimary: true },
+          take: 1,
+        },
+      },
+      orderBy: [
+        { brandId: 'asc' }, // Prioritize same brand
+        { gender: 'asc' }, // Then same gender
+        { watchStyleId: 'asc' }, // Then same style
+        { createdAt: 'desc' }, // Then newest
+      ],
+      take: limit,
+    });
+
+    return recommendations.map((product) => ({
+      ...product,
+      price: product.price.toString(),
+      discountPrice: product.discountPrice?.toString() || null,
+      caseDiameterMm: product.caseDiameterMm?.toString() || null,
+      caseThicknessMm: product.caseThicknessMm?.toString() || null,
+    }));
+  } catch (error) {
+    console.error('Error fetching product recommendations:', error);
+    return [];
+  }
+}
+
+export async function getFilteredProducts(filters: any, sort: string) {
+  const where: any = {
+    status: "PUBLISHED",
+  };
+
+  // Apply filters
+  if (filters.brands?.length > 0) {
+    where.brandId = { in: filters.brands };
+  }
+
+  if (filters.gender?.length > 0) {
+    where.gender = { in: filters.gender };
+  }
+
+  if (filters.watchStyles?.length > 0) {
+    where.watchStyleId = { in: filters.watchStyles };
+  }
+
+  if (filters.condition?.length > 0) {
+    where.condition = { in: filters.condition };
+  }
+
+  if (filters.priceRange?.min || filters.priceRange?.max) {
+    where.price = {};
+    if (filters.priceRange.min) {
+      where.price.gte = parseFloat(filters.priceRange.min);
+    }
+    if (filters.priceRange.max) {
+      where.price.lte = parseFloat(filters.priceRange.max);
+    }
+  }
+
+  // Apply sorting
+  const orderBy: any = {};
+  switch (sort) {
+    case "price_asc":
+      orderBy.price = "asc";
+      break;
+    case "price_desc":
+      orderBy.price = "desc";
+      break;
+    case "newest":
+    default:
+      orderBy.createdAt = "desc";
+      break;
+  }
+
+  return prisma.product.findMany({
+    where,
+    orderBy,
+    include: {
+      brand: true,
+      watchStyle: true,
+      images: {
+        where: {
+          isPrimary: true,
+        },
+        select: {
+          url: true,
+        },
+      },
+    },
+  });
 } 

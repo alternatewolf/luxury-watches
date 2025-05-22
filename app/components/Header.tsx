@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -25,23 +25,23 @@ export default function Header() {
               Shop
             </Link>
             <Link
-              href="/collections"
+              href="/shop?filters=%7B%22gender%22%3A%5B%22WOMENS%22%5D%7D"
               className="text-xs hover:text-gray-600 transition-colors"
             >
-              Collections
+              Women's
             </Link>
             <Link
-              href="/about"
+              href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
               className="text-xs hover:text-gray-600 transition-colors"
             >
-              About
+              Used
             </Link>
           </nav>
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
             <Link href="/cart" className="text-gray-600 hover:text-gray-900">
-              <ShoppingBag className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5" />
             </Link>
 
             {/* Mobile menu button */}
@@ -82,18 +82,18 @@ export default function Header() {
                 SHOP
               </Link>
               <Link
-                href="/collections"
+                href="/shop?filters=%7B%22gender%22%3A%5B%22WOMENS%22%5D%7D"
                 className="text-sm hover:text-gray-600 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                COLLECTIONS
+                WOMEN'S
               </Link>
               <Link
-                href="/about"
+                href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
                 className="text-sm hover:text-gray-600 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                ABOUT
+                USED
               </Link>
             </nav>
           </div>
