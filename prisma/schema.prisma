@@ -26,6 +26,7 @@ enum Condition {
   VERY_GOOD
   GOOD
   VINTAGE
+  USED
 }
 
 // Enum for Box/Papers Status

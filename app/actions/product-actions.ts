@@ -313,8 +313,8 @@ export async function getProductsWithPrimaryImages() {
           select: { name: true }
         }
       },
-      orderBy: { createdAt: 'desc' },
-      take: 24
+      orderBy: { createdAt: 'asc' },
+      take: 36
     });
 
     console.log(`Found ${products.length} products with primary images`);
