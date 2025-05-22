@@ -4,6 +4,7 @@ import ProductCarousel from "./components/ProductCarousel";
 import ProductCarousel2 from "./components/ProductCarousel2";
 import TestimonialsCarousel from "./components/TestimonialsCarousel";
 import Link from "next/link";
+import MarketingSection from "./components/MarketingSection";
 
 export default async function Home() {
   // Fetch products with their primary images
