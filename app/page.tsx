@@ -21,7 +21,31 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-1">
       {/* Hero Section */}
-      <div className="h-[120vh] bg-gray-300"></div>
+      <div className="h-[120vh] bg-gray-300 relative">
+        <video
+          src="/demo.mp4"
+          autoPlay
+          muted
+          loop
+          className="w-full h-full object-cover"
+        />
+        {/* Black Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Centered Text Content */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center text-white px-4 max-w-4xl">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-wider mb-6">
+              TIMELESS ELEGANCE
+            </h1>
+            <p className="text-lg md:text-xl font-light opacity-90 leading-relaxed max-w-2xl mx-auto">
+              Discover the world's most coveted luxury timepieces. Each watch
+              tells a story of precision, heritage, and uncompromising
+              craftsmanship.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Featured Products Grid */}
       <div className="">
