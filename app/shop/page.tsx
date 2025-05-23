@@ -2,36 +2,34 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   getProductsWithPrimaryImages,
+  getProductReferenceData,
   getFilteredProducts,
 } from "@/app/actions/product-actions";
-import ShopFiltersWrapper from "@/app/components/ShopFiltersWrapper";
 import { prisma } from "@/app/lib/prisma";
+import SortSelect from "@/app/components/SortSelect";
+import FilterDrawer from "@/app/components/FilterDrawer";
 
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { sort?: string; brand?: string };
 }) {
-  // Get filter and sort parameters from URL
-  const filters = searchParams.filters
-    ? JSON.parse(searchParams.filters as string)
-    : {};
-  const sort = (searchParams.sort as string) || "newest";
+  // Get brands for filter
+  const { brands } = await getProductReferenceData();
 
-  // Fetch brands and watch styles for filter options
-  const [brands, watchStyles] = await Promise.all([
-    prisma.brand.findMany({
-      select: { id: true, name: true },
-      orderBy: { name: "asc" },
-    }),
-    prisma.watchStyle.findMany({
-      select: { id: true, name: true },
-      orderBy: { name: "asc" },
-    }),
-  ]);
+  // Get sort and brand filter from URL params
+  const sort = searchParams.sort || "newest";
+  const selectedBrands = searchParams.brand
+    ? searchParams.brand.split(",")
+    : [];
 
-  // Fetch filtered products
-  const products = await getFilteredProducts(filters, sort);
+  // Fetch products with filters
+  const products = await getFilteredProducts(
+    {
+      brands: selectedBrands,
+    },
+    sort
+  );
 
   // Add this debug section
   if (process.env.NODE_ENV === "development") {
@@ -48,439 +46,129 @@ export default async function ShopPage({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="mt-4">
-        <ShopFiltersWrapper brands={brands} watchStyles={watchStyles} />
-      </div>
+      <div className="max-w-[1920px] mx-auto px-4 py-8">
+        {/* Mobile Filters */}
+        <FilterDrawer
+          brands={brands}
+          selectedBrands={selectedBrands}
+          sort={sort}
+        />
 
-      {/* Main Content */}
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-8 gap-0.5">
-        {/* Large Promotional Item */}
-        <div className="col-span-2 row-span-2 bg-[#F8F5EE] relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5" />
-          <img
-            src="https://i.pinimg.com/1200x/d8/7c/b8/d87cb862eb3f8ab44105b0ab8c56ed69.jpg"
-            alt="Watch"
-            className="w-full h-full object-cover"
-          />
+        <div className="flex gap-8">
+          {/* Filters Sidebar - Desktop */}
+          <div className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-16 space-y-4">
+              {/* Sort Options */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-900 mb-3">
+                  Sort By
+                </h3>
+                <SortSelect value={sort} />
+              </div>
+
+              {/* Brand Filter */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-900 mb-3">
+                  Brands
+                </h3>
+                <div className="space-y-2">
+                  {brands.map((brand) => {
+                    const newBrands = selectedBrands.includes(brand.id)
+                      ? selectedBrands.filter((id) => id !== brand.id)
+                      : [...selectedBrands, brand.id];
+
+                    const query = {
+                      ...(sort !== "newest" && { sort }),
+                      ...(newBrands.length > 0 && {
+                        brand: newBrands.join(","),
+                      }),
+                    };
+
+                    return (
+                      <Link
+                        key={brand.id}
+                        href={{
+                          pathname: "/shop",
+                          query,
+                        }}
+                        className="flex items-center gap-2 group"
+                      >
+                        <div
+                          className={`w-4 h-4 border rounded flex items-center justify-center ${
+                            selectedBrands.includes(brand.id)
+                              ? "bg-black border-black"
+                              : "border-gray-300 group-hover:border-black"
+                          }`}
+                        >
+                          {selectedBrands.includes(brand.id) && (
+                            <svg
+                              className="w-3 h-3 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <span
+                          className={`text-sm ${
+                            selectedBrands.includes(brand.id)
+                              ? "text-black font-medium"
+                              : "text-gray-600 group-hover:text-black"
+                          }`}
+                        >
+                          {brand.name}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Products Grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1">
+              {products.map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/shop/${product.slug}`}
+                  className="group bg-[#F8F5EE] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[400px] rounded-none cursor-pointer"
+                >
+                  <div className="flex-1 flex items-center justify-center p-6">
+                    {product.images[0]?.url && (
+                      <img
+                        src={product.images[0].url}
+                        alt={product.name}
+                        className="w-full h-auto object-contain"
+                      />
+                    )}
+                    {product.condition === "USED" && (
+                      <div className="absolute top-3 left-3 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider rounded">
+                        Used
+                      </div>
+                    )}
+                  </div>
+                  <div className="px-6 pb-6">
+                    <h3 className="text-sm font-medium text-gray-900 truncate uppercase">
+                      {product.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-gray-500">
+                      ${product.price.toString()}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
-
-        {/* Product Items */}
-        {products.slice(0, 2).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 2 */}
-        {products.slice(2, 4).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 3 */}
-        {products.slice(4, 8).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 4 */}
-        {products.slice(8, 12).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Large Promotional Item */}
-        <div className="col-span-2 row-span-2 col-start-1 md:col-start-3 row-start-5 bg-[#F8F5EE] relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5" />
-          <img
-            src="https://www.breda.com/cdn/shop/files/breda-pulse-tandem-1747b-fall-3-2023-silver-metal-bracelet-watch-lifestyle-06_1440x.jpg?v=1707945649"
-            alt="Watch"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Product Items Row 5 */}
-        {products.slice(12, 14).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 6 */}
-        {products.slice(14, 16).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 7 */}
-        {products.slice(16, 20).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 8 */}
-        {products.slice(20, 24).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-4 gap-0.5 mt-0.5">
-        {/* Large Promotional Item */}
-        <div className="col-span-2 row-span-2 bg-[#F8F5EE] relative overflow-hidden">
-          <div className="absolute inset-0 bg-black/5" />
-          <img
-            src="https://i.pinimg.com/1200x/a8/86/b9/a886b92aca15e277271354579149811f.jpg"
-            alt="Watch"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Product Items */}
-        {products.slice(24, 26).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 2 */}
-        {products.slice(26, 28).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 3 */}
-        {products.slice(28, 32).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
-
-        {/* Product Items Row 4 */}
-        {products.slice(32, 36).map((product) => (
-          <Link
-            key={product.id}
-            href={`/shop/${product.slug}`}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col min-h-[300px] md:min-h-0"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.images[0]?.url && (
-                <img
-                  src={product.images[0].url}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-              {product.condition === "USED" && (
-                <div className="absolute top-2 right-2 bg-black/80 text-white text-[10px] px-2 py-1 uppercase tracking-wider">
-                  Used
-                </div>
-              )}
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </Link>
-        ))}
       </div>
     </div>
   );

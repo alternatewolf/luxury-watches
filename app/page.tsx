@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { getProductsWithPrimaryImages } from "@/app/actions/product-actions";
 import ProductCarousel from "./components/ProductCarousel";
-import ProductCarousel2 from "./components/ProductCarousel2";
 import TestimonialsCarousel from "./components/TestimonialsCarousel";
 import Link from "next/link";
 import MarketingSection from "./components/MarketingSection";
+import ButtonHover14 from "./components/ButtonHover14";
+import { Star, Truck, User } from "lucide-react";
+import ButtonHover15 from "./components/ButtonHover15";
 
 export default async function Home() {
   // Fetch products with their primary images
@@ -17,194 +19,287 @@ export default async function Home() {
   }));
 
   return (
-    <div className="">
-      {/* Hero Section - 2 Column Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 h-[60vh] md:h-[120vh] gap-0.5">
-        {/* Left Column */}
-        <div className="relative bg-[#F8F5EE]">
-          <div className="absolute inset-0 bg-black/5" />
-          <img
-            src="/1.jpg"
-            alt="Luxury Watch"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Right Column */}
-        <div className="relative bg-[#F8F5EE]">
-          <div className="absolute inset-0 bg-black/5" />
-          <img
-            src="/2.jpeg"
-            alt="Luxury Watch"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </section>
-
-      {/* Single Row Section */}
-      <section className="h-[50vh] md:h-[100vh] mt-0.5 relative bg-[#F8F5EE]">
-        <div className="absolute inset-0 bg-black/5" />
-        <img
-          src="https://images.unsplash.com/photo-1564595076323-71cc27edacf8?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Luxury Watch"
-          className="w-full h-full object-cover"
-        />
-      </section>
+    <div className="flex flex-col gap-1">
+      {/* Hero Section */}
+      <div className="h-[120vh] bg-gray-300"></div>
 
       {/* Featured Products Grid */}
-      <section className="grid grid-cols-2 md:grid-cols-5 gap-0.5 mt-0.5">
-        {products.slice(0, 5).map((product) => (
-          <div
-            key={product.id}
-            className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col aspect-3/4"
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {product.primaryImageUrl && (
-                <img
-                  src={product.primaryImageUrl}
-                  alt={product.name}
-                  className="w-2/3 h-auto object-fit"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
-            </div>
-            <div className="px-4 md:px-8 pb-4 md:pb-8">
-              <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
-                {product.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500">
-                ${product.price.toString()}
-              </p>
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* Showcase Section */}
-      <section className="pt-10 md:pt-20 mx-auto">
-        <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
-          Our Showcase
+      <div className="">
+        <h2 className="text-2xl md:text-2xl font-light text-center py-8">
+          Latest Arrivals
         </h2>
+        <div className="">
+          <ProductCarousel products={clientSafeProducts} />
+        </div>
+        <div className="flex justify-center mt-8">
+          <ButtonHover14 />
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="h-[60vh] md:h-[120vh] bg-gray-100 flex items-center justify-center">
-            <img
-              src="https://images.pexels.com/photos/14569229/pexels-photo-14569229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="mt-8 md:mt-26">
-            <div className="flex items-center justify-between px-4 md:px-16">
-              <h1 className="text-xl md:text-2xl uppercase">Exclusives</h1>
-              <Link
-                href="/shop?sort=price_desc"
-                className="group relative flex h-12 w-12 items-center justify-between rounded-full cursor-pointer scale-130"
-              >
-                <div className="relative h-9 w-9 overflow-hidden bg-black rounded-full mr-1">
-                  <div className="absolute top-[0.8em] left-[-0.0em] grid gap-0.1 place-content-center transition-all w-full h-full duration-200 group-hover:-translate-y-5 group-hover:translate-x-4">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 fill-white"
-                    >
-                      <path
-                        d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mb-1 -translate-x-4 fill-white"
-                    >
-                      <path
-                        d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
+      {/* Featured Collections Section */}
+      <section className="py-10 mt-10 bg-[#F8F5EE]">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-12">
+            Featured Collections
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="relative group overflow-hidden aspect-[3/4]">
+              <Image
+                src="/images/photo_1_2025-05-22_19-27-23.png"
+                alt="Classic Collection"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all">
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-xl font-light mb-2">
+                    Classic Collection
+                  </h3>
+                  <p className="text-sm opacity-90">
+                    Timeless elegance in every detail
+                  </p>
                 </div>
-              </Link>
+              </div>
             </div>
-            <div className="mt-4 md:mt-8">
-              <ProductCarousel products={clientSafeProducts.slice(0, 4)} />
+            <div className="relative group overflow-hidden aspect-[3/4]">
+              <Image
+                src="/images/photo_2_2025-05-22_19-27-23.png"
+                alt="Sport Collection"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all">
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-xl font-light mb-2">Sport Collection</h3>
+                  <p className="text-sm opacity-90">
+                    Precision meets performance
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="px-4 md:pl-16 mt-4 md:mt-8">
-              <p className="uppercase text-xs text-gray-500 leading-6">
-                Discover our curated collection of exclusive timepieces, <br />
-                each telling its own unique story of craftsmanship.
-              </p>
+            <div className="relative group overflow-hidden aspect-[3/4]">
+              <Image
+                src="/images/photo_3_2025-05-22_19-27-23.png"
+                alt="Limited Edition"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all">
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-xl font-light mb-2">Limited Edition</h3>
+                  <p className="text-sm opacity-90">
+                    Exclusive pieces for collectors
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="mt-8 md:mt-32">
-            <div className="flex items-center justify-between px-4 md:px-16">
-              <h1 className="text-xl md:text-2xl uppercase">New Arrivals</h1>
-              <Link
-                href="/shop?sort=newest"
-                className="group relative flex h-12 w-12 items-center justify-between rounded-full cursor-pointer scale-130"
-              >
-                <div className="relative h-9 w-9 overflow-hidden bg-black rounded-full mr-1">
-                  <div className="absolute top-[0.8em] left-[-0.0em] grid gap-0.1 place-content-center transition-all w-full h-full duration-200 group-hover:-translate-y-5 group-hover:translate-x-4">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 fill-white"
-                    >
-                      <path
-                        d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mb-1 -translate-x-4 fill-white"
-                    >
-                      <path
-                        d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-              </Link>
+      {/* Exclusives Section */}
+      <section className="py-10 bg-white">
+        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 items-center">
+          {/* Left Side */}
+          <div className="flex flex-col items-start justify-center h-full">
+            <h2 className="text-4xl md:text-3xl font-light mb-6 tracking-tight text-gray-900">
+              Exclusives
+            </h2>
+            <p className="text-gray-600 mb-10 max-w-lg font-extralight leading-relaxed text-md">
+              Experience the rarest timepieces curated for true connoisseurs.
+              Our exclusives collection features only the most coveted,
+              limited-edition watches—each a masterpiece of design and
+              craftsmanship.
+            </p>
+            <ButtonHover14 />
+          </div>
+          {/* Right Side: Bento Grid */}
+          <div className="w-full grid grid-cols-2 grid-rows-2 gap-4 h-[420px]">
+            {/* Tall left image */}
+            <div className="row-span-2 rounded-2xl overflow-hidden shadow-lg relative">
+              <Image
+                src="/images/photo_7_2025-05-22_19-27-23.png"
+                alt="Exclusive Watch 1"
+                fill
+                className="object-cover"
+              />
             </div>
-            <div className="mt-4 md:mt-8">
-              <ProductCarousel2 products={clientSafeProducts.slice(0, 4)} />
+            {/* Top right image */}
+            <div className="rounded-2xl overflow-hidden shadow-md relative">
+              <Image
+                src="/images/photo_8_2025-05-22_19-27-23.png"
+                alt="Exclusive Watch 2"
+                fill
+                className="object-cover"
+              />
             </div>
-            <div className="px-4 md:pl-16 mt-4 md:mt-8">
-              <p className="uppercase text-xs text-gray-500 leading-6">
-                Explore our latest additions, featuring the most <br />
-                sought-after luxury watches from renowned brands.
-              </p>
+            {/* Bottom right image */}
+            <div className="rounded-2xl overflow-hidden shadow-md relative">
+              <Image
+                src="/images/photo_6_2025-05-22_19-27-23.png"
+                alt="Exclusive Watch 3"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
-          <div className="h-[60vh] md:h-[120vh] w-full bg-gray-100 flex items-center justify-center">
-            <img
-              src="https://images.unsplash.com/photo-1590736969955-71cc94801759?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt=""
-              className="w-full h-full object-cover"
-            />
+        </div>
+      </section>
+
+      {/* Featured Brands Section */}
+      <section className="py-16 bg-[#F8F5EE]">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-28 tracking-wide">
+            Featured Brands
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 justify-items-center">
+            {/* Rolex */}
+            <Link
+              href="/shop?brand=cmawb7z070002rcc4rxq214jz"
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+                <Image
+                  src="/watches/rolex.png"
+                  alt="Rolex Watch"
+                  width={120}
+                  height={120}
+                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex-1" />
+                <div className="pb-8 pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                    ROLEX
+                  </span>
+                </div>
+              </div>
+            </Link>
+            {/* Omega */}
+            <Link
+              href="/shop?brand=cmawcxgzm002brcc4nsxkgt2t"
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+                <Image
+                  src="/watches/omega.png"
+                  alt="Omega Watch"
+                  width={120}
+                  height={120}
+                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex-1" />
+                <div className="pb-8 pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                    OMEGA
+                  </span>
+                </div>
+              </div>
+            </Link>
+            {/* Cartier */}
+            <Link
+              href="/shop?brand=cmawdkwv30034rcc49zoi7uhn"
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+                <Image
+                  src="/watches/cartier.png"
+                  alt="Cartier Watch"
+                  width={120}
+                  height={120}
+                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex-1" />
+                <div className="pb-8 pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                    CARTIER
+                  </span>
+                </div>
+              </div>
+            </Link>
+            {/* Bvlgari */}
+            <Link
+              href="/shop?brand=cmaz3f8qv001urc4b5fw1ibhu"
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+                <Image
+                  src="/watches/bvlgari.png"
+                  alt="Bvlgari Watch"
+                  width={120}
+                  height={120}
+                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex-1" />
+                <div className="pb-8 pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                    BVLGARI
+                  </span>
+                </div>
+              </div>
+            </Link>
+            {/* Richard Mille */}
+            <Link
+              href="/shop?brand=cmaz2wicy0000rc4bgi9syncq"
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+                <Image
+                  src="/watches/richard.png"
+                  alt="Richard Mille Watch"
+                  width={200}
+                  height={200}
+                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-54 h-54 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex-1" />
+                <div className="pb-8 pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                    Richard Mille
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="flex justify-center mt-14">
+            <ButtonHover15 />
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Icons Section */}
+      <section className="w-full pt-20 pb-12 bg-white">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center gap-12 md:gap-0 md:divide-x divide-gray-200">
+          {/* Verified Originals */}
+          <div className="flex-1 flex flex-col items-center px-8 text-center">
+            <Star size={48} strokeWidth={1} className="mb-4 text-gray-500" />
+            <h3 className="text-md font-light tracking-wide mb-2">
+              VERIFIED ORIGINALS
+            </h3>
+            <p className="text-gray-500 font-normal text-sm">
+              Our master watchmaker thoroughly checks all watches for
+              authenticity and functionality.
+            </p>
+          </div>
+          {/* Worldwide Shipping */}
+          <div className="flex-1 flex flex-col items-center px-8 text-center">
+            <Truck size={48} strokeWidth={1} className="mb-4 text-gray-500" />
+            <h3 className="text-md font-light tracking-wide mb-2">
+              WORLDWIDE SHIPPING
+            </h3>
+            <p className="text-gray-500 font-normal text-sm">
+              Secure, express delivery to your door—across Europe, the USA,
+              Asia, and beyond.
+            </p>
+          </div>
+          {/* Dedicated Support */}
+          <div className="flex-1 flex flex-col items-center px-8 text-center">
+            <User size={48} strokeWidth={1} className="mb-4 text-gray-500" />
+            <h3 className="text-md font-light tracking-wide mb-2">
+              DEDICATED SUPPORT
+            </h3>
+            <p className="text-gray-500 font-normal text-sm">
+              We are available on WhatsApp to ensure a fast and seamless buying
+              experience.
+            </p>
           </div>
         </div>
       </section>
@@ -395,8 +490,60 @@ export default async function Home() {
         <TestimonialsCarousel />
       </section>
 
+      {/* Watch Stories Section */}
+      <section className="py-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-12">
+            Watch Stories
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <Image
+                src="/images/photo_4_2025-05-22_19-27-23.png"
+                alt="The Art of Watchmaking"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-2xl font-light mb-4">
+                    The Art of Watchmaking
+                  </h3>
+                  <p className="text-sm opacity-90 mb-6">
+                    Discover the intricate craftsmanship behind every luxury
+                    timepiece
+                  </p>
+                  <button className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity">
+                    Read More
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <Image
+                src="/images/photo_5_2025-05-22_19-27-23.png"
+                alt="Investment Value"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-2xl font-light mb-4">Investment Value</h3>
+                  <p className="text-sm opacity-90 mb-6">
+                    Understanding the long-term value of luxury timepieces
+                  </p>
+                  <button className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity">
+                    Read More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 pt-10 md:pt-20 pb-8 mt-0 relative">
+      <footer className="bg-white  pt-10 md:pt-10 pb-8 mt-0 relative">
         <div
           className="h-[40vh] md:h-[80vh] bg-cover bg-center bg-fixed"
           style={{

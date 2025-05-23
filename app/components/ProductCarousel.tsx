@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -15,42 +16,47 @@ interface ProductCarouselProps {
   products: Product[];
 }
 
-export default function ProductCarousel({ products }: ProductCarouselProps) {
+function ProductCarousel({ products }: ProductCarouselProps) {
   const [width, setWidth] = useState(0);
-  const carousel = useRef<HTMLDivElement>(null);
+  const carousel = useRef(null);
 
   useEffect(() => {
-    if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-    }
-  }, []);
+    setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+  }, [carousel]);
 
   return (
     <div className="w-full overflow-hidden">
       <motion.div
         ref={carousel}
         drag="x"
-        whileDrag={{ scale: 0.92 }}
-        dragElastic={0.2}
-        dragConstraints={{ right: 0, left: -width - 24 }}
+        whileDrag={{ scale: 0.97 }}
+        dragElastic={0.5}
+        dragConstraints={{ right: 0, left: -width }}
         dragTransition={{ bounceDamping: 30 }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
-        className="flex will-change-transform cursor-grab active:cursor-grabbing pl-16"
+        className="flex will-change-transform cursor-grab active:cursor-grabbing gap-0.5"
       >
-        {products.map((product) => (
-          <motion.div key={product.id} className="w-[19.5rem] pr-4">
-            <div className="group bg-[#F8F5EE] relative overflow-hidden flex flex-col aspect-3/4 rounded-xl">
+        {products.slice(0, 10)?.map((product) => (
+          <motion.div
+            key={product.id}
+            className="min-w-[20rem] min-h-[25rem] p-2 bg-[#F8F5EE] relative"
+          >
+            <div className="absolute top-4 left-4 z-10">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium  text-black bg-white">
+                New
+              </span>
+            </div>
+            <div className="relative h-full flex flex-col">
               <div className="flex-1 flex items-center justify-center">
                 {product.primaryImageUrl && (
                   <img
                     src={product.primaryImageUrl}
                     alt={product.name}
-                    className="w-2/3 h-auto object-contain"
+                    className="w-2/3 h-auto object-fit pointer-events-none"
                   />
                 )}
-                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all" />
               </div>
-              <div className="px-8 pb-8">
+              <div className="px-4 pb-4">
                 <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
                   {product.name}
                 </h3>
@@ -63,3 +69,5 @@ export default function ProductCarousel({ products }: ProductCarouselProps) {
     </div>
   );
 }
+
+export default ProductCarousel;
