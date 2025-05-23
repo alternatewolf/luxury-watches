@@ -164,3 +164,9 @@
   opacity: 1;
   background: #000;
 }
+
+body { @apply !min-w-full; }
+
+html {
+  overflow-y: scroll;
+}

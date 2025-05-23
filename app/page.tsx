@@ -99,13 +99,13 @@ export default async function Home() {
 
       {/* Exclusives Section */}
       <section className="py-10 bg-white">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 items-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
           {/* Left Side */}
-          <div className="flex flex-col items-start justify-center h-full">
-            <h2 className="text-4xl md:text-3xl font-light mb-6 tracking-tight text-gray-900">
+          <div className="flex flex-col items-start justify-center h-full order-2 md:order-1">
+            <h2 className="text-3xl md:text-4xl font-light mb-4 md:mb-6 tracking-tight text-gray-900">
               Exclusives
             </h2>
-            <p className="text-gray-600 mb-10 max-w-lg font-extralight leading-relaxed text-md">
+            <p className="text-gray-600 mb-6 md:mb-10 max-w-lg font-extralight leading-relaxed text-sm md:text-md">
               Experience the rarest timepieces curated for true connoisseurs.
               Our exclusives collection features only the most coveted,
               limited-edition watches—each a masterpiece of design and
@@ -114,9 +114,9 @@ export default async function Home() {
             <ButtonHover14 />
           </div>
           {/* Right Side: Bento Grid */}
-          <div className="w-full grid grid-cols-2 grid-rows-2 gap-4 h-[420px]">
+          <div className="w-full grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 h-[300px] md:h-[420px] order-1 md:order-2">
             {/* Tall left image */}
-            <div className="row-span-2 rounded-2xl overflow-hidden shadow-lg relative">
+            <div className="row-span-2 rounded-lg md:rounded-2xl overflow-hidden shadow-lg relative">
               <Image
                 src="/images/photo_7_2025-05-22_19-27-23.png"
                 alt="Exclusive Watch 1"
@@ -125,7 +125,7 @@ export default async function Home() {
               />
             </div>
             {/* Top right image */}
-            <div className="rounded-2xl overflow-hidden shadow-md relative">
+            <div className="rounded-lg md:rounded-2xl overflow-hidden shadow-md relative">
               <Image
                 src="/images/photo_8_2025-05-22_19-27-23.png"
                 alt="Exclusive Watch 2"
@@ -134,7 +134,7 @@ export default async function Home() {
               />
             </div>
             {/* Bottom right image */}
-            <div className="rounded-2xl overflow-hidden shadow-md relative">
+            <div className="rounded-lg md:rounded-2xl overflow-hidden shadow-md relative">
               <Image
                 src="/images/photo_6_2025-05-22_19-27-23.png"
                 alt="Exclusive Watch 3"
@@ -149,26 +149,26 @@ export default async function Home() {
       {/* Featured Brands Section */}
       <section className="py-16 bg-[#F8F5EE]">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-28 tracking-wide">
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-20 md:mb-28 tracking-wide">
             Featured Brands
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8 justify-items-center">
             {/* Rolex */}
             <Link
               href="/shop?brand=cmawb7z070002rcc4rxq214jz"
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center cursor-pointer w-full"
             >
-              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group mb-8 md:mb-0">
                 <Image
                   src="/watches/rolex.png"
                   alt="Rolex Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     ROLEX
                   </span>
                 </div>
@@ -177,19 +177,19 @@ export default async function Home() {
             {/* Omega */}
             <Link
               href="/shop?brand=cmawcxgzm002brcc4nsxkgt2t"
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center cursor-pointer w-full"
             >
-              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
                 <Image
                   src="/watches/omega.png"
                   alt="Omega Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     OMEGA
                   </span>
                 </div>
@@ -198,19 +198,19 @@ export default async function Home() {
             {/* Cartier */}
             <Link
               href="/shop?brand=cmawdkwv30034rcc49zoi7uhn"
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center cursor-pointer w-full"
             >
-              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
                 <Image
                   src="/watches/cartier.png"
                   alt="Cartier Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     CARTIER
                   </span>
                 </div>
@@ -219,47 +219,47 @@ export default async function Home() {
             {/* Bvlgari */}
             <Link
               href="/shop?brand=cmaz3f8qv001urc4b5fw1ibhu"
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center cursor-pointer w-full"
             >
-              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
                 <Image
                   src="/watches/bvlgari.png"
                   alt="Bvlgari Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-50 h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     BVLGARI
                   </span>
                 </div>
               </div>
             </Link>
-            {/* Richard Mille */}
+            {/* Richard Mille - Hidden on Mobile */}
             <Link
               href="/shop?brand=cmaz2wicy0000rc4bgi9syncq"
-              className="flex flex-col items-center cursor-pointer"
+              className="hidden md:flex flex-col items-center cursor-pointer w-full"
             >
-              <div className="bg-[#232323] rounded-2xl w-56 h-56 flex flex-col items-center justify-end relative group">
+              <div className="bg-[#232323] rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
                 <Image
                   src="/watches/richard.png"
                   alt="Richard Mille Watch"
                   width={200}
                   height={200}
-                  className="absolute -top-16 left-1/2 -translate-x-1/2 w-54 h-54 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
                 <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-lg md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                  <span className="text-white text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     Richard Mille
                   </span>
                 </div>
               </div>
             </Link>
           </div>
-          <div className="flex justify-center mt-14">
+          <div className="flex justify-center mt-12 md:mt-14">
             <ButtonHover15 />
           </div>
         </div>
@@ -305,7 +305,7 @@ export default async function Home() {
       </section>
 
       {/* Brand Showcase */}
-      <section className="py-10 md:py-20 px-4 max-w-7xl mx-auto">
+      <section className="py-10 md:py-20 px-4 max-w-7xl mx-auto w-full">
         <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
           Our Brands
         </h2>
@@ -483,7 +483,7 @@ export default async function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="pt-6 md:pt-10 pb-10 md:pb-20 px-4 max-w-7xl mx-auto">
+      <section className="pt-6 md:pt-10 pb-10 md:pb-20 px-4 max-w-7xl mx-auto w-full">
         <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
           What Our Clients Say
         </h2>
@@ -497,7 +497,7 @@ export default async function Home() {
             Watch Stories
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative aspect-[1/1] md:aspect-[4/3] overflow-hidden">
               <Image
                 src="/images/photo_4_2025-05-22_19-27-23.png"
                 alt="The Art of Watchmaking"
@@ -519,7 +519,7 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative aspect-[1/1] md:aspect-[4/3] overflow-hidden">
               <Image
                 src="/images/photo_5_2025-05-22_19-27-23.png"
                 alt="Investment Value"
@@ -543,111 +543,224 @@ export default async function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white  pt-10 md:pt-10 pb-8 mt-0 relative">
-        <div
-          className="h-[40vh] md:h-[80vh] bg-cover bg-center bg-fixed"
-          style={{
-            backgroundImage:
-              "url('https://images.pexels.com/photos/28697832/pexels-photo-28697832/free-photo-of-elegant-display-of-luxury-watches-in-retail-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
-          }}
-        ></div>
-        <div
-          className="w-11/12 max-w-[500px] sm:w-[500px] absolute right-4 md:right-10 top-[calc(theme(spacing.10)+40vh)] md:top-[calc(theme(spacing.20)+80vh)]
-                -translate-y-1/2 
-               bg-[#232323] rounded-none shadow-xl p-6 md:p-10 flex flex-col items-center text-center text-white z-10"
-        >
-          <h2 className="text-2xl md:text-4xl font-light mb-4 tracking-wide">
-            PLACE YOUR
-            <br />
-            ORDER TODAY
-          </h2>
-          <p className="mb-6 md:mb-8 text-gray-300 text-sm">
-            To order your dream watch, whatsapp us at
-          </p>
-          <h1 className="text-2xl md:text-3xl font-light mb-4 tracking-wide">
-            +1 1111-2222-3333
-          </h1>
-          <div className="flex flex-col items-center justify-center gap-4 mt-4">
-            <button
-              type="submit"
-              className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
-            >
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="mx-auto"
+      <footer className="bg-white pt-10 md:pt-10 pb-8 mt-0 relative">
+        {/* Desktop Footer */}
+        <div className="hidden md:block">
+          <div
+            className="h-[80vh] bg-cover bg-center bg-fixed"
+            style={{
+              backgroundImage:
+                "url('https://images.pexels.com/photos/28697832/pexels-photo-28697832/free-photo-of-elegant-display-of-luxury-watches-in-retail-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+            }}
+          ></div>
+          <div
+            className="w-11/12 max-w-[500px] sm:w-[500px] absolute right-10 
+                  top-[calc(theme(spacing.20)+80vh)]
+                  -translate-y-1/2 
+                 bg-[#232323] rounded-none shadow-xl p-10 flex flex-col items-center text-center text-white z-10"
+          >
+            <h2 className="text-4xl font-light mb-4 tracking-wide">
+              PLACE YOUR
+              <br />
+              ORDER TODAY
+            </h2>
+            <p className="mb-8 text-gray-300 text-sm">
+              To order your dream watch, whatsapp us at
+            </p>
+            <h1 className="text-3xl font-light mb-4 tracking-wide">
+              +1 1111-2222-3333
+            </h1>
+            <div className="flex flex-col items-center justify-center gap-4 mt-4">
+              <button
+                type="submit"
+                className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
               >
-                <path
-                  d="M6 16L16 6M16 6H7M16 6V15"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-            <p>Click to Chat</p>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mx-auto"
+                >
+                  <path
+                    d="M6 16L16 6M16 6H7M16 6V15"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <p>Click to Chat</p>
+            </div>
+            <hr className="w-full border-gray-700 mb-4 mt-6" />
+            <p className="text-xs text-gray-400">
+              Our customer service is available 24/7.
+            </p>
           </div>
-          <hr className="w-full border-gray-700 mb-4 mt-6" />
-          <p className="text-xs text-gray-400">
-            Our customer service is available 24/7.
-          </p>
-        </div>
-        <div className="max-w-7xl mx-auto mt-8 md:mt-14 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-20 md:mb-36">
-            <div>
-              <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
-                Follow Us
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li>
-                  <a href="#" className="hover:underline">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Facebook
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
-                Contact Us
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li>
-                  <a href="mailto:abc@gmail.com" className="hover:underline">
-                    abc@gmail.com
-                  </a>
-                </li>
-                <li>1111-2222-3333</li>
-              </ul>
-            </div>
-            <div></div>
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between border-t border-gray-200 pt-8">
-            <div className="mb-8 md:mb-0">
-              <span className="font-bold text-lg text-gray-900">Luxe</span>
-              <p className="text-xs text-gray-500 mt-2">
-                Curated Luxury Timepieces
-                <br />
-                Exceptional Watches for Discerning Collectors
-              </p>
-            </div>
-            <div className="flex flex-col md:items-end gap-2">
-              <div className="flex gap-4 text-xs text-gray-400">
-                <a href="#" className="hover:underline">
-                  Disclaimer
-                </a>
+          <div className="max-w-7xl mx-auto mt-14 px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-3 gap-12 mb-36">
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Follow Us
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Facebook
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <p className="text-xs text-gray-400 mt-2">
-                © 2025 Luxe, All Rights Reserved
-              </p>
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Contact Us
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>
+                    <a href="mailto:abc@gmail.com" className="hover:underline">
+                      abc@gmail.com
+                    </a>
+                  </li>
+                  <li>1111-2222-3333</li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex flex-row items-end justify-between border-t border-gray-200 pt-8">
+              <div className="mb-0">
+                <span className="font-bold text-lg text-gray-900">Luxe</span>
+                <p className="text-xs text-gray-500 mt-2">
+                  Curated Luxury Timepieces
+                  <br />
+                  Exceptional Watches for Discerning Collectors
+                </p>
+              </div>
+              <div className="flex flex-col items-end gap-2">
+                <div className="flex gap-4 text-xs text-gray-400">
+                  <a href="#" className="hover:underline">
+                    Disclaimer
+                  </a>
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  © 2025 Luxe, All Rights Reserved
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Footer */}
+        <div className="block md:hidden">
+          <div
+            className="h-[40vh] bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://images.pexels.com/photos/28697832/pexels-photo-28697832/free-photo-of-elegant-display-of-luxury-watches-in-retail-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+            }}
+          ></div>
+
+          {/* Contact Section - Integrated */}
+          <div className="bg-[#232323] mx-4 -mt-30 relative z-10 rounded-lg shadow-xl p-6 flex flex-col items-center text-center text-white mb-12">
+            <h2 className="text-xl font-light mb-4 tracking-wide">
+              PLACE YOUR
+              <br />
+              ORDER TODAY
+            </h2>
+            <p className="mb-6 text-gray-300 text-sm">
+              To order your dream watch, whatsapp us at
+            </p>
+            <h1 className="text-xl font-light mb-4 tracking-wide">
+              +1 1111-2222-3333
+            </h1>
+            <div className="flex flex-col items-center justify-center gap-4 mt-4">
+              <button
+                type="submit"
+                className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mx-auto"
+                >
+                  <path
+                    d="M6 16L16 6M16 6H7M16 6V15"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <p className="text-sm">Click to Chat</p>
+            </div>
+            <hr className="w-full border-gray-700 mb-4 mt-6" />
+            <p className="text-xs text-gray-400">
+              Our customer service is available 24/7.
+            </p>
+          </div>
+
+          {/* Footer Links */}
+          <div className="px-4">
+            <div className="grid grid-cols-1 gap-8 mb-12">
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Follow Us
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Facebook
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Contact Us
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>
+                    <a href="mailto:abc@gmail.com" className="hover:underline">
+                      abc@gmail.com
+                    </a>
+                  </li>
+                  <li>1111-2222-3333</li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex flex-col border-t border-gray-200 pt-8">
+              <div className="mb-8">
+                <span className="font-bold text-lg text-gray-900">Luxe</span>
+                <p className="text-xs text-gray-500 mt-2">
+                  Curated Luxury Timepieces
+                  <br />
+                  Exceptional Watches for Discerning Collectors
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-4 text-xs text-gray-400">
+                  <a href="#" className="hover:underline">
+                    Disclaimer
+                  </a>
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  © 2025 Luxe, All Rights Reserved
+                </p>
+              </div>
             </div>
           </div>
         </div>
