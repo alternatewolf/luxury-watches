@@ -194,13 +194,13 @@ export default async function Home() {
               href="/shop?brand=cmawb7z070002rcc4rxq214jz"
               className="flex flex-col items-center cursor-pointer w-full"
             >
-              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group mb-8 md:mb-0">
+              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group mb-16 md:mb-0">
                 <Image
                   src="/watches/rolex.png"
                   alt="Rolex Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
@@ -221,7 +221,7 @@ export default async function Home() {
                   alt="Omega Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
@@ -242,7 +242,7 @@ export default async function Home() {
                   alt="Cartier Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
@@ -263,7 +263,7 @@ export default async function Home() {
                   alt="Bvlgari Watch"
                   width={120}
                   height={120}
-                  className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                  className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
