@@ -203,7 +203,7 @@ export default async function Home() {
                   className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
                   <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     ROLEX
                   </span>
@@ -224,7 +224,7 @@ export default async function Home() {
                   className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
                   <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     OMEGA
                   </span>
@@ -245,7 +245,7 @@ export default async function Home() {
                   className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
                   <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     CARTIER
                   </span>
@@ -266,7 +266,7 @@ export default async function Home() {
                   className="absolute -top-10 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />
-                <div className="pb-6 md:pb-8 pt-20 md:pt-24 flex flex-col items-center w-full">
+                <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
                   <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     BVLGARI
                   </span>
