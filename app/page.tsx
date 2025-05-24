@@ -532,7 +532,7 @@ export default async function Home() {
           <h2 className="text-2xl md:text-3xl font-light text-center mb-12">
             Watch Stories
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
             <div className="relative aspect-[1/1] md:aspect-[4/3] overflow-hidden">
               <Image
                 src="/images/photo_4_2025-05-22_19-27-23.png"
