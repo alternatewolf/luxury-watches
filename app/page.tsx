@@ -21,28 +21,40 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-1">
       {/* Hero Section */}
-      <div className="h-[120vh] bg-gray-300 relative">
+      <div className="h-[100vh] bg-gray-300 relative">
         <video
-          src="/demo.mp4"
+          src="/demo.webm"
           autoPlay
           muted
           loop
           className="w-full h-full object-cover"
         />
         {/* Black Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Centered Text Content */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4 max-w-4xl">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-wider mb-6">
-              TIMELESS ELEGANCE
+            <h1 className="text-3xl md:text-6xl lg:text-7xl  tracking-wider mb-6">
+              Timeless Elegance
             </h1>
-            <p className="text-lg md:text-xl font-light opacity-90 leading-relaxed max-w-2xl mx-auto">
-              Discover the world's most coveted luxury timepieces. Each watch
-              tells a story of precision, heritage, and uncompromising
-              craftsmanship.
+            <p className="text-lg md:text-xl font-georgia opacity-90 leading-relaxed max-w-2xl mx-auto mb-8">
+              A luxury watch boutique for the discerning collector.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/shop"
+                className="bg-white text-black px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-gray-100 transition-colors duration-300"
+              >
+                Browse Watches
+              </Link>
+              <Link
+                href="https://wa.me/11111222233333"
+                className="border border-white text-white px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300"
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       </div>
