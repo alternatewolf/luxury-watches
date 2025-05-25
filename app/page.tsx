@@ -7,6 +7,7 @@ import MarketingSection from "./components/MarketingSection";
 import ButtonHover14 from "./components/ButtonHover14";
 import { Star, Truck, User } from "lucide-react";
 import ButtonHover15 from "./components/ButtonHover15";
+import HomeHeader from "./components/HomeHeader";
 
 export default async function Home() {
   // Fetch products with their primary images
@@ -19,12 +20,22 @@ export default async function Home() {
   }));
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col">
+      {/* Announcement Banner */}
+      <div className="hidden md:block bg-gray-900 text-white text-center py-2">
+        <p className="text-sm">
+          📞 +1 111 111 1111 - Just call or write on Whatsapp.
+        </p>
+      </div>
+
+      {/* Home Header */}
+      <HomeHeader />
+
       {/* Hero Section */}
-      <div className="h-[100vh] bg-gray-300 relative">
+      <div className="h-[120vh] bg-gray-300 relative">
         <video
           src="/demo.webm"
-          autoPlay
+          // autoPlay
           muted
           loop
           className="w-full h-full object-cover"
@@ -71,67 +82,6 @@ export default async function Home() {
           <ButtonHover14 />
         </div>
       </div>
-
-      {/* Featured Collections Section */}
-      <section className="py-10 mt-10 bg-[#F8F5EE]">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-12">
-            Featured Collections
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="relative group overflow-hidden aspect-[3/4]">
-              <Image
-                src="/images/photo_1_2025-05-22_19-27-23.png"
-                alt="Classic Collection"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all">
-                <div className="absolute bottom-0 left-0 p-8 text-white">
-                  <h3 className="text-xl font-light mb-2">
-                    Classic Collection
-                  </h3>
-                  <p className="text-sm opacity-90">
-                    Timeless elegance in every detail
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative group overflow-hidden aspect-[3/4]">
-              <Image
-                src="/images/photo_2_2025-05-22_19-27-23.png"
-                alt="Sport Collection"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all">
-                <div className="absolute bottom-0 left-0 p-8 text-white">
-                  <h3 className="text-xl font-light mb-2">Sport Collection</h3>
-                  <p className="text-sm opacity-90">
-                    Precision meets performance
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative group overflow-hidden aspect-[3/4]">
-              <Image
-                src="/images/photo_3_2025-05-22_19-27-23.png"
-                alt="Limited Edition"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all">
-                <div className="absolute bottom-0 left-0 p-8 text-white">
-                  <h3 className="text-xl font-light mb-2">Limited Edition</h3>
-                  <p className="text-sm opacity-90">
-                    Exclusive pieces for collectors
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Exclusives Section */}
       <section className="py-10 bg-white">
@@ -210,15 +160,15 @@ export default async function Home() {
                 </div>
               </div>
             </Link>
-            {/* Omega */}
+            {/* Patek Philippe */}
             <Link
-              href="/shop?brand=cmawcxgzm002brcc4nsxkgt2t"
+              href="/shop?brand=cmaz2zl8j000erc4bn7b39zxc"
               className="flex flex-col items-center cursor-pointer w-full"
             >
               <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
                 <Image
-                  src="/watches/omega.png"
-                  alt="Omega Watch"
+                  src="/watches/patek.png"
+                  alt="Patek Philippe Watch"
                   width={120}
                   height={120}
                   className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
@@ -226,7 +176,7 @@ export default async function Home() {
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
                   <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
-                    OMEGA
+                    PATEK PHILIPPE
                   </span>
                 </div>
               </div>
@@ -252,27 +202,6 @@ export default async function Home() {
                 </div>
               </div>
             </Link>
-            {/* Bvlgari */}
-            <Link
-              href="/shop?brand=cmaz3f8qv001urc4b5fw1ibhu"
-              className="flex flex-col items-center cursor-pointer w-full"
-            >
-              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
-                <Image
-                  src="/watches/bvlgari.png"
-                  alt="Bvlgari Watch"
-                  width={120}
-                  height={120}
-                  className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="flex-1" />
-                <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
-                    BVLGARI
-                  </span>
-                </div>
-              </div>
-            </Link>
             {/* Richard Mille - Hidden on Mobile */}
             <Link
               href="/shop?brand=cmaz2wicy0000rc4bgi9syncq"
@@ -288,8 +217,29 @@ export default async function Home() {
                 />
                 <div className="flex-1" />
                 <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                  <span className="text-white text-center text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
                     Richard Mille
+                  </span>
+                </div>
+              </div>
+            </Link>
+            {/* Audemars Piguet */}
+            <Link
+              href="/shop?brand=cmaz34u6h0013rc4baxhttp46"
+              className="flex flex-col items-center cursor-pointer w-full"
+            >
+              <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
+                <Image
+                  src="/watches/ap.png"
+                  alt="Audemars Piguet Watch"
+                  width={120}
+                  height={120}
+                  className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="flex-1" />
+                <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
+                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline text-center">
+                    AUDERMARS PIGUET
                   </span>
                 </div>
               </div>
@@ -636,32 +586,18 @@ export default async function Home() {
             </p>
           </div>
           <div className="max-w-7xl mx-auto mt-14 px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-3 gap-12 mb-36">
-              <div>
-                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
-                  Follow Us
-                </h4>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Facebook
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <div className="grid grid-cols-1 gap-12 mb-36">
               <div>
                 <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
                   Contact Us
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li>
-                    <a href="mailto:abc@gmail.com" className="hover:underline">
-                      abc@gmail.com
+                    <a
+                      href="mailto:luxuriouswatchesinfo@gmail.com"
+                      className="hover:underline"
+                    >
+                      luxuriouswatchesinfo@gmail.com
                     </a>
                   </li>
                   <li>1111-2222-3333</li>
@@ -749,29 +685,15 @@ export default async function Home() {
             <div className="grid grid-cols-1 gap-8 mb-12">
               <div>
                 <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
-                  Follow Us
-                </h4>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Facebook
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
                   Contact Us
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li>
-                    <a href="mailto:abc@gmail.com" className="hover:underline">
-                      abc@gmail.com
+                    <a
+                      href="mailto:luxuriouswatchesinfo@gmail.com"
+                      className="hover:underline"
+                    >
+                      luxuriouswatchesinfo@gmail.com
                     </a>
                   </li>
                   <li>1111-2222-3333</li>

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +14,14 @@ export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const bgLayerRef = useRef<HTMLDivElement>(null);
   const navigationRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
+  // Don't render header on homepage
+  if (isHomePage) {
+    return null;
+  }
 
   const brands = [
     { name: "Rolex", id: "cmawb7z070002rcc4rxq214jz" },
@@ -82,12 +92,18 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed w-full bg-white backdrop-blur-md z-50 border-b border-gray-100">
+    <header className="fixed w-full bg-white text-black border-b border-gray-100 z-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-12">
           {/* Logo */}
-          <Link href="/" className="text-md font-light tracking-wider">
-            Luxe
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo-dark.png"
+              alt="Luxe"
+              width={80}
+              height={32}
+              className="h-10 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -97,14 +113,14 @@ export default function Header() {
           >
             <Link
               href="/shop"
-              className="text-xs hover:text-gray-600 transition-colors"
+              className="text-xs transition-colors hover:text-gray-600"
             >
               Shop
             </Link>
 
             {/* Brands Trigger */}
             <button
-              className="brands-trigger flex items-center gap-1 text-xs hover:text-gray-600 transition-colors focus:outline-none"
+              className="brands-trigger flex items-center gap-1 text-xs transition-colors focus:outline-none hover:text-gray-600"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -114,9 +130,23 @@ export default function Header() {
 
             <Link
               href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
-              className="text-xs hover:text-gray-600 transition-colors"
+              className="text-xs transition-colors hover:text-gray-600"
             >
               Used
+            </Link>
+
+            <Link
+              href="/trade-in"
+              className="text-xs transition-colors hover:text-gray-600"
+            >
+              Trade-In
+            </Link>
+
+            <Link
+              href="/location"
+              className="text-xs transition-colors hover:text-gray-600"
+            >
+              Location
             </Link>
 
             {/* Stripe-style Dropdown */}
@@ -226,7 +256,7 @@ export default function Header() {
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/shop"
-                className="text-sm hover:text-gray-600 transition-colors"
+                className="text-sm transition-colors hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 SHOP
@@ -236,7 +266,7 @@ export default function Header() {
               <div>
                 <button
                   onClick={() => setIsMobileBrandsOpen(!isMobileBrandsOpen)}
-                  className="flex items-center justify-between w-full text-sm hover:text-gray-600 transition-colors text-left"
+                  className="flex items-center justify-between w-full text-sm transition-colors text-left hover:text-gray-600"
                 >
                   BRANDS
                   <ChevronDown
@@ -252,7 +282,7 @@ export default function Header() {
                       <Link
                         key={brand.id}
                         href={`/shop?brand=${brand.id}`}
-                        className="block text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                        className="block text-sm transition-colors text-gray-600 hover:text-gray-900"
                         onClick={() => {
                           setIsMenuOpen(false);
                           setIsMobileBrandsOpen(false);
@@ -267,10 +297,26 @@ export default function Header() {
 
               <Link
                 href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
-                className="text-sm hover:text-gray-600 transition-colors"
+                className="text-sm transition-colors hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 USED
+              </Link>
+
+              <Link
+                href="/trade-in"
+                className="text-sm transition-colors hover:text-gray-600"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                TRADE-IN
+              </Link>
+
+              <Link
+                href="/location"
+                className="text-sm transition-colors hover:text-gray-600"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                LOCATION
               </Link>
             </nav>
           </div>

@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={ballinger.className}>
         <Header />
-        <main className="pt-8">{children}</main>
+        <main className="">{children}</main>
       </body>
     </html>
   );

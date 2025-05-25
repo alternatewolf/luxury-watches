@@ -45,7 +45,7 @@ export default async function ShopPage({
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-8">
       <div className="max-w-[1920px] mx-auto px-4 py-8">
         {/* Mobile Filters */}
         <FilterDrawer
@@ -147,7 +147,12 @@ export default async function ShopPage({
                       <img
                         src={product.images[0].url}
                         alt={product.name}
-                        className="w-full h-auto object-contain"
+                        className={`w-full h-auto object-contain ${
+                          product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
+                          product.id !== "cmb3fvpio0010rc640ghwqbaw"
+                            ? "scale-150"
+                            : ""
+                        }`}
                       />
                     )}
                     {product.condition === "USED" && (
