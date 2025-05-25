@@ -243,7 +243,7 @@ export default function LocationPage() {
             </p>
           </div>
           <div className="max-w-7xl mx-auto mt-14 px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-12 mb-36">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-36">
               <div>
                 <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
                   Contact Us
@@ -258,6 +258,24 @@ export default function LocationPage() {
                     </a>
                   </li>
                   <li>1111-2222-3333</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Location
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
+                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Dubai - United Arab Emirates</li>
+                  <li>
+                    <a
+                      href="/location"
+                      className="hover:underline text-black font-medium"
+                    >
+                      View Store Details →
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -354,6 +372,24 @@ export default function LocationPage() {
                     </a>
                   </li>
                   <li>1111-2222-3333</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Location
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
+                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Dubai - United Arab Emirates</li>
+                  <li>
+                    <a
+                      href="/location"
+                      className="hover:underline text-black font-medium"
+                    >
+                      View Store Details →
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

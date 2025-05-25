@@ -32,7 +32,7 @@ export default async function Home() {
       <HomeHeader />
 
       {/* Hero Section */}
-      <div className="h-[120vh] bg-gray-300 relative">
+      <div className="h-[100vh] md:h-[120vh] bg-gray-300 relative">
         <video
           src="/demo.webm"
           autoPlay
@@ -44,7 +44,7 @@ export default async function Home() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Centered Text Content */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pt-8 md:pt-0">
           <div className="text-center text-white px-4 max-w-4xl">
             <h1 className="text-3xl md:text-6xl lg:text-7xl  tracking-wider mb-6">
               Timeless Elegance
@@ -586,7 +586,7 @@ export default async function Home() {
             </p>
           </div>
           <div className="max-w-7xl mx-auto mt-14 px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-12 mb-36">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-36">
               <div>
                 <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
                   Contact Us
@@ -601,6 +601,24 @@ export default async function Home() {
                     </a>
                   </li>
                   <li>1111-2222-3333</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Location
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
+                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Dubai - United Arab Emirates</li>
+                  <li>
+                    <a
+                      href="/location"
+                      className="hover:underline text-black font-medium"
+                    >
+                      View Store Details →
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -697,6 +715,24 @@ export default async function Home() {
                     </a>
                   </li>
                   <li>1111-2222-3333</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-4 text-gray-900 uppercase text-xs tracking-widest">
+                  Location
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
+                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Dubai - United Arab Emirates</li>
+                  <li>
+                    <a
+                      href="/location"
+                      className="hover:underline text-black font-medium"
+                    >
+                      View Store Details →
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
