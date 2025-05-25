@@ -35,7 +35,7 @@ export default async function Home() {
       <div className="h-[120vh] bg-gray-300 relative">
         <video
           src="/demo.webm"
-          // autoPlay
+          autoPlay
           muted
           loop
           className="w-full h-full object-cover"
