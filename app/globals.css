@@ -170,3 +170,32 @@ body { @apply !min-w-full; }
 html {
   overflow-y: scroll;
 }
+
+/* Font Utilities */
+.font-bodoni {
+  font-family: var(--font-bodoni-moda), serif;
+}
+
+.font-muli {
+  font-family: var(--font-muli), system-ui, sans-serif;
+}
+
+.font-muli-light {
+  font-family: var(--font-muli), system-ui, sans-serif;
+  font-weight: 300;
+}
+
+.font-muli-extralight {
+  font-family: var(--font-muli), system-ui, sans-serif;
+  font-weight: 200;
+}
+
+/* Ensure Muli is applied to body and all text by default */
+body, body * {
+  font-family: var(--font-muli), system-ui, sans-serif !important;
+}
+
+/* Override for headings to use Bodoni */
+h1, h2, h3, h4, h5, h6, .font-bodoni {
+  font-family: var(--font-bodoni-moda), serif !important;
+}

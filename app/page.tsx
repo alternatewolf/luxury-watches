@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col">
       {/* Announcement Banner */}
-      <div className="hidden md:block bg-gray-900 text-white text-center py-2">
+      <div className="hidden md:block bg-black text-white text-center py-2">
         <p className="text-sm">
           📞 +1 111 111 1111 - Just call or write on Whatsapp.
         </p>
@@ -46,10 +46,10 @@ export default async function Home() {
         {/* Centered Text Content */}
         <div className="absolute inset-0 flex items-center justify-center pt-8 md:pt-0">
           <div className="text-center text-white px-4 max-w-4xl">
-            <h1 className="text-3xl md:text-6xl lg:text-7xl  tracking-wider mb-6">
+            <h1 className="font-bodoni text-3xl md:text-6xl lg:text-7xl  tracking-wider mb-6">
               Timeless Elegance
             </h1>
-            <p className="text-lg md:text-xl font-georgia opacity-90 leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="text-lg md:text-lg opacity-90 leading-relaxed max-w-2xl mx-auto mb-8">
               A luxury watch boutique for the discerning collector.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -72,7 +72,7 @@ export default async function Home() {
 
       {/* Featured Products Grid */}
       <div className="">
-        <h2 className="text-2xl md:text-2xl font-light text-center py-8">
+        <h2 className="font-bodoni text-2xl md:text-2xl font-light text-center py-8">
           Latest Arrivals
         </h2>
         <div className="">
@@ -88,10 +88,10 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12">
           {/* Left Side */}
           <div className="flex flex-col items-start justify-center h-full order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-light mb-4 md:mb-6 tracking-tight text-gray-900">
+            <h2 className="font-bodoni text-3xl md:text-4xl font-light mb-4 md:mb-6 tracking-tight text-gray-900">
               Exclusives
             </h2>
-            <p className="text-gray-600 mb-6 md:mb-10 max-w-lg font-extralight leading-relaxed text-sm md:text-md">
+            <p className="text-gray-600 mb-6 md:mb-10 max-w-lg font-light leading-relaxed text-sm md:text-lg">
               Experience the rarest timepieces curated for true connoisseurs.
               Our exclusives collection features only the most coveted,
               limited-edition watches—each a masterpiece of design and
@@ -135,7 +135,7 @@ export default async function Home() {
       {/* Featured Brands Section */}
       <section className="py-16 bg-[#F8F5EE]">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-28 md:mb-28 tracking-wide">
+          <h2 className="font-bodoni text-2xl md:text-3xl font-light text-center mb-28 md:mb-28 tracking-wide">
             Featured Brands
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8 justify-items-center">
@@ -154,7 +154,7 @@ export default async function Home() {
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                  <span className="text-white text-base md:text-lg font-regular tracking-wide transition-all duration-300 group-hover:underline font-bodoni">
                     ROLEX
                   </span>
                 </div>
@@ -175,8 +175,8 @@ export default async function Home() {
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
-                    PATEK PHILIPPE
+                  <span className="text-white text-base md:text-lg font-regular tracking-wide transition-all duration-300 group-hover:underline font-bodoni">
+                    Patek Philippe
                   </span>
                 </div>
               </div>
@@ -196,8 +196,8 @@ export default async function Home() {
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
-                    CARTIER
+                  <span className="text-white text-base md:text-lg font-regular tracking-wide transition-all duration-300 group-hover:underline font-bodoni">
+                    Cartier
                   </span>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default async function Home() {
                 />
                 <div className="flex-1" />
                 <div className="pb-8 pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-center text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline">
+                  <span className="text-white text-center text-lg font-regular tracking-wide transition-all duration-300 group-hover:underline font-bodoni">
                     Richard Mille
                   </span>
                 </div>
@@ -238,8 +238,8 @@ export default async function Home() {
                 />
                 <div className="flex-1" />
                 <div className="pb-6 md:pb-8 pt-24 md:pt-24 flex flex-col items-center w-full">
-                  <span className="text-white text-base md:text-xl font-semibold tracking-wide transition-all duration-300 group-hover:underline text-center">
-                    AUDERMARS PIGUET
+                  <span className="text-white text-base md:text-lg font-regular tracking-wide transition-all duration-300 group-hover:underline text-center font-bodoni">
+                    Audemars Piguet
                   </span>
                 </div>
               </div>
@@ -257,7 +257,7 @@ export default async function Home() {
           {/* Verified Originals */}
           <div className="flex-1 flex flex-col items-center px-8 text-center">
             <Star size={48} strokeWidth={1} className="mb-4 text-gray-500" />
-            <h3 className="text-md font-light tracking-wide mb-2">
+            <h3 className="font-bodoni text-md font-semibold tracking-wide mb-2">
               VERIFIED ORIGINALS
             </h3>
             <p className="text-gray-500 font-normal text-sm">
@@ -268,7 +268,7 @@ export default async function Home() {
           {/* Worldwide Shipping */}
           <div className="flex-1 flex flex-col items-center px-8 text-center">
             <Truck size={48} strokeWidth={1} className="mb-4 text-gray-500" />
-            <h3 className="text-md font-light tracking-wide mb-2">
+            <h3 className="font-bodoni text-md font-semibold tracking-wide mb-2">
               WORLDWIDE SHIPPING
             </h3>
             <p className="text-gray-500 font-normal text-sm">
@@ -279,7 +279,7 @@ export default async function Home() {
           {/* Dedicated Support */}
           <div className="flex-1 flex flex-col items-center px-8 text-center">
             <User size={48} strokeWidth={1} className="mb-4 text-gray-500" />
-            <h3 className="text-md font-light tracking-wide mb-2">
+            <h3 className="font-bodoni text-md font-semibold tracking-wide mb-2">
               DEDICATED SUPPORT
             </h3>
             <p className="text-gray-500 font-normal text-sm">
@@ -292,7 +292,7 @@ export default async function Home() {
 
       {/* Brand Showcase */}
       <section className="py-10 md:py-20 px-4 max-w-7xl mx-auto w-full">
-        <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
+        <h2 className="font-bodoni text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
           Our Brands
         </h2>
         <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
@@ -470,7 +470,7 @@ export default async function Home() {
 
       {/* Testimonials Section */}
       <section className="pt-6 md:pt-10 pb-10 md:pb-20 px-4 max-w-7xl mx-auto w-full">
-        <h2 className="text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
+        <h2 className="font-bodoni text-2xl md:text-3xl font-light text-center mb-8 md:mb-12">
           What Our Clients Say
         </h2>
         <TestimonialsCarousel />
@@ -479,7 +479,7 @@ export default async function Home() {
       {/* Watch Stories Section */}
       <section className="py-10">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-12">
+          <h2 className="font-bodoni text-2xl md:text-3xl font-light text-center mb-12">
             Watch Stories
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
@@ -492,10 +492,10 @@ export default async function Home() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
                 <div className="absolute bottom-0 left-0 p-8 text-white">
-                  <h3 className="text-2xl font-light mb-4">
+                  <h3 className="font-bodoni text-2xl font-light mb-4">
                     The Art of Watchmaking
                   </h3>
-                  <p className="text-sm opacity-90 mb-6">
+                  <p className="text-md opacity-90 mb-6">
                     Discover the intricate craftsmanship behind every luxury
                     timepiece
                   </p>
@@ -514,8 +514,10 @@ export default async function Home() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
                 <div className="absolute bottom-0 left-0 p-8 text-white">
-                  <h3 className="text-2xl font-light mb-4">Investment Value</h3>
-                  <p className="text-sm opacity-90 mb-6">
+                  <h3 className="font-bodoni text-2xl font-light mb-4">
+                    Investment Value
+                  </h3>
+                  <p className="text-md opacity-90 mb-6">
                     Understanding the long-term value of luxury timepieces
                   </p>
                   <button className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity">
@@ -545,7 +547,7 @@ export default async function Home() {
                   -translate-y-1/2 
                  bg-[#232323] rounded-none shadow-xl p-10 flex flex-col items-center text-center text-white z-10"
           >
-            <h2 className="text-4xl font-light mb-4 tracking-wide">
+            <h2 className="font-bodoni text-4xl font-light mb-4 tracking-wide">
               PLACE YOUR
               <br />
               ORDER TODAY
@@ -553,7 +555,7 @@ export default async function Home() {
             <p className="mb-8 text-gray-300 text-sm">
               To order your dream watch, whatsapp us at
             </p>
-            <h1 className="text-3xl font-light mb-4 tracking-wide">
+            <h1 className="font-bodoni text-3xl font-light mb-4 tracking-wide">
               +1 1111-2222-3333
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
@@ -657,7 +659,7 @@ export default async function Home() {
 
           {/* Contact Section - Integrated */}
           <div className="bg-[#232323] mx-4 -mt-30 relative z-10 rounded-lg shadow-xl p-6 flex flex-col items-center text-center text-white mb-12">
-            <h2 className="text-xl font-light mb-4 tracking-wide">
+            <h2 className="font-bodoni text-xl font-light mb-4 tracking-wide">
               PLACE YOUR
               <br />
               ORDER TODAY
@@ -665,7 +667,7 @@ export default async function Home() {
             <p className="mb-6 text-gray-300 text-sm">
               To order your dream watch, whatsapp us at
             </p>
-            <h1 className="text-xl font-light mb-4 tracking-wide">
+            <h1 className="font-bodoni text-xl font-light mb-4 tracking-wide">
               +1 1111-2222-3333
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">

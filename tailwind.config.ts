@@ -7,7 +7,13 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['var(--font-muli)', 'system-ui', 'sans-serif'],
+        'bodoni': ['var(--font-bodoni-moda)', 'serif'],
+        'muli': ['var(--font-muli)', 'system-ui', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };
