@@ -296,14 +296,6 @@ export default function Header() {
               </div>
 
               <Link
-                href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
-                className="text-sm transition-colors hover:text-gray-600"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                USED
-              </Link>
-
-              <Link
                 href="/trade-in"
                 className="text-sm transition-colors hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}

@@ -232,8 +232,8 @@ export default async function Home() {
                 <Image
                   src="/watches/ap.png"
                   alt="Audemars Piguet Watch"
-                  width={120}
-                  height={120}
+                  width={240}
+                  height={240}
                   className="absolute -top-16 md:-top-16 left-1/2 -translate-x-1/2 w-40 md:w-50 h-40 md:h-50 object-contain drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="flex-1" />

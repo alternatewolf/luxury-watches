@@ -117,13 +117,6 @@ export default function HomeHeader() {
             </button>
 
             <Link
-              href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
-              className="text-md transition-colors hover:text-gray-300 tracking-wide"
-            >
-              Used
-            </Link>
-
-            <Link
               href="/trade-in"
               className="text-md transition-colors hover:text-gray-300 tracking-wide"
             >
