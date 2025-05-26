@@ -61,7 +61,7 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                       src={product.primaryImageUrl}
                       alt={product.name}
                       className={`w-2/3 h-auto object-fit pointer-events-none ${
-                        isPatekPhilippe ? "scale-250" : "scale-140"
+                        isPatekPhilippe ? "scale-230" : "scale-120"
                       }`}
                     />
                   )}

@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col">
       {/* Announcement Banner */}
-      <div className="hidden md:block bg-black text-white text-center py-2">
+      <div className="hidden md:flex bg-black text-white text-center py-2  justify-center items-center">
         <p className="text-sm">
           📞 +1 111 111 1111 - Just call or write on Whatsapp.
         </p>

@@ -27,6 +27,8 @@ type ProductDetailsProps = {
     claspType?: { name: string };
     complications: { name: string }[];
     yearOfManufacture?: string;
+    box?: string | null;
+    papers?: string | null;
   };
 };
 
@@ -76,6 +78,86 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             {product.condition}
           </Badge>
         )}
+      </div>
+
+      {/* Box & Papers */}
+      <div className="border-b pb-6">
+        <h2 className="text-xl font-semibold mb-4">Box & Papers</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Box Status */}
+          <div
+            className={`rounded-lg p-4 border ${
+              product.box && product.box !== "NONE"
+                ? "bg-green-50 border-green-200"
+                : "bg-red-50 border-red-200"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className={`w-3 h-3 rounded-full ${
+                  product.box && product.box !== "NONE"
+                    ? "bg-green-500"
+                    : "bg-red-500"
+                }`}
+              ></div>
+              <div>
+                <p className="font-semibold text-gray-900">
+                  {product.box && product.box !== "NONE"
+                    ? "Box Included"
+                    : "No Box"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {product.box && product.box !== "NONE"
+                    ? product.box === "ORIGINAL"
+                      ? "Original manufacturer box"
+                      : product.box === "GENERIC"
+                      ? "Generic presentation box"
+                      : product.box
+                    : "Watch sold without box"}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Papers Status */}
+          <div
+            className={`rounded-lg p-4 border ${
+              product.papers && product.papers !== "NONE"
+                ? "bg-blue-50 border-blue-200"
+                : "bg-red-50 border-red-200"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className={`w-3 h-3 rounded-full ${
+                  product.papers && product.papers !== "NONE"
+                    ? "bg-blue-500"
+                    : "bg-red-500"
+                }`}
+              ></div>
+              <div>
+                <p className="font-semibold text-gray-900">
+                  {product.papers && product.papers !== "NONE"
+                    ? "Papers Included"
+                    : "No Papers"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {product.papers && product.papers !== "NONE"
+                    ? product.papers === "ORIGINAL"
+                      ? "Original manufacturer papers"
+                      : product.papers === "GENERIC"
+                      ? "Generic documentation"
+                      : product.papers === "SERVICE_PAPERS"
+                      ? "Service documentation"
+                      : product.papers === "WARRANTY_CARD"
+                      ? "Warranty card included"
+                      : product.papers
+                    : "Watch sold without papers"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Description */}

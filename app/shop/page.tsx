@@ -135,12 +135,12 @@ export default async function ShopPage({
 
           {/* Products Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {products.map((product) => (
                 <Link
                   key={product.id}
                   href={`/shop/${product.slug}`}
-                  className="group bg-[#F8F5EE] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[400px] rounded-none cursor-pointer"
+                  className="group bg-[#F4F4F4] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[28rem] rounded-xl cursor-pointer"
                 >
                   <div className="flex-1 flex items-center justify-center p-6">
                     {product.images[0]?.url && (
@@ -150,8 +150,8 @@ export default async function ShopPage({
                         className={`w-full h-auto object-contain ${
                           product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
                           product.id !== "cmb3fvpio0010rc640ghwqbaw"
-                            ? "scale-150"
-                            : ""
+                            ? "scale-170"
+                            : "scale-110"
                         }`}
                       />
                     )}
@@ -165,7 +165,7 @@ export default async function ShopPage({
                     <h3 className="text-sm font-medium text-gray-900 truncate uppercase">
                       {product.name}
                     </h3>
-                    <p className="mt-2 text-sm text-gray-500">
+                    <p className="mt-2 text-sm text-gray-500 text-center">
                       ${product.price.toString()}
                     </p>
                   </div>
