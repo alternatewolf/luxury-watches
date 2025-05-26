@@ -119,7 +119,6 @@ model ProductImage {
   id        String   @id @default(cuid())
   url       String // URL or path to the image
   thumbImg  String? // URL for thumbnail image
-  hoverImg  String? // URL for hover state image
   coverImg  String? // URL for cover/featured image
   altText   String? // Alt text for accessibility
   productId String
@@ -211,6 +210,7 @@ model Product {
 
   // Media
   images   ProductImage[]
+  hoverImg String? // URL for hover state image
   videoUrl String?
 
   // Inventory & Status

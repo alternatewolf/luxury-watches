@@ -4,6 +4,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 type Product = {
   id: string;
@@ -35,7 +36,7 @@ function ProductCarousel({ products }: ProductCarouselProps) {
         dragConstraints={{ right: 0, left: -width }}
         dragTransition={{ bounceDamping: 30 }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
-        className="flex will-change-transform cursor-grab active:cursor-grabbing gap-0.5"
+        className="flex will-change-transform cursor-grab active:cursor-grabbing gap-2"
       >
         {products.slice(0, 10)?.map((product) => {
           // Check if this is a Patek Philippe watch but exclude the specific watch ID
@@ -46,7 +47,7 @@ function ProductCarousel({ products }: ProductCarouselProps) {
           return (
             <motion.div
               key={product.id}
-              className="min-w-[20rem] min-h-[25rem] p-2 bg-[#F8F5EE] relative"
+              className="min-w-[20rem] min-h-[30rem] p-2 bg-[#F4F4F4] relative rounded-xl"
             >
               <div className="absolute top-4 left-4 z-10">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium  text-black bg-white">
@@ -60,17 +61,27 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                       src={product.primaryImageUrl}
                       alt={product.name}
                       className={`w-2/3 h-auto object-fit pointer-events-none ${
-                        isPatekPhilippe ? "scale-170" : ""
+                        isPatekPhilippe ? "scale-250" : "scale-140"
                       }`}
                     />
                   )}
                 </div>
                 <div className="px-4 pb-4">
-                  <h3 className="text-xs font-medium text-gray-900 truncate uppercase">
+                  <h3 className="text-md font-medium text-gray-900 truncate ">
                     {product.name}
                   </h3>
-                  <p className="mt-2 text-xs text-gray-500">${product.price}</p>
+                  <p className="mt-2 text-md text-center text-gray-700 text-extralight">
+                    ${product.price}
+                  </p>
                 </div>
+                <Link
+                  href={`/shop/${product.id}`}
+                  className="w-6/7 mx-auto flex justify-center mt-2 mb-2"
+                >
+                  <button className="w-full bg-white text-black py-2 rounded-full font-extralight cursor-pointer">
+                    View
+                  </button>
+                </Link>
               </div>
             </motion.div>
           );
