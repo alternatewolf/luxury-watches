@@ -26,6 +26,7 @@ type ProductDetailsProps = {
     braceletStrapColor?: { name: string };
     claspType?: { name: string };
     complications: { name: string }[];
+    yearOfManufacture?: string;
   };
 };
 
@@ -134,6 +135,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <p className="text-sm text-gray-500 mb-1">Water Resistance</p>
               <p className="font-medium text-gray-900">
                 {product.waterResistanceM}
+              </p>
+            </div>
+          )}
+          {product.yearOfManufacture && (
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Year of Manufacture</p>
+              <p className="font-medium text-gray-900">
+                {product.yearOfManufacture}
               </p>
             </div>
           )}
