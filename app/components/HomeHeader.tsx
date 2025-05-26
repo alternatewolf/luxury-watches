@@ -216,11 +216,11 @@ export default function HomeHeader() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
-                src="/logo.png"
+                src="/logo-home.png"
                 alt="Luxe"
-                width={80}
-                height={32}
-                className="h-8 w-auto object-contain"
+                width={500}
+                height={500}
+                className="h-12 w-auto object-contain"
               />
             </Link>
 
