@@ -279,6 +279,35 @@ export async function getProductReferenceData() {
       prismaClient.complication.findMany({ orderBy: { name: 'asc' } }),
     ]);
 
+    // Get unique conditions from products
+    const conditionsResult = await prismaClient.product.findMany({
+      where: { 
+        status: 'PUBLISHED',
+        condition: { not: null }
+      },
+      select: { condition: true },
+      distinct: ['condition'],
+    });
+    const conditions = conditionsResult.map(p => p.condition).filter(Boolean);
+
+    // Get unique manufacturing years from products
+    const yearsResult = await prismaClient.product.findMany({
+      where: { 
+        status: 'PUBLISHED',
+        yearOfManufacture: { not: null }
+      },
+      select: { yearOfManufacture: true },
+      distinct: ['yearOfManufacture'],
+    });
+    const manufacturingYears = yearsResult
+      .map(p => p.yearOfManufacture)
+      .filter((year): year is string => year !== null)
+      .sort((a, b) => parseInt(b) - parseInt(a)); // Sort descending
+
+    // Define box and papers options based on schema enums
+    const boxOptions = ['ORIGINAL', 'GENERIC', 'NONE'];
+    const papersOptions = ['ORIGINAL', 'GENERIC', 'SERVICE_PAPERS', 'WARRANTY_CARD', 'NONE'];
+
     return {
       brands,
       materials,
@@ -286,6 +315,10 @@ export async function getProductReferenceData() {
       watchStyles,
       claspTypes,
       complications,
+      conditions,
+      manufacturingYears,
+      boxOptions,
+      papersOptions,
     };
   } catch (error) {
     console.error('Error fetching reference data:', error);
@@ -451,6 +484,18 @@ export async function getFilteredProducts(filters: any, sort: string) {
 
   if (filters.condition?.length > 0) {
     where.condition = { in: filters.condition };
+  }
+
+  if (filters.box?.length > 0) {
+    where.box = { in: filters.box };
+  }
+
+  if (filters.papers?.length > 0) {
+    where.papers = { in: filters.papers };
+  }
+
+  if (filters.manufacturingYears?.length > 0) {
+    where.yearOfManufacture = { in: filters.manufacturingYears };
   }
 
   if (filters.priceRange?.min || filters.priceRange?.max) {
