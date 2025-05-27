@@ -479,9 +479,11 @@ export default async function Home() {
       {/* Watch Stories Section */}
       <section className="py-10">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="font-bodoni text-2xl md:text-3xl font-light text-center mb-12">
-            Watch Stories
-          </h2>
+          <Link href="/blog">
+            <h2 className="font-bodoni text-2xl md:text-3xl font-light text-center mb-12 transition-colors cursor-pointer">
+              Watch Stories
+            </h2>
+          </Link>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
             <div className="relative aspect-[1/1] md:aspect-[4/3] overflow-hidden">
               <Image
@@ -499,9 +501,12 @@ export default async function Home() {
                     Discover the intricate craftsmanship behind every luxury
                     timepiece
                   </p>
-                  <button className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity">
+                  <Link
+                    href="/blog/the-art-of-watchmaking"
+                    className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity"
+                  >
                     Read More
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -520,9 +525,12 @@ export default async function Home() {
                   <p className="text-md opacity-90 mb-6">
                     Understanding the long-term value of luxury timepieces
                   </p>
-                  <button className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity">
+                  <Link
+                    href="/blog/investment-value"
+                    className="text-sm border-b border-white pb-1 hover:opacity-80 transition-opacity"
+                  >
                     Read More
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
