@@ -530,7 +530,7 @@ export default async function ShopPage({
                 <Link
                   key={product.id}
                   href={`/shop/${product.slug}`}
-                  className="group bg-[#F4F4F4] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[28rem] rounded-xl cursor-pointer"
+                  className="group bg-[#F8F5EE] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[28rem] rounded-xl cursor-pointer"
                 >
                   <div className="flex-1 flex items-center justify-center p-6">
                     {product.images[0]?.url && (
@@ -555,7 +555,7 @@ export default async function ShopPage({
                     <p className="text-xs text-gray-600 uppercase tracking-wider mb-2 text-center">
                       {product.brand?.name}
                     </p>
-                    <h3 className="text-sm font-medium text-gray-900 truncate uppercase">
+                    <h3 className="text-sm font-medium text-gray-900 truncate uppercase text-center">
                       {product.name}
                     </h3>
                     <p className="mt-4 text-sm text-gray-500 text-center">

@@ -12,6 +12,9 @@ type Product = {
   price: string;
   primaryImageUrl: string | null;
   brandId: string;
+  brand: {
+    name: string;
+  };
 };
 
 interface ProductCarouselProps {
@@ -47,11 +50,11 @@ function ProductCarousel({ products }: ProductCarouselProps) {
           return (
             <motion.div
               key={product.id}
-              className="min-w-[20rem] min-h-[30rem] p-2 bg-[#F4F4F4] relative rounded-xl"
+              className="min-w-[20rem] min-h-[30rem] p-2 bg-[#F8F5EE] relative rounded-xl"
             >
               <div className="absolute top-4 left-4 z-10">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium  text-black bg-white">
-                  New
+                  {product.brand.name}
                 </span>
               </div>
               <div className="relative h-full flex flex-col">
@@ -67,7 +70,7 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                   )}
                 </div>
                 <div className="px-4 pb-4">
-                  <h3 className="text-md font-medium text-gray-900 truncate ">
+                  <h3 className="text-md font-medium text-gray-900 truncate text-center">
                     {product.name}
                   </h3>
                   <p className="mt-2 text-md text-center text-gray-700 text-extralight">
