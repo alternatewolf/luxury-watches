@@ -29,7 +29,7 @@ export default function LocationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white pt-10">
+    <div className="min-h-screen bg-white pt-12">
       {/* Hero Section */}
       <div className="relative h-[60vh] bg-[url('/Store7.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/70"></div>

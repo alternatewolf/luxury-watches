@@ -460,7 +460,7 @@ export default function TradeInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-8 md:pt-8">
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Progress Bar */}
         {currentStep > 0 && currentStep <= 13 && (

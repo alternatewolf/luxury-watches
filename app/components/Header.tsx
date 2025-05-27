@@ -92,17 +92,24 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed w-full bg-white text-black border-b border-gray-100 z-100">
+    <header className="fixed w-full bg-[#222222] text-white   z-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-12">
+        <div className="flex justify-between items-center h-16 md:h-12 md:py-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo-dark.png"
+              src="/logo-home.png"
               alt="Luxe"
               width={80}
               height={32}
-              className="h-10 w-auto object-contain"
+              className="h-10 w-auto object-contain hidden md:block"
+            />
+            <Image
+              src="/logo-home.png"
+              alt="Luxe"
+              width={80}
+              height={32}
+              className="h-10 w-auto object-contain block md:hidden"
             />
           </Link>
 
@@ -113,14 +120,14 @@ export default function Header() {
           >
             <Link
               href="/shop"
-              className="text-xs transition-colors hover:text-gray-600"
+              className="text-xs transition-colors hover:text-gray-300"
             >
               Shop
             </Link>
 
             {/* Brands Trigger */}
             <button
-              className="brands-trigger flex items-center gap-1 text-xs transition-colors focus:outline-none hover:text-gray-600"
+              className="brands-trigger flex items-center gap-1 text-xs transition-colors focus:outline-none hover:text-gray-300"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -129,22 +136,15 @@ export default function Header() {
             </button>
 
             <Link
-              href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
-              className="text-xs transition-colors hover:text-gray-600"
-            >
-              Used
-            </Link>
-
-            <Link
               href="/trade-in"
-              className="text-xs transition-colors hover:text-gray-600"
+              className="text-xs transition-colors hover:text-gray-300"
             >
               Trade-In
             </Link>
 
             <Link
               href="/location"
-              className="text-xs transition-colors hover:text-gray-600"
+              className="text-xs transition-colors hover:text-gray-300"
             >
               Location
             </Link>
@@ -236,12 +236,12 @@ export default function Header() {
             >
               <div className="w-4 h-4 relative">
                 <span
-                  className={`absolute top-1/2 left-0 w-full h-0.5 bg-black transform transition-all duration-200 ${
+                  className={`absolute top-1/2 left-0 w-full h-0.5 bg-white md:bg-black transform transition-all duration-200 ${
                     isMenuOpen ? "rotate-45" : "-translate-y-1"
                   }`}
                 />
                 <span
-                  className={`absolute top-1/2 left-0 w-full h-0.5 bg-black transform transition-all duration-200 ${
+                  className={`absolute top-1/2 left-0 w-full h-0.5 bg-white md:bg-black transform transition-all duration-200 ${
                     isMenuOpen ? "-rotate-45" : "translate-y-1"
                   }`}
                 />
@@ -252,11 +252,11 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
+          <div className="md:hidden py-4 border-t border-gray-600 md:border-gray-100">
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/shop"
-                className="text-sm transition-colors hover:text-gray-600"
+                className="text-sm transition-colors text-white md:text-black hover:text-gray-300 md:hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 SHOP
@@ -266,7 +266,7 @@ export default function Header() {
               <div>
                 <button
                   onClick={() => setIsMobileBrandsOpen(!isMobileBrandsOpen)}
-                  className="flex items-center justify-between w-full text-sm transition-colors text-left hover:text-gray-600"
+                  className="flex items-center justify-between w-full text-sm transition-colors text-left text-white md:text-black hover:text-gray-300 md:hover:text-gray-600"
                 >
                   BRANDS
                   <ChevronDown
@@ -282,7 +282,7 @@ export default function Header() {
                       <Link
                         key={brand.id}
                         href={`/shop?brand=${brand.id}`}
-                        className="block text-sm transition-colors text-gray-600 hover:text-gray-900"
+                        className="block text-sm transition-colors text-gray-300 md:text-gray-600 hover:text-white md:hover:text-gray-900"
                         onClick={() => {
                           setIsMenuOpen(false);
                           setIsMobileBrandsOpen(false);
@@ -297,7 +297,7 @@ export default function Header() {
 
               <Link
                 href="/trade-in"
-                className="text-sm transition-colors hover:text-gray-600"
+                className="text-sm transition-colors text-white md:text-black hover:text-gray-300 md:hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 TRADE-IN
@@ -305,7 +305,7 @@ export default function Header() {
 
               <Link
                 href="/location"
-                className="text-sm transition-colors hover:text-gray-600"
+                className="text-sm transition-colors text-white md:text-black hover:text-gray-300 md:hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 LOCATION

@@ -107,7 +107,7 @@ export default async function ShopPage({
   }
 
   return (
-    <div className="min-h-screen bg-white pt-8">
+    <div className="min-h-screen bg-white pt-12">
       <div className="max-w-[1920px] mx-auto px-4 py-8">
         {/* Mobile Filters */}
         <FilterDrawer
