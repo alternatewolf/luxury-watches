@@ -29,10 +29,10 @@ export default function LocationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-10">
       {/* Hero Section */}
-      <div className="relative h-[60vh] bg-gradient-to-br from-gray-900 to-black">
-        <div className="absolute inset-0 bg-black/40"></div>
+      <div className="relative h-[60vh] bg-[url('/Store7.jpg')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/70"></div>
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center text-white px-4 max-w-4xl">
             <h1 className="text-4xl md:text-6xl font-light mb-6 tracking-wide">
@@ -55,6 +55,21 @@ export default function LocationPage() {
               <h2 className="text-3xl font-light text-gray-900 mb-8">
                 Store Information
               </h2>
+
+              {/* Store Image */}
+              <div className="mb-8">
+                <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
+                  <Image
+                    src="/store-img.webp"
+                    alt="Luxe Watch Boutique Interior"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="text-sm text-gray-500 mt-2 text-center">
+                  Our elegant boutique in the heart of Jumeirah
+                </p>
+              </div>
 
               {/* Address */}
               <div className="flex items-start gap-4 mb-6">

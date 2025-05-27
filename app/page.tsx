@@ -301,8 +301,8 @@ export default async function Home() {
               <Image
                 src="/logos/rolex.png"
                 alt="Rolex"
-                width={120}
-                height={60}
+                width={2398}
+                height={1198}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -310,8 +310,8 @@ export default async function Home() {
               <Image
                 src="/logos/panerai.png"
                 alt="Panerai"
-                width={120}
-                height={14}
+                width={2398}
+                height={284}
                 className="h-4 w-auto object-contain"
               />
             </li>
@@ -319,8 +319,8 @@ export default async function Home() {
               <Image
                 src="/logos/omega.png"
                 alt="Omega"
-                width={120}
-                height={64}
+                width={5118}
+                height={2720}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -328,8 +328,8 @@ export default async function Home() {
               <Image
                 src="/logos/iwc.png"
                 alt="IWC"
-                width={120}
-                height={54}
+                width={5118}
+                height={2290}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -337,8 +337,8 @@ export default async function Home() {
               <Image
                 src="/logos/cartier.png"
                 alt="Cartier"
-                width={120}
-                height={68}
+                width={7678}
+                height={4318}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -346,8 +346,8 @@ export default async function Home() {
               <Image
                 src="/logos/bvlgari.png"
                 alt="Bvlgari"
-                width={120}
-                height={80}
+                width={5998}
+                height={3998}
                 className="h-16 w-auto object-contain"
               />
             </li>
@@ -355,8 +355,8 @@ export default async function Home() {
               <Image
                 src="/logos/Patek_Philippe_SA_logo.svg.png"
                 alt="Patek Philippe"
-                width={120}
-                height={66}
+                width={2398}
+                height={1312}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -364,8 +364,8 @@ export default async function Home() {
               <Image
                 src="/logos/Jaeger-LeCoultre.png"
                 alt="Jaeger-LeCoultre"
-                width={120}
-                height={68}
+                width={2558}
+                height={1438}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -373,8 +373,8 @@ export default async function Home() {
               <Image
                 src="/logos/Audemars_Piguet_logo.png"
                 alt="Audemars Piguet"
-                width={120}
-                height={33}
+                width={6588}
+                height={1812}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -387,8 +387,8 @@ export default async function Home() {
               <Image
                 src="/logos/rolex.png"
                 alt="Rolex"
-                width={120}
-                height={60}
+                width={2398}
+                height={1198}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -396,8 +396,8 @@ export default async function Home() {
               <Image
                 src="/logos/panerai.png"
                 alt="Panerai"
-                width={120}
-                height={14}
+                width={2398}
+                height={284}
                 className="h-4 w-auto object-contain"
               />
             </li>
@@ -405,8 +405,8 @@ export default async function Home() {
               <Image
                 src="/logos/omega.png"
                 alt="Omega"
-                width={120}
-                height={64}
+                width={5118}
+                height={2720}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -414,8 +414,8 @@ export default async function Home() {
               <Image
                 src="/logos/iwc.png"
                 alt="IWC"
-                width={120}
-                height={54}
+                width={5118}
+                height={2290}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -423,8 +423,8 @@ export default async function Home() {
               <Image
                 src="/logos/cartier.png"
                 alt="Cartier"
-                width={120}
-                height={68}
+                width={7678}
+                height={4318}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -432,8 +432,8 @@ export default async function Home() {
               <Image
                 src="/logos/bvlgari.png"
                 alt="Bvlgari"
-                width={120}
-                height={80}
+                width={5998}
+                height={3998}
                 className="h-16 w-auto object-contain"
               />
             </li>
@@ -441,8 +441,8 @@ export default async function Home() {
               <Image
                 src="/logos/Patek_Philippe_SA_logo.svg.png"
                 alt="Patek Philippe"
-                width={120}
-                height={66}
+                width={2398}
+                height={1312}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -450,8 +450,8 @@ export default async function Home() {
               <Image
                 src="/logos/Jaeger-LeCoultre.png"
                 alt="Jaeger-LeCoultre"
-                width={120}
-                height={68}
+                width={2558}
+                height={1438}
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -459,8 +459,8 @@ export default async function Home() {
               <Image
                 src="/logos/Audemars_Piguet_logo.png"
                 alt="Audemars Piguet"
-                width={120}
-                height={33}
+                width={6588}
+                height={1812}
                 className="h-12 w-auto object-contain"
               />
             </li>
