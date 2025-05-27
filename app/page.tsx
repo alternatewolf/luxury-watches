@@ -46,6 +46,16 @@ export default async function Home() {
         {/* Centered Text Content */}
         <div className="absolute inset-0 flex items-center justify-center pt-8 md:pt-0">
           <div className="text-center text-white px-4 max-w-4xl">
+            {/* Mobile Logo */}
+            <div className="block md:hidden mb-8">
+              <Image
+                src="/logo-home.png"
+                alt="Luxe Logo"
+                width={120}
+                height={60}
+                className="mx-auto"
+              />
+            </div>
             <h1 className="font-bodoni text-3xl md:text-6xl lg:text-7xl  tracking-wider mb-6">
               Timeless Elegance
             </h1>

@@ -220,7 +220,7 @@ export default function HomeHeader() {
                 alt="Luxe"
                 width={500}
                 height={500}
-                className="h-12 w-auto object-contain"
+                className="hidden h-12 w-auto object-contain"
               />
             </Link>
 
