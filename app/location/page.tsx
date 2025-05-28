@@ -52,15 +52,15 @@ export default function LocationPage() {
           {/* Store Information */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl font-light text-gray-900 mb-8">
+              <h2 className="text-3xl font-light text-gray-900 mb-6">
                 Store Information
               </h2>
 
               {/* Store Image */}
               <div className="mb-8">
-                <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
+                <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
                   <Image
-                    src="/store-img.webp"
+                    src="/store.webp"
                     alt="Luxe Watch Boutique Interior"
                     fill
                     className="object-cover"
