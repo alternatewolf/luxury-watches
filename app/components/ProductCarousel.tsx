@@ -64,7 +64,14 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                       src={product.primaryImageUrl}
                       alt={product.name}
                       className={`w-2/3 h-auto object-fit pointer-events-none ${
-                        isPatekPhilippe ? "scale-230" : "scale-120"
+                        product.id === "cmb7lntdh003wrcfk51xwuj6o" ||
+                        product.id === "cmb7lh7zk0039rcfkgriaetr6"
+                          ? "scale-120"
+                          : product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
+                            product.id !== "cmb3fvpio0010rc640ghwqbaw" &&
+                            product.id !== "cmb7iv3kp0003rcfkqevddz88"
+                          ? "scale-230"
+                          : "scale-120"
                       }`}
                     />
                   )}

@@ -555,8 +555,7 @@ export default async function Home() {
           <div
             className="h-[80vh] bg-cover bg-center bg-fixed"
             style={{
-              backgroundImage:
-                "url('https://images.pexels.com/photos/28697832/pexels-photo-28697832/free-photo-of-elegant-display-of-luxury-watches-in-retail-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+              backgroundImage: "url('https://i.ibb.co/wZDTd3dh/footer.png')",
             }}
           ></div>
           <div
@@ -670,8 +669,7 @@ export default async function Home() {
           <div
             className="h-[40vh] bg-cover bg-center"
             style={{
-              backgroundImage:
-                "url('https://images.pexels.com/photos/28697832/pexels-photo-28697832/free-photo-of-elegant-display-of-luxury-watches-in-retail-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+              backgroundImage: "url('https://i.ibb.co/wZDTd3dh/footer.png')",
             }}
           ></div>
 

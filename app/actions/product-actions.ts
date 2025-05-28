@@ -214,7 +214,7 @@ export async function createProduct(data: any) {
         stockQuantity: parseInt(data.stockQuantity) || 0,
         availabilityStatus: data.availabilityStatus,
         isFeatured: data.isFeatured === 'true' || data.isFeatured === true,
-        status: data.status || 'DRAFT',
+        status: data.status || 'PUBLISHED',
         
         // SEO
         metaTitle: data.metaTitle,
@@ -326,10 +326,10 @@ export async function getProductReferenceData() {
   }
 }
 
-export async function getProductBySlug(slug: string) {
+export async function getProductBySlug(id: string) {
   try {
     const product = await prismaClient.product.findUnique({
-      where: { slug },
+      where: { id },
       include: {
         brand: {
           select: { name: true },

@@ -217,7 +217,7 @@ model Product {
   stockQuantity      Int                @default(0)
   availabilityStatus AvailabilityStatus @default(IN_STOCK)
   isFeatured         Boolean            @default(false)
-  status             ProductStatus      @default(DRAFT)
+  status             ProductStatus      @default(PUBLISHED)
 
   // SEO
   metaTitle       String?

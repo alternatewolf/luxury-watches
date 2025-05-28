@@ -40,7 +40,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pt-4">
       {/* Brand and Model */}
       <div className="border-b pb-6">
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
@@ -260,10 +260,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       )}
 
       {/* WhatsApp Button */}
-      <div className="pt-6">
+      <div className="">
         <Button
           size="lg"
-          className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white flex items-center justify-center gap-2"
+          className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white flex items-center justify-center cursor-pointer gap-2"
           onClick={handleWhatsAppClick}
         >
           <MessageCircle className="w-5 h-5" />

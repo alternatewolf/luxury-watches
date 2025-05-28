@@ -26,7 +26,7 @@ function ProductImageGallery({ images }: ProductImageGalleryProps) {
   return (
     <motion.div
       layoutId={"activeItems"}
-      className="rounded-md w-fit pb-4 gap-2 items-center mx-auto cursor-auto"
+      className="rounded-md w-fit pb-4 pt-4 gap-2 items-center mx-auto cursor-auto"
       onClick={(e) => e.stopPropagation()}
     >
       <AnimatePresence mode="popLayout" initial={false}>

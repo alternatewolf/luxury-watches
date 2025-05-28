@@ -45,13 +45,13 @@ const testimonials = [
     text: "Amazing customer service and authentic pieces. They made the entire buying process seamless.",
   },
   {
-    image: "/testimonials/omega.png",
+    image: "/testimonials/rolex4.jpg",
     name: "Michael Rodriguez",
     role: "Professional Athlete",
     text: "Fast delivery and excellent communication throughout. Highly recommend this dealer.",
   },
   {
-    image: "/testimonials/omega2.png",
+    image: "/testimonials/rolex5.jpg",
     name: "Emma Thompson",
     role: "Marine Biologist",
     text: "They had the best price for the watch I wanted and delivered exactly as promised.",
@@ -63,7 +63,7 @@ const testimonials = [
     text: "Professional service and genuine watches. They helped me find my dream timepiece.",
   },
   {
-    image: "/testimonials/panerai.png",
+    image: "/testimonials/patek3.jpg",
     name: "Isabella Rossi",
     role: "Marine Biologist",
     text: "Trustworthy dealer with competitive prices. They made buying my first luxury watch a great experience.",

@@ -127,7 +127,7 @@ export default async function ShopPage({
         <div className="flex gap-8">
           {/* Filters Sidebar - Desktop */}
           <div className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto space-y-4 pr-2">
+            <div className="sticky top-16 h-[calc(100vh)] overflow-y-auto space-y-4 pr-2">
               {/* Sort Options */}
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-sm font-medium text-gray-900 mb-3">
@@ -529,7 +529,7 @@ export default async function ShopPage({
               {products.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/shop/${product.slug}`}
+                  href={`/shop/${product.id}`}
                   className="group bg-[#F8F5EE] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[28rem] rounded-xl cursor-pointer"
                 >
                   <div className="flex-1 flex items-center justify-center p-6">
@@ -538,8 +538,13 @@ export default async function ShopPage({
                         src={product.images[0].url}
                         alt={product.name}
                         className={`w-full h-auto object-contain ${
-                          product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
-                          product.id !== "cmb3fvpio0010rc640ghwqbaw"
+                          product.id === "cmb7lntdh003wrcfk51xwuj6o" ||
+                          product.id === "cmb7lh7zk0039rcfkgriaetr6" ||
+                          product.id === "cmb7iv3kp0003rcfkqevddz88"
+                            ? "scale-110"
+                            : product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
+                              product.id !== "cmb3fvpio0010rc640ghwqbaw" &&
+                              product.id !== "cmb7iv3kp0003rcfkqevddz88"
                             ? "scale-170"
                             : "scale-110"
                         }`}
@@ -552,13 +557,13 @@ export default async function ShopPage({
                     )}
                   </div>
                   <div className="px-6 pb-6">
-                    <p className="text-xs text-gray-600 uppercase tracking-wider mb-2 text-center">
+                    <p className="md:text-xs text-xs text-gray-600 uppercase tracking-wider mb-2 text-center">
                       {product.brand?.name}
                     </p>
-                    <h3 className="text-sm font-medium text-gray-900 truncate uppercase text-center">
+                    <h3 className="md:text-sm text-xs font-medium text-gray-900 truncate uppercase text-center">
                       {product.name}
                     </h3>
-                    <p className="mt-4 text-sm text-gray-500 text-center">
+                    <p className="md:mt-4 mt-3 text-sm text-gray-500 text-center">
                       ${product.price.toString()}
                     </p>
                   </div>
