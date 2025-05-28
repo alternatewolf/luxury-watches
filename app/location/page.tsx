@@ -207,7 +207,7 @@ export default function LocationPage() {
           <div
             className="h-[80vh] bg-cover bg-center bg-fixed"
             style={{
-              backgroundImage: "url('https://i.ibb.co/wZDTd3dh/footer.png')",
+              backgroundImage: "url('/footer.webp')",
             }}
           ></div>
           <div
@@ -321,7 +321,7 @@ export default function LocationPage() {
           <div
             className="h-[40vh] bg-cover bg-center"
             style={{
-              backgroundImage: "url('https://i.ibb.co/wZDTd3dh/footer.png')",
+              backgroundImage: "url('/footer.webp')",
             }}
           ></div>
 
