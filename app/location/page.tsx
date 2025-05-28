@@ -91,7 +91,7 @@ export default function LocationPage() {
                 <Clock className="w-6 h-6 text-gray-600 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-medium text-gray-900 mb-2">
-                    Opening Hours
+                    Opening Hours (Appointment Only)
                   </h3>
                   <div className="text-gray-600 space-y-1">
                     <p>Monday - Thursday: {storeDetails.hours.weekdays}</p>
