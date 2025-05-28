@@ -180,26 +180,26 @@ export async function createProduct(data: any) {
         braceletStrapColorId: braceletStrapColor?.id,
         braceletStyleDescription: data.braceletStyleDescription,
         
-        claspTypeId: data.claspTypeId,
+        claspTypeId: data.claspTypeId || null,
         claspDetails: data.claspDetails,
-        lugWidthMm: data.lugWidthMm,
+        lugWidthMm: data.lugWidthMm ? parseInt(data.lugWidthMm) : null,
         
         crownDetails: data.crownDetails,
         
         // Movement details
-        movementType: data.movementType,
+        movementType: data.movementType || null,
         movementCaliber: data.movementCaliber,
         powerReserveHours: data.powerReserveHours,
-        numberOfJewels: data.numberOfJewels,
+        numberOfJewels: data.numberOfJewels ? parseInt(data.numberOfJewels) : null,
         
         // Condition & Provenance
-        condition: data.condition,
+        condition: data.condition || null,
         yearOfManufacture: data.yearOfManufacture,
-        purchaseYear: data.purchaseYear,
-        box: data.box,
-        papers: data.papers,
+        purchaseYear: data.purchaseYear ? parseInt(data.purchaseYear) : null,
+        box: data.box || 'NONE',
+        papers: data.papers || 'NONE',
         warrantyDetails: data.warrantyDetails,
-        certifications: data.certifications,
+        certifications: data.certifications ? data.certifications.split(',').map((cert: string) => cert.trim()).filter(Boolean) : [],
         
         // Origin & Manufacturer Info
         countryOfOrigin: data.countryOfOrigin,
@@ -212,7 +212,7 @@ export async function createProduct(data: any) {
         
         // Inventory & Status
         stockQuantity: parseInt(data.stockQuantity) || 0,
-        availabilityStatus: data.availabilityStatus,
+        availabilityStatus: data.availabilityStatus || 'IN_STOCK',
         isFeatured: data.isFeatured === 'true' || data.isFeatured === true,
         status: data.status || 'PUBLISHED',
         
@@ -226,14 +226,44 @@ export async function createProduct(data: any) {
 
     // Handle complications (many-to-many)
     if (data.complications && data.complications.length > 0) {
-      await prismaClient.product.update({
-        where: { id: product.id },
-        data: {
-          complications: {
-            connect: data.complications.map((id: string) => ({ id })),
+      // Parse complications from comma-separated string
+      const complicationNames = typeof data.complications === 'string' 
+        ? data.complications.split(',').map((name: string) => name.trim()).filter(Boolean)
+        : data.complications;
+
+      if (complicationNames.length > 0) {
+        // Find or create complications
+        const complications = await Promise.all(
+          complicationNames.map(async (name: string) => {
+            let complication = await prismaClient.complication.findFirst({
+              where: {
+                name: {
+                  equals: name,
+                  mode: 'insensitive'
+                }
+              }
+            });
+
+            if (!complication) {
+              complication = await prismaClient.complication.create({
+                data: { name }
+              });
+            }
+
+            return complication;
+          })
+        );
+
+        // Connect complications to product
+        await prismaClient.product.update({
+          where: { id: product.id },
+          data: {
+            complications: {
+              connect: complications.map(comp => ({ id: comp.id })),
+            },
           },
-        },
-      });
+        });
+      }
     }
 
     // Handle images
@@ -539,4 +569,58 @@ export async function getFilteredProducts(filters: any, sort: string) {
       },
     },
   });
+}
+
+export async function deleteProduct(productId: string) {
+  try {
+    // First, check if the product exists
+    const product = await prismaClient.product.findUnique({
+      where: { id: productId },
+      include: {
+        images: true,
+        complications: true,
+      },
+    });
+
+    if (!product) {
+      return {
+        success: false,
+        error: 'Product not found',
+      };
+    }
+
+    // Delete in a transaction to ensure data consistency
+    await prismaClient.$transaction(async (tx) => {
+      // Delete product images (cascade delete should handle this, but being explicit)
+      await tx.productImage.deleteMany({
+        where: { productId: productId },
+      });
+
+      // Disconnect complications (many-to-many relationship)
+      await tx.product.update({
+        where: { id: productId },
+        data: {
+          complications: {
+            disconnect: product.complications.map(comp => ({ id: comp.id })),
+          },
+        },
+      });
+
+      // Finally, delete the product
+      await tx.product.delete({
+        where: { id: productId },
+      });
+    });
+
+    return {
+      success: true,
+      message: 'Product deleted successfully',
+    };
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    return {
+      success: false,
+      error: 'Failed to delete product. Please try again.',
+    };
+  }
 } 
