@@ -208,6 +208,18 @@ export default function LocationPage() {
         {/* Desktop Footer */}
         <div className="hidden md:block">
           <div
+            className="flex justify-center w-full absolute z-20"
+            style={{ top: 0 }}
+          >
+            <Image
+              src="/logo-dark.png"
+              alt="Luxe Logo Dark"
+              width={120}
+              height={60}
+              className="mx-auto mt-8"
+            />
+          </div>
+          <div
             className="h-[80vh] bg-cover bg-center bg-fixed"
             style={{
               backgroundImage: "url('/footer.jpeg')",
@@ -304,7 +316,13 @@ export default function LocationPage() {
             </div>
             <div className="flex flex-row items-end justify-between border-t border-gray-200 pt-8">
               <div className="mb-0">
-                <span className="font-bold text-lg text-gray-900">Luxe</span>
+                <Image
+                  src="/logo-dark.png"
+                  alt="Luxe Logo Dark"
+                  width={90}
+                  height={45}
+                  className="mb-2"
+                />
                 <p className="text-xs text-gray-500 mt-2">
                   Curated Luxury Timepieces
                   <br />
@@ -327,6 +345,15 @@ export default function LocationPage() {
 
         {/* Mobile Footer */}
         <div className="block md:hidden">
+          <div className="flex justify-center w-full relative z-20">
+            <Image
+              src="/logo-dark.png"
+              alt="Luxe Logo Dark"
+              width={120}
+              height={60}
+              className="mx-auto mt-8"
+            />
+          </div>
           <div
             className="h-[40vh] bg-cover bg-center"
             style={{
@@ -423,7 +450,13 @@ export default function LocationPage() {
             </div>
             <div className="flex flex-col border-t border-gray-200 pt-8">
               <div className="mb-8">
-                <span className="font-bold text-lg text-gray-900">Luxe</span>
+                <Image
+                  src="/logo-dark.png"
+                  alt="Luxe Logo Dark"
+                  width={90}
+                  height={45}
+                  className="mb-2"
+                />
                 <p className="text-xs text-gray-500 mt-2">
                   Curated Luxury Timepieces
                   <br />
