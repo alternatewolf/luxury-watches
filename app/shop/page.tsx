@@ -127,7 +127,7 @@ export default async function ShopPage({
         <div className="flex gap-8">
           {/* Filters Sidebar - Desktop */}
           <div className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-16 h-[calc(100vh)] overflow-y-auto space-y-4 pr-2">
+            <div className="sticky top-20 h-[calc(100vh)] overflow-y-auto space-y-4 pr-2">
               {/* Sort Options */}
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-sm font-medium text-gray-900 mb-3">

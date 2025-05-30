@@ -6,10 +6,10 @@ import Image from "next/image";
 export default function LocationPage() {
   const storeDetails = {
     name: "Luxe Watch Boutique",
-    address: "Al Shafar Building 7 - 117 Al Wasl Rd",
-    area: "Al Bada'a - Jumeirah 1",
+    address: "Luxurious Watches, Oud Metha Offices Building",
+    area: "Next to Citi Bank Tower, Sheikh Rashid Rd.",
     city: "Dubai - United Arab Emirates",
-    phone: "+971 4 XXX XXXX",
+    phone: "+44 7520 644012",
     email: "luxuriouswatchesinfo@gmail.com",
     hours: {
       weekdays: "10:00 AM - 10:00 PM",
@@ -128,7 +128,7 @@ export default function LocationPage() {
                 Get Directions
               </button>
               <a
-                href="https://wa.me/11111222233333"
+                href="https://wa.me/447520644012"
                 className="flex items-center justify-center gap-2 border border-black text-black px-6 py-3 hover:bg-black hover:text-white transition-colors"
               >
                 <svg
@@ -216,7 +216,7 @@ export default function LocationPage() {
                   -translate-y-1/2 
                  bg-[#232323] rounded-none shadow-xl p-10 flex flex-col items-center text-center text-white z-10"
           >
-            <h2 className="text-4xl font-light mb-4 tracking-wide">
+            <h2 className="font-bodoni text-4xl font-light mb-4 tracking-wide">
               PLACE YOUR
               <br />
               ORDER TODAY
@@ -224,8 +224,8 @@ export default function LocationPage() {
             <p className="mb-8 text-gray-300 text-sm">
               To order your dream watch, whatsapp us at
             </p>
-            <h1 className="text-3xl font-light mb-4 tracking-wide">
-              +1 1111-2222-3333
+            <h1 className="font-bodoni text-3xl font-light mb-4 tracking-wide">
+              +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
               <button
@@ -271,7 +271,7 @@ export default function LocationPage() {
                       luxuriouswatchesinfo@gmail.com
                     </a>
                   </li>
-                  <li>1111-2222-3333</li>
+                  <li>+44 7520 644012</li>
                 </ul>
               </div>
               <div>
@@ -327,7 +327,7 @@ export default function LocationPage() {
 
           {/* Contact Section - Integrated */}
           <div className="bg-[#232323] mx-4 -mt-30 relative z-10 rounded-lg shadow-xl p-6 flex flex-col items-center text-center text-white mb-12">
-            <h2 className="text-xl font-light mb-4 tracking-wide">
+            <h2 className="font-bodoni text-xl font-light mb-4 tracking-wide">
               PLACE YOUR
               <br />
               ORDER TODAY
@@ -335,8 +335,8 @@ export default function LocationPage() {
             <p className="mb-6 text-gray-300 text-sm">
               To order your dream watch, whatsapp us at
             </p>
-            <h1 className="text-xl font-light mb-4 tracking-wide">
-              +1 1111-2222-3333
+            <h1 className="font-bodoni text-xl font-light mb-4 tracking-wide">
+              +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
               <button
@@ -384,7 +384,7 @@ export default function LocationPage() {
                       luxuriouswatchesinfo@gmail.com
                     </a>
                   </li>
-                  <li>1111-2222-3333</li>
+                  <li>+44 7520 644012</li>
                 </ul>
               </div>
               <div>
@@ -392,8 +392,8 @@ export default function LocationPage() {
                   Location
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
-                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Luxurious Watches, Oud Metha Offices Building</li>
+                  <li>Next to Citi Bank Tower, Sheikh Rashid Rd.</li>
                   <li>Dubai - United Arab Emirates</li>
                   <li>
                     <a

@@ -24,7 +24,7 @@ export default async function Home() {
       {/* Announcement Banner */}
       <div className="hidden md:flex bg-black text-white text-center py-2  justify-center items-center">
         <p className="text-sm">
-          📞 +1 111 111 1111 - Just call or write on Whatsapp.
+          📞 +44 7520 644012 - Just call or write on Whatsapp.
         </p>
       </div>
 
@@ -70,7 +70,7 @@ export default async function Home() {
                 Browse Watches
               </Link>
               <Link
-                href="https://wa.me/11111222233333"
+                href="https://wa.me/447520644012"
                 className="border border-white text-white px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300"
               >
                 Contact Us
@@ -573,7 +573,7 @@ export default async function Home() {
               To order your dream watch, whatsapp us at
             </p>
             <h1 className="font-bodoni text-3xl font-light mb-4 tracking-wide">
-              +1 1111-2222-3333
+              +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
               <button
@@ -619,7 +619,7 @@ export default async function Home() {
                       luxuriouswatchesinfo@gmail.com
                     </a>
                   </li>
-                  <li>1111-2222-3333</li>
+                  <li>+44 7520 644012</li>
                 </ul>
               </div>
               <div>
@@ -684,7 +684,7 @@ export default async function Home() {
               To order your dream watch, whatsapp us at
             </p>
             <h1 className="font-bodoni text-xl font-light mb-4 tracking-wide">
-              +1 1111-2222-3333
+              +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
               <button
@@ -732,7 +732,7 @@ export default async function Home() {
                       luxuriouswatchesinfo@gmail.com
                     </a>
                   </li>
-                  <li>1111-2222-3333</li>
+                  <li>+44 7520 644012</li>
                 </ul>
               </div>
               <div>
@@ -740,8 +740,8 @@ export default async function Home() {
                   Location
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
-                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Luxurious Watches, Oud Metha Offices Building</li>
+                  <li>Next to Citi Bank Tower, Sheikh Rashid Rd.</li>
                   <li>Dubai - United Arab Emirates</li>
                   <li>
                     <a
