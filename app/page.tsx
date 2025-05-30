@@ -71,30 +71,9 @@ export default async function Home() {
               </Link>
               <Link
                 href="https://wa.me/447520644012"
-                target="_blank"
-                rel="noopener noreferrer"
+                className="border border-white text-white px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300"
               >
-                <button
-                  type="submit"
-                  className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
-                >
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto"
-                  >
-                    <path
-                      d="M6 16L16 6M16 6H7M16 6V15"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
+                Contact Us
               </Link>
             </div>
           </div>
