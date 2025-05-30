@@ -65,7 +65,8 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                       alt={product.name}
                       className={`w-2/3 h-auto object-fit pointer-events-none ${
                         product.id === "cmb7lntdh003wrcfk51xwuj6o" ||
-                        product.id === "cmb7lh7zk0039rcfkgriaetr6"
+                        product.id === "cmb7lh7zk0039rcfkgriaetr6" ||
+                        product.id === "cmbavh2490002rc3tt4i2w6hn"
                           ? "scale-120"
                           : product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
                             product.id !== "cmb3fvpio0010rc640ghwqbaw" &&

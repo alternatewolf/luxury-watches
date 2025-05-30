@@ -540,7 +540,8 @@ export default async function ShopPage({
                         className={`w-full h-auto object-contain ${
                           product.id === "cmb7lntdh003wrcfk51xwuj6o" ||
                           product.id === "cmb7lh7zk0039rcfkgriaetr6" ||
-                          product.id === "cmb7iv3kp0003rcfkqevddz88"
+                          product.id === "cmb7iv3kp0003rcfkqevddz88" ||
+                          product.id === "cmbavh2490002rc3tt4i2w6hn"
                             ? "scale-110"
                             : product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
                               product.id !== "cmb3fvpio0010rc640ghwqbaw" &&

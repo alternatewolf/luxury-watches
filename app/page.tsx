@@ -627,8 +627,8 @@ export default async function Home() {
                   Location
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
-                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Luxurious Watches, Oud Metha Offices Building</li>
+                  <li>Next to Citi Bank Tower, Sheikh Rashid Rd.</li>
                   <li>Dubai - United Arab Emirates</li>
                   <li>
                     <a
