@@ -553,18 +553,6 @@ export default async function Home() {
         {/* Desktop Footer */}
         <div className="hidden md:block">
           <div
-            className="flex justify-center w-full absolute z-20"
-            style={{ top: 0 }}
-          >
-            <Image
-              src="/logo-dark.png"
-              alt="Luxe Logo Dark"
-              width={120}
-              height={60}
-              className="mx-auto mt-8"
-            />
-          </div>
-          <div
             className="h-[80vh] bg-cover bg-center bg-fixed"
             style={{
               backgroundImage: "url('/footer.jpeg')",
@@ -690,15 +678,6 @@ export default async function Home() {
 
         {/* Mobile Footer */}
         <div className="block md:hidden">
-          <div className="flex justify-center w-full relative z-20">
-            <Image
-              src="/logo-dark.png"
-              alt="Luxe Logo Dark"
-              width={120}
-              height={60}
-              className="mx-auto mt-8"
-            />
-          </div>
           <div
             className="h-[40vh] bg-cover bg-center"
             style={{
