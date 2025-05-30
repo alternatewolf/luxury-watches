@@ -60,15 +60,12 @@ export default function LocationPage() {
               <div className="mb-8">
                 <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
                   <Image
-                    src="/store.webp"
+                    src="/store.jpg"
                     alt="Luxe Watch Boutique Interior"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <p className="text-sm text-gray-500 mt-2 text-center">
-                  Our elegant boutique in the heart of Jumeirah
-                </p>
               </div>
 
               {/* Address */}
@@ -159,7 +156,7 @@ export default function LocationPage() {
             {/* Embedded Map */}
             <div className="relative h-96 bg-gray-100 rounded-lg overflow-hidden shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1234567890123!2d55.2708!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43425042e55f%3A0x94e7f1a6f1234567!2sAl%20Wasl%20Rd%20-%20Al%20Bada%27a%20-%20Dubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sae!4v1234567890123!5m2!1sen!2sae"
+                src="https://maps.google.com/maps?q=68HC%2B3V5%20Dubai%20United%20Arab%20Emirates&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -179,7 +176,7 @@ export default function LocationPage() {
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
                   <span>
-                    Prime location in Jumeirah 1, Dubai's luxury district
+                    Prime location in Oud Metha, Dubai's luxury district
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -207,7 +204,7 @@ export default function LocationPage() {
           <div
             className="h-[80vh] bg-cover bg-center bg-fixed"
             style={{
-              backgroundImage: "url('/footer.webp')",
+              backgroundImage: "url('/footer.png')",
             }}
           ></div>
           <div
@@ -279,8 +276,8 @@ export default function LocationPage() {
                   Location
                 </h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>Al Shafar Building 7 - 117 Al Wasl Rd</li>
-                  <li>Al Bada'a - Jumeirah 1</li>
+                  <li>Luxurious Watches, Oud Metha Offices Building</li>
+                  <li>Next to Citi Bank Tower, Sheikh Rashid Rd.</li>
                   <li>Dubai - United Arab Emirates</li>
                   <li>
                     <a
@@ -321,7 +318,7 @@ export default function LocationPage() {
           <div
             className="h-[40vh] bg-cover bg-center"
             style={{
-              backgroundImage: "url('/footer.webp')",
+              backgroundImage: "url('/footer.png')",
             }}
           ></div>
 
