@@ -555,7 +555,7 @@ export default async function Home() {
           <div
             className="h-[80vh] bg-cover bg-center bg-fixed"
             style={{
-              backgroundImage: "url('/footer.png')",
+              backgroundImage: "url('/footer.jpeg')",
             }}
           ></div>
           <div
@@ -669,7 +669,7 @@ export default async function Home() {
           <div
             className="h-[40vh] bg-cover bg-center"
             style={{
-              backgroundImage: "url('/footer.png')",
+              backgroundImage: "url('/footer.jpeg')",
             }}
           ></div>
 
