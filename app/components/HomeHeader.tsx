@@ -175,7 +175,7 @@ export default function HomeHeader() {
               Location
             </Link>
             <Link
-              href="https://wa.me/11111222233333"
+              href="https://wa.me/447520644012"
               className="flex items-center justify-end gap-2 text-md transition-colors hover:text-gray-300 tracking-wide"
             >
               <svg
@@ -311,7 +311,7 @@ export default function HomeHeader() {
                 </Link>
 
                 <Link
-                  href="https://wa.me/11111222233333"
+                  href="https://wa.me/447520644012"
                   className="flex items-center gap-2 text-sm transition-colors text-black hover:text-gray-600 tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >

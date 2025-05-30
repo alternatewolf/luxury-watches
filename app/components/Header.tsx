@@ -197,7 +197,7 @@ export default function Header() {
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
             <Link
-              href="/"
+              href="https://wa.me/447520644012"
               className="hover:opacity-80 transition-opacity flex items-center gap-2"
             >
               <svg

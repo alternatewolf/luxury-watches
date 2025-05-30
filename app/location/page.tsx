@@ -2,6 +2,7 @@
 
 import { MapPin, Clock, Phone, Mail, Navigation } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LocationPage() {
   const storeDetails = {
@@ -124,28 +125,33 @@ export default function LocationPage() {
                 <Navigation className="w-5 h-5" />
                 Get Directions
               </button>
-              <a
+              <Link
                 href="https://wa.me/447520644012"
-                className="flex items-center justify-center gap-2 border border-black text-black px-6 py-3 hover:bg-black hover:text-white transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                  className="w-5 h-5"
+                <button
+                  type="submit"
+                  className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
                 >
-                  <rect
-                    width="512"
-                    height="512"
-                    rx="15%"
-                    fill="currentColor"
-                  ></rect>
-                  <path
-                    fill="white"
-                    d="M308 273c-3-2-6-3-9 1l-12 16c-3 2-5 3-9 1-15-8-36-17-54-47-1-4 1-6 3-8l9-14c2-2 1-4 0-6l-12-29c-3-8-6-7-9-7h-8c-2 0-6 1-10 5-22 22-13 53 3 73 3 4 23 40 66 59 32 14 39 12 48 10 11-1 22-10 27-19 1-3 6-16 2-18"
-                  ></path>
-                </svg>
-                WhatsApp Us
-              </a>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="w-5 h-5"
+                  >
+                    <rect
+                      width="512"
+                      height="512"
+                      rx="15%"
+                      fill="currentColor"
+                    ></rect>
+                    <path
+                      fill="white"
+                      d="M308 273c-3-2-6-3-9 1l-12 16c-3 2-5 3-9 1-15-8-36-17-54-47-1-4 1-6 3-8l9-14c2-2 1-4 0-6l-12-29c-3-8-6-7-9-7h-8c-2 0-6 1-10 5-22 22-13 53 3 73 3 4 23 40 66 59 32 14 39 12 48 10 11-1 22-10 27-19 1-3 6-16 2-18"
+                    ></path>
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -225,27 +231,33 @@ export default function LocationPage() {
               +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
-              <button
-                type="submit"
-                className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
+              <Link
+                href="https://wa.me/447520644012"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mx-auto"
+                <button
+                  type="submit"
+                  className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
                 >
-                  <path
-                    d="M6 16L16 6M16 6H7M16 6V15"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M6 16L16 6M16 6H7M16 6V15"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </Link>
               <p>Click to Chat</p>
             </div>
             <hr className="w-full border-gray-700 mb-4 mt-6" />
@@ -336,27 +348,33 @@ export default function LocationPage() {
               +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
-              <button
-                type="submit"
-                className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
+              <Link
+                href="https://wa.me/447520644012"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mx-auto"
+                <button
+                  type="submit"
+                  className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
                 >
-                  <path
-                    d="M6 16L16 6M16 6H7M16 6V15"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M6 16L16 6M16 6H7M16 6V15"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </Link>
               <p className="text-sm">Click to Chat</p>
             </div>
             <hr className="w-full border-gray-700 mb-4 mt-6" />

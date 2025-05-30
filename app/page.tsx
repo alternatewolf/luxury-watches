@@ -71,9 +71,30 @@ export default async function Home() {
               </Link>
               <Link
                 href="https://wa.me/447520644012"
-                className="border border-white text-white px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-black transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Contact Us
+                <button
+                  type="submit"
+                  className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M6 16L16 6M16 6H7M16 6V15"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
               </Link>
             </div>
           </div>
@@ -576,27 +597,33 @@ export default async function Home() {
               +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
-              <button
-                type="submit"
-                className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
+              <Link
+                href="https://wa.me/447520644012"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mx-auto"
+                <button
+                  type="submit"
+                  className="flex items-center justify-center h-25 w-25 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors ml-2"
                 >
-                  <path
-                    d="M6 16L16 6M16 6H7M16 6V15"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M6 16L16 6M16 6H7M16 6V15"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </Link>
               <p>Click to Chat</p>
             </div>
             <hr className="w-full border-gray-700 mb-4 mt-6" />
@@ -687,27 +714,33 @@ export default async function Home() {
               +44 7520 644012
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 mt-4">
-              <button
-                type="submit"
-                className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
+              <Link
+                href="https://wa.me/447520644012"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mx-auto"
+                <button
+                  type="submit"
+                  className="flex items-center justify-center h-12 w-12 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
                 >
-                  <path
-                    d="M6 16L16 6M16 6H7M16 6V15"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M6 16L16 6M16 6H7M16 6V15"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </Link>
               <p className="text-sm">Click to Chat</p>
             </div>
             <hr className="w-full border-gray-700 mb-4 mt-6" />
