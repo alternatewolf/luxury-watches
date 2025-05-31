@@ -1,18 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 export default function HomeHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileBrandsOpen, setIsMobileBrandsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const bgLayerRef = useRef<HTMLDivElement>(null);
-  const navigationRef = useRef<HTMLDivElement>(null);
 
   const brands = [
     { name: "Rolex", id: "cmawb7z070002rcc4rxq214jz" },
@@ -26,68 +29,13 @@ export default function HomeHeader() {
     { name: "Panerai", id: "cmaz3p0xa002qrc4b3ghncqvp" },
   ];
 
-  const updateDropdown = (triggerElement: HTMLElement) => {
-    if (!dropdownRef.current || !bgLayerRef.current || !navigationRef.current)
-      return;
-
-    const dropdown = dropdownRef.current;
-    const bgLayer = bgLayerRef.current;
-    const navigation = navigationRef.current;
-
-    // Calculate dimensions and position
-    const dropdownWidth = 500;
-    const dropdownHeight = 200;
-    const triggerRect = triggerElement.getBoundingClientRect();
-    const navigationRect = navigation.getBoundingClientRect();
-
-    // Position dropdown relative to trigger
-    const left =
-      triggerRect.left -
-      navigationRect.left +
-      triggerRect.width / 2 -
-      dropdownWidth / 2;
-
-    // Update dropdown position and size
-    dropdown.style.transform = `translateX(${left}px)`;
-    dropdown.style.width = `${dropdownWidth}px`;
-    dropdown.style.height = `${dropdownHeight}px`;
-
-    // Update background layer scale
-    bgLayer.style.transform = `scaleX(${dropdownWidth}) scaleY(${dropdownHeight})`;
-  };
-
-  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsDropdownVisible(true);
-    setActiveDropdown("brands");
-    updateDropdown(e.currentTarget);
-  };
-
-  const handleMouseLeave = () => {
-    setTimeout(() => {
-      if (
-        !dropdownRef.current?.matches(":hover") &&
-        !navigationRef.current?.querySelector(".brands-trigger:hover")
-      ) {
-        setIsDropdownVisible(false);
-        setActiveDropdown(null);
-      }
-    }, 100);
-  };
-
-  const handleDropdownMouseLeave = () => {
-    if (!navigationRef.current?.querySelector(".brands-trigger:hover")) {
-      setIsDropdownVisible(false);
-      setActiveDropdown(null);
-    }
-  };
-
   return (
     <header className="absolute w-full bg-transparent z-100 text-white">
       <div className="px-4 sm:px-6 lg:px-0">
         {/* Desktop Header */}
         <div className="hidden md:grid grid-cols-3 items-center justify-between py-4 px-24 mt-8 bg-black/5 backdrop-blur-md border-b border-white/50">
           {/* Navigation below logo */}
-          <nav className="flex space-x-8 relative" ref={navigationRef}>
+          <nav className="flex items-center space-x-8 relative">
             <Link
               href="/shop"
               className="text-md transition-colors hover:text-gray-300 tracking-wide"
@@ -95,15 +43,29 @@ export default function HomeHeader() {
               Shop
             </Link>
 
-            {/* Brands Trigger */}
-            <button
-              className="brands-trigger flex items-center gap-1 text-md transition-colors focus:outline-none hover:text-gray-300 tracking-wide"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              Brands
-              <ChevronDown className="h-3 w-3" />
-            </button>
+            {/* Brands Navigation Menu */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-md data-[state=open]:bg-transparent data-[state=open]:text-white flex items-center justify-center gap-1 p-0 tracking-wide">
+                    Brands
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid grid-cols-3 gap-1 p-3 w-[500px]">
+                      {brands.map((brand) => (
+                        <Link
+                          key={brand.id}
+                          href={`/shop?brand=${brand.id}`}
+                          className="block px-3 py-2.5 text-sm text-gray-800 hover:text-black hover:bg-gray-100 transition-colors duration-150 text-center font-light tracking-wide"
+                        >
+                          {brand.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
 
             <Link
               href="/trade-in"
@@ -111,50 +73,6 @@ export default function HomeHeader() {
             >
               Trade-In
             </Link>
-
-            {/* Stripe-style Dropdown */}
-            <div
-              className={`absolute top-full left-34 pt-3 transition-opacity duration-300 ${
-                isDropdownVisible
-                  ? "opacity-100 visible"
-                  : "opacity-0 invisible"
-              }`}
-            >
-              <div
-                ref={dropdownRef}
-                className="relative overflow-hidden transition-all duration-300 ease-out"
-                onMouseLeave={handleDropdownMouseLeave}
-                style={{ transformOrigin: "top left" }}
-              >
-                {/* Background Layer */}
-                <div
-                  ref={bgLayerRef}
-                  className="absolute top-0 left-0 w-px h-px bg-white transition-transform duration-300 ease-out"
-                  style={{
-                    transformOrigin: "top left",
-                  }}
-                />
-
-                {/* Dropdown Content */}
-                <div
-                  className={`relative z-10 p-6 pt-4 transition-opacity duration-300 ${
-                    activeDropdown === "brands" ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <div className="grid grid-cols-3 gap-1 items-center">
-                    {brands.map((brand) => (
-                      <Link
-                        key={brand.id}
-                        href={`/shop?brand=${brand.id}`}
-                        className="block px-3 py-2.5 text-sm text-gray-800 hover:text-black hover:bg-gray-50 transition-colors duration-150 text-center font-light tracking-wide"
-                      >
-                        {brand.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
           </nav>
 
           <Link href="/" className="flex items-center">
