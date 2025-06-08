@@ -35,7 +35,9 @@ type ProductDetailsProps = {
 export default function ProductDetails({ product }: ProductDetailsProps) {
   const handleWhatsAppClick = () => {
     const message = `Hello, I'm interested in the ${product.name} (${product.modelNumber}). Could you please provide more information?`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/447520644012?text=${encodeURIComponent(
+      message
+    )}`;
     window.open(whatsappUrl, "_blank");
   };
 

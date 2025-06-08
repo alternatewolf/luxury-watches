@@ -73,6 +73,7 @@ export default async function ShopPage({
     box?: string;
     papers?: string;
     year?: string;
+    page?: string;
   };
 }) {
   const sort = searchParams.sort || "newest";
@@ -87,9 +88,10 @@ export default async function ShopPage({
     ? searchParams.papers.split(",")
     : [];
   const selectedYears = searchParams.year ? searchParams.year.split(",") : [];
+  const currentPage = Number(searchParams.page) || 1;
 
   // Fetch data in parallel using direct database queries
-  const [referenceData, products] = await Promise.all([
+  const [referenceData, productsData] = await Promise.all([
     getProductReferenceData(),
     getFilteredProducts(
       {
@@ -99,12 +101,14 @@ export default async function ShopPage({
         papers: selectedPapers,
         manufacturingYears: selectedYears,
       },
-      sort
+      sort,
+      currentPage
     ),
   ]);
 
   const { brands, conditions, boxOptions, papersOptions, manufacturingYears } =
     referenceData;
+  const { products, pagination } = productsData;
 
   // Add this debug section
   if (process.env.NODE_ENV === "development") {
@@ -206,6 +210,47 @@ export default async function ShopPage({
                 </Link>
               ))}
             </div>
+
+            {/* Pagination */}
+            {pagination.totalPages > 1 && (
+              <div className="mt-8 flex justify-center gap-2">
+                {Array.from(
+                  { length: pagination.totalPages },
+                  (_, i) => i + 1
+                ).map((pageNum) => {
+                  // Create a clean query object with only the needed parameters
+                  const query: Record<string, string> = {};
+                  if (sort) query.sort = sort;
+                  if (selectedBrands.length)
+                    query.brand = selectedBrands.join(",");
+                  if (selectedConditions.length)
+                    query.condition = selectedConditions.join(",");
+                  if (selectedBox.length) query.box = selectedBox.join(",");
+                  if (selectedPapers.length)
+                    query.papers = selectedPapers.join(",");
+                  if (selectedYears.length)
+                    query.year = selectedYears.join(",");
+                  query.page = pageNum.toString();
+
+                  return (
+                    <Link
+                      key={pageNum}
+                      href={{
+                        pathname: "/shop",
+                        query,
+                      }}
+                      className={`px-4 py-2 rounded-md ${
+                        pageNum === currentPage
+                          ? "bg-black text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      {pageNum}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

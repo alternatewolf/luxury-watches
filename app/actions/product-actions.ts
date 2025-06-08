@@ -1,14 +1,13 @@
 'use server'
 
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
-
-const prismaClient = new PrismaClient();
+import { unstable_cache } from 'next/cache';
 
 async function findOrCreateMaterial(name: string) {
   if (!name) return null;
   
-  let material = await prismaClient.material.findFirst({
+  let material = await prisma.material.findFirst({
     where: {
       name: {
         equals: name,
@@ -18,7 +17,7 @@ async function findOrCreateMaterial(name: string) {
   });
 
   if (!material) {
-    material = await prismaClient.material.create({
+    material = await prisma.material.create({
       data: { name }
     });
   }
@@ -29,7 +28,7 @@ async function findOrCreateMaterial(name: string) {
 async function findOrCreateColor(name: string) {
   if (!name) return null;
   
-  let color = await prismaClient.color.findFirst({
+  let color = await prisma.color.findFirst({
     where: {
       name: {
         equals: name,
@@ -39,7 +38,7 @@ async function findOrCreateColor(name: string) {
   });
 
   if (!color) {
-    color = await prismaClient.color.create({
+    color = await prisma.color.create({
       data: { name }
     });
   }
@@ -49,8 +48,7 @@ async function findOrCreateColor(name: string) {
 
 export async function createProduct(data: any) {
   try {
-    // Check if product with same model number exists
-    const existingProduct = await prismaClient.product.findFirst({
+    const existingProduct = await prisma.product.findFirst({
       where: {
         modelNumber: data.modelNumber
       }
@@ -63,29 +61,24 @@ export async function createProduct(data: any) {
       };
     }
 
-    // Generate a unique SKU if none is provided
     let sku = data.sku;
     if (!sku) {
-      // Generate SKU from brand and model number
       const brandPrefix = data.brandId.substring(0, 3).toUpperCase();
       sku = `${brandPrefix}-${data.modelNumber}`;
     }
 
-    // Check if SKU already exists
-    const existingSku = await prismaClient.product.findFirst({
+    const existingSku = await prisma.product.findFirst({
       where: {
         sku: sku
       }
     });
 
     if (existingSku) {
-      // If SKU exists, append a timestamp to make it unique
       const timestamp = new Date().getTime().toString().slice(-4);
       sku = `${sku}-${timestamp}`;
     }
 
-    // First, find or create the brand
-    let brand = await prismaClient.brand.findFirst({
+    let brand = await prisma.brand.findFirst({
       where: {
         name: {
           equals: data.brandId,
@@ -95,17 +88,16 @@ export async function createProduct(data: any) {
     });
 
     if (!brand) {
-      brand = await prismaClient.brand.create({
+      brand = await prisma.brand.create({
         data: {
           name: data.brandId
         }
       });
     }
 
-    // Find or create the watch style
     let watchStyle = null;
     if (data.watchStyleId) {
-      watchStyle = await prismaClient.watchStyle.findFirst({
+      watchStyle = await prisma.watchStyle.findFirst({
         where: {
           name: {
             equals: data.watchStyleId,
@@ -115,7 +107,7 @@ export async function createProduct(data: any) {
       });
 
       if (!watchStyle) {
-        watchStyle = await prismaClient.watchStyle.create({
+        watchStyle = await prisma.watchStyle.create({
           data: {
             name: data.watchStyleId
           }
@@ -123,7 +115,6 @@ export async function createProduct(data: any) {
       }
     }
 
-    // Find or create all materials
     const [
       caseMaterial,
       crystalMaterial,
@@ -140,8 +131,7 @@ export async function createProduct(data: any) {
       findOrCreateColor(data.braceletStrapColorId)
     ]);
 
-    // Create the base product with all the IDs
-    const product = await prismaClient.product.create({
+    const product = await prisma.product.create({
       data: {
         name: data.name,
         brandId: brand.id,
@@ -155,8 +145,6 @@ export async function createProduct(data: any) {
         gender: data.gender,
         watchStyleId: watchStyle?.id,
         collectionSeries: data.collectionSeries,
-        
-        // Physical attributes
         caseMaterialId: caseMaterial?.id,
         caseMaterialDetails: data.caseMaterialDetails,
         caseDiameterMm: data.caseDiameterMm ? new Prisma.Decimal(data.caseDiameterMm) : null,
@@ -164,35 +152,25 @@ export async function createProduct(data: any) {
         caseShape: data.caseShape,
         caseBack: data.caseBack,
         waterResistanceM: data.waterResistanceM,
-        
         dialColorId: dialColor?.id,
         dialTypeMarkers: data.dialTypeMarkers,
         dialDetails: data.dialDetails,
-        
         crystalMaterialId: crystalMaterial?.id,
         crystalFeatures: data.crystalFeatures,
-        
         bezelMaterialId: bezelMaterial?.id,
         bezelType: data.bezelType,
         bezelDescription: data.bezelDescription,
-        
         braceletStrapMaterialId: braceletStrapMaterial?.id,
         braceletStrapColorId: braceletStrapColor?.id,
         braceletStyleDescription: data.braceletStyleDescription,
-        
         claspTypeId: data.claspTypeId || null,
         claspDetails: data.claspDetails,
         lugWidthMm: data.lugWidthMm ? parseInt(data.lugWidthMm) : null,
-        
         crownDetails: data.crownDetails,
-        
-        // Movement details
         movementType: data.movementType || null,
         movementCaliber: data.movementCaliber,
         powerReserveHours: data.powerReserveHours,
         numberOfJewels: data.numberOfJewels ? parseInt(data.numberOfJewels) : null,
-        
-        // Condition & Provenance
         condition: data.condition || null,
         yearOfManufacture: data.yearOfManufacture,
         purchaseYear: data.purchaseYear ? parseInt(data.purchaseYear) : null,
@@ -200,23 +178,15 @@ export async function createProduct(data: any) {
         papers: data.papers || 'NONE',
         warrantyDetails: data.warrantyDetails,
         certifications: data.certifications ? data.certifications.split(',').map((cert: string) => cert.trim()).filter(Boolean) : [],
-        
-        // Origin & Manufacturer Info
         countryOfOrigin: data.countryOfOrigin,
         manufacturerDetails: data.manufacturerDetails,
         packerDetails: data.packerDetails,
         importerDetails: data.importerDetails,
-        
-        // Media
         videoUrl: data.videoUrl,
-        
-        // Inventory & Status
         stockQuantity: parseInt(data.stockQuantity) || 0,
         availabilityStatus: data.availabilityStatus || 'IN_STOCK',
         isFeatured: data.isFeatured === 'true' || data.isFeatured === true,
         status: data.status || 'PUBLISHED',
-        
-        // SEO
         metaTitle: data.metaTitle,
         metaDescription: data.metaDescription,
         metaKeywords: data.metaKeywords,
@@ -224,18 +194,15 @@ export async function createProduct(data: any) {
       },
     });
 
-    // Handle complications (many-to-many)
     if (data.complications && data.complications.length > 0) {
-      // Parse complications from comma-separated string
       const complicationNames = typeof data.complications === 'string' 
         ? data.complications.split(',').map((name: string) => name.trim()).filter(Boolean)
         : data.complications;
 
       if (complicationNames.length > 0) {
-        // Find or create complications
         const complications = await Promise.all(
           complicationNames.map(async (name: string) => {
-            let complication = await prismaClient.complication.findFirst({
+            let complication = await prisma.complication.findFirst({
               where: {
                 name: {
                   equals: name,
@@ -245,7 +212,7 @@ export async function createProduct(data: any) {
             });
 
             if (!complication) {
-              complication = await prismaClient.complication.create({
+              complication = await prisma.complication.create({
                 data: { name }
               });
             }
@@ -254,8 +221,7 @@ export async function createProduct(data: any) {
           })
         );
 
-        // Connect complications to product
-        await prismaClient.product.update({
+        await prisma.product.update({
           where: { id: product.id },
           data: {
             complications: {
@@ -266,7 +232,6 @@ export async function createProduct(data: any) {
       }
     }
 
-    // Handle images
     if (data.images && data.images.length > 0) {
       const imagesData = data.images.map((image: any, index: number) => ({
         url: image.url,
@@ -274,13 +239,13 @@ export async function createProduct(data: any) {
         hoverImg: image.hoverImg,
         coverImg: image.coverImg,
         altText: image.altText || product.name,
-        isPrimary: index === 0, // First image is primary
+        isPrimary: index === 0,
         order: index,
       }));
 
-      await prismaClient.$transaction(
+      await prisma.$transaction(
         imagesData.map((img: any) => 
-          prismaClient.productImage.create({
+          prisma.productImage.create({
             data: {
               ...img,
               productId: product.id,
@@ -297,281 +262,297 @@ export async function createProduct(data: any) {
   }
 }
 
-// Function to fetch reference data for dropdowns
-export async function getProductReferenceData() {
-  try {
-    // Use Promise.all to fetch all data in parallel
-    const [
-      brands,
-      conditionsResult,
-      yearsResult,
-    ] = await Promise.all([
-      prismaClient.brand.findMany({ 
-        orderBy: { name: 'asc' },
-        select: { id: true, name: true } // Only select needed fields
-      }),
-      prismaClient.product.findMany({
-        where: { 
-          status: 'PUBLISHED',
-          condition: { not: null }
+export const getProductReferenceData = unstable_cache(
+  async () => {
+    try {
+      const [
+        brands,
+        conditionsResult,
+        yearsResult,
+      ] = await Promise.all([
+        prisma.brand.findMany({ 
+          orderBy: { name: 'asc' },
+          select: { id: true, name: true }
+        }),
+        prisma.product.findMany({
+          where: { 
+            status: 'PUBLISHED',
+            condition: { not: null }
+          },
+          select: { condition: true },
+          distinct: ['condition'],
+        }),
+        prisma.product.findMany({
+          where: { 
+            status: 'PUBLISHED',
+            yearOfManufacture: { not: null }
+          },
+          select: { yearOfManufacture: true },
+          distinct: ['yearOfManufacture'],
+        }),
+      ]);
+
+      const conditions = conditionsResult.map(p => p.condition).filter(Boolean);
+      const manufacturingYears = yearsResult
+        .map(p => p.yearOfManufacture)
+        .filter((year): year is string => year !== null)
+        .sort((a, b) => parseInt(b) - parseInt(a));
+
+      const boxOptions = ['ORIGINAL', 'GENERIC', 'NONE'];
+      const papersOptions = ['ORIGINAL', 'GENERIC', 'SERVICE_PAPERS', 'WARRANTY_CARD', 'NONE'];
+
+      return {
+        brands,
+        conditions,
+        manufacturingYears,
+        boxOptions,
+        papersOptions,
+      };
+    } catch (error) {
+      console.error('Error fetching reference data:', error);
+      throw error;
+    }
+  },
+  ['product-reference-data'],
+  { revalidate: 3600 }
+);
+
+export const getProductBySlug = unstable_cache(
+  async (id: string) => {
+    try {
+      const product = await prisma.product.findUnique({
+        where: { id },
+        include: {
+          brand: {
+            select: { name: true },
+          },
+          watchStyle: {
+            select: { name: true },
+          },
+          caseMaterial: {
+            select: { name: true },
+          },
+          dialColor: {
+            select: { name: true },
+          },
+          crystalMaterial: {
+            select: { name: true },
+          },
+          bezelMaterial: {
+            select: { name: true },
+          },
+          braceletStrapMaterial: {
+            select: { name: true },
+          },
+          braceletStrapColor: {
+            select: { name: true },
+          },
+          claspType: {
+            select: { name: true },
+          },
+          complications: {
+            select: { name: true },
+          },
+          images: true,
         },
-        select: { condition: true },
-        distinct: ['condition'],
-      }),
-      prismaClient.product.findMany({
-        where: { 
+      });
+
+      if (!product) return null;
+
+      return {
+        ...product,
+        price: product.price.toString(),
+        discountPrice: product.discountPrice?.toString() || null,
+        caseDiameterMm: product.caseDiameterMm?.toString() || null,
+        caseThicknessMm: product.caseThicknessMm?.toString() || null,
+      };
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      return null;
+    }
+  },
+  ['product-by-slug'],
+  { revalidate: 3600 }
+);
+
+export const getProductsWithPrimaryImages = unstable_cache(
+  async () => {
+    try {
+      const products = await prisma.product.findMany({
+        where: {
           status: 'PUBLISHED',
-          yearOfManufacture: { not: null }
         },
-        select: { yearOfManufacture: true },
-        distinct: ['yearOfManufacture'],
-      }),
-    ]);
+        include: {
+          images: {
+            where: {
+              isPrimary: true,
+            },
+            take: 1,
+          },
+          brand: {
+            select: { name: true },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
 
-    const conditions = conditionsResult.map(p => p.condition).filter(Boolean);
-    const manufacturingYears = yearsResult
-      .map(p => p.yearOfManufacture)
-      .filter((year): year is string => year !== null)
-      .sort((a, b) => parseInt(b) - parseInt(a));
+      return products.map((product) => ({
+        ...product,
+        price: product.price.toString(),
+        discountPrice: product.discountPrice?.toString() || null,
+        caseDiameterMm: product.caseDiameterMm?.toString() || null,
+        caseThicknessMm: product.caseThicknessMm?.toString() || null,
+        primaryImageUrl: product.images[0]?.url || null,
+      }));
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      return [];
+    }
+  },
+  ['all-products-with-images'],
+  { revalidate: 3600 }
+);
 
-    // Define static options
-    const boxOptions = ['ORIGINAL', 'GENERIC', 'NONE'];
-    const papersOptions = ['ORIGINAL', 'GENERIC', 'SERVICE_PAPERS', 'WARRANTY_CARD', 'NONE'];
+export const getProductRecommendations = unstable_cache(
+  async (product: any, limit: number = 4) => {
+    try {
+      const recommendations = await prisma.product.findMany({
+        where: {
+          AND: [
+            { id: { not: product.id } },
+            { status: 'PUBLISHED' },
+            {
+              OR: [
+                { brandId: product.brandId },
+                { gender: product.gender },
+                { watchStyleId: product.watchStyleId },
+              ],
+            },
+          ],
+        },
+        include: {
+          brand: {
+            select: { name: true },
+          },
+          images: {
+            where: { isPrimary: true },
+            take: 1,
+          },
+        },
+        orderBy: [
+          { brandId: 'asc' },
+          { gender: 'asc' },
+          { watchStyleId: 'asc' },
+          { createdAt: 'desc' },
+        ],
+        take: limit,
+      });
 
-    // Set cache headers for 1 hour
-    const headers = new Headers();
-    headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+      return recommendations.map((product) => ({
+        ...product,
+        price: product.price.toString(),
+        discountPrice: product.discountPrice?.toString() || null,
+        caseDiameterMm: product.caseDiameterMm?.toString() || null,
+        caseThicknessMm: product.caseThicknessMm?.toString() || null,
+      }));
+    } catch (error) {
+      console.error('Error fetching product recommendations:', error);
+      return [];
+    }
+  },
+  ['product-recommendations'],
+  { revalidate: 3600 }
+);
 
-    return {
-      brands,
-      conditions,
-      manufacturingYears,
-      boxOptions,
-      papersOptions,
+export const getFilteredProducts = unstable_cache(
+  async (filters: any, sort: string, page: number = 1, pageSize: number = 24) => {
+    const where: any = {
+      status: "PUBLISHED",
     };
-  } catch (error) {
-    console.error('Error fetching reference data:', error);
-    throw error;
-  }
-}
 
-export async function getProductBySlug(id: string) {
-  try {
-    const product = await prismaClient.product.findUnique({
-      where: { id },
-      include: {
+    if (filters.brands?.length > 0) {
+      where.brandId = { in: filters.brands };
+    }
+
+    if (filters.condition?.length > 0) {
+      where.condition = { in: filters.condition };
+    }
+
+    if (filters.box?.length > 0) {
+      where.box = { in: filters.box };
+    }
+
+    if (filters.papers?.length > 0) {
+      where.papers = { in: filters.papers };
+    }
+
+    if (filters.manufacturingYears?.length > 0) {
+      where.yearOfManufacture = { in: filters.manufacturingYears };
+    }
+
+    const orderBy: any = {};
+    switch (sort) {
+      case "price_asc":
+        orderBy.price = "asc";
+        break;
+      case "price_desc":
+        orderBy.price = "desc";
+        break;
+      case "newest":
+      default:
+        orderBy.createdAt = "desc";
+        break;
+    }
+
+    const skip = (page - 1) * pageSize;
+    const totalCount = await prisma.product.count({ where });
+
+    const products = await prisma.product.findMany({
+      where,
+      orderBy,
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        condition: true,
         brand: {
-          select: { name: true },
+          select: {
+            name: true
+          }
         },
-        watchStyle: {
-          select: { name: true },
-        },
-        caseMaterial: {
-          select: { name: true },
-        },
-        dialColor: {
-          select: { name: true },
-        },
-        crystalMaterial: {
-          select: { name: true },
-        },
-        bezelMaterial: {
-          select: { name: true },
-        },
-        braceletStrapMaterial: {
-          select: { name: true },
-        },
-        braceletStrapColor: {
-          select: { name: true },
-        },
-        claspType: {
-          select: { name: true },
-        },
-        complications: {
-          select: { name: true },
-        },
-        images: true,
-      },
-    });
-
-    if (!product) return null;
-
-    // Convert Decimal values to strings
-    return {
-      ...product,
-      price: product.price.toString(),
-      discountPrice: product.discountPrice?.toString() || null,
-      caseDiameterMm: product.caseDiameterMm?.toString() || null,
-      caseThicknessMm: product.caseThicknessMm?.toString() || null,
-    };
-  } catch (error) {
-    console.error('Error fetching product:', error);
-    return null;
-  }
-}
-
-export async function getProductsWithPrimaryImages() {
-  try {
-    const products = await prismaClient.product.findMany({
-      where: {
-        status: 'PUBLISHED',
-      },
-      include: {
         images: {
           where: {
-            isPrimary: true,
+            isPrimary: true
           },
-          take: 1,
-        },
-        brand: {
-          select: { name: true },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-
-    return products.map((product) => ({
-      ...product,
-      price: product.price.toString(),
-      discountPrice: product.discountPrice?.toString() || null,
-      caseDiameterMm: product.caseDiameterMm?.toString() || null,
-      caseThicknessMm: product.caseThicknessMm?.toString() || null,
-      primaryImageUrl: product.images[0]?.url || null,
-    }));
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return [];
-  }
-}
-
-export async function getProductRecommendations(product: any, limit: number = 4) {
-  try {
-    const recommendations = await prismaClient.product.findMany({
-      where: {
-        AND: [
-          { id: { not: product.id } }, // Exclude current product
-          { status: 'PUBLISHED' },
-          {
-            OR: [
-              { brandId: product.brandId }, // Same brand
-              { gender: product.gender }, // Same gender
-              { watchStyleId: product.watchStyleId }, // Same style
-            ],
+          select: {
+            url: true
           },
-        ],
-      },
-      include: {
-        brand: {
-          select: { name: true },
-        },
-        images: {
-          where: { isPrimary: true },
-          take: 1,
-        },
-      },
-      orderBy: [
-        { brandId: 'asc' }, // Prioritize same brand
-        { gender: 'asc' }, // Then same gender
-        { watchStyleId: 'asc' }, // Then same style
-        { createdAt: 'desc' }, // Then newest
-      ],
-      take: limit,
-    });
-
-    return recommendations.map((product) => ({
-      ...product,
-      price: product.price.toString(),
-      discountPrice: product.discountPrice?.toString() || null,
-      caseDiameterMm: product.caseDiameterMm?.toString() || null,
-      caseThicknessMm: product.caseThicknessMm?.toString() || null,
-    }));
-  } catch (error) {
-    console.error('Error fetching product recommendations:', error);
-    return [];
-  }
-}
-
-export async function getFilteredProducts(filters: any, sort: string) {
-  const where: any = {
-    status: "PUBLISHED",
-  };
-
-  // Apply filters
-  if (filters.brands?.length > 0) {
-    where.brandId = { in: filters.brands };
-  }
-
-  if (filters.condition?.length > 0) {
-    where.condition = { in: filters.condition };
-  }
-
-  if (filters.box?.length > 0) {
-    where.box = { in: filters.box };
-  }
-
-  if (filters.papers?.length > 0) {
-    where.papers = { in: filters.papers };
-  }
-
-  if (filters.manufacturingYears?.length > 0) {
-    where.yearOfManufacture = { in: filters.manufacturingYears };
-  }
-
-  // Apply sorting
-  const orderBy: any = {};
-  switch (sort) {
-    case "price_asc":
-      orderBy.price = "asc";
-      break;
-    case "price_desc":
-      orderBy.price = "desc";
-      break;
-    case "newest":
-    default:
-      orderBy.createdAt = "desc";
-      break;
-  }
-
-  // Add cache headers to the response
-  const response = await prisma.product.findMany({
-    where,
-    orderBy,
-    select: {
-      id: true,
-      name: true,
-      price: true,
-      brand: {
-        select: {
-          name: true
+          take: 1
         }
       },
-      images: {
-        where: {
-          isPrimary: true
-        },
-        select: {
-          url: true
-        },
-        take: 1
-      },
-      condition: true
-    },
-    take: 24 // Limit the number of products per page
-  });
+      skip,
+      take: pageSize
+    });
 
-  // Set cache headers for 1 hour
-  const headers = new Headers();
-  headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
-
-  return response;
-}
+    return {
+      products,
+      pagination: {
+        total: totalCount,
+        page,
+        pageSize,
+        totalPages: Math.ceil(totalCount / pageSize)
+      }
+    };
+  },
+  ['filtered-products'],
+  { revalidate: 3600 }
+);
 
 export async function deleteProduct(productId: string) {
   try {
-    // First, check if the product exists
-    const product = await prismaClient.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: { id: productId },
       include: {
         images: true,
@@ -586,14 +567,11 @@ export async function deleteProduct(productId: string) {
       };
     }
 
-    // Delete in a transaction to ensure data consistency
-    await prismaClient.$transaction(async (tx) => {
-      // Delete product images (cascade delete should handle this, but being explicit)
+    await prisma.$transaction(async (tx) => {
       await tx.productImage.deleteMany({
         where: { productId: productId },
       });
 
-      // Disconnect complications (many-to-many relationship)
       await tx.product.update({
         where: { id: productId },
         data: {
@@ -603,7 +581,6 @@ export async function deleteProduct(productId: string) {
         },
       });
 
-      // Finally, delete the product
       await tx.product.delete({
         where: { id: productId },
       });
