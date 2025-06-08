@@ -209,6 +209,7 @@ export default function HomeHeader() {
 
                 <Link
                   href="/shop?filters=%7B%22condition%22%3A%5B%22USED%22%5D%7D"
+                  prefetch={false}
                   className="text-sm transition-colors text-black hover:text-gray-600 tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -217,6 +218,7 @@ export default function HomeHeader() {
 
                 <Link
                   href="/trade-in"
+                  prefetch={false}
                   className="text-sm transition-colors text-black hover:text-gray-600 tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -225,6 +227,7 @@ export default function HomeHeader() {
 
                 <Link
                   href="/location"
+                  prefetch={false}
                   className="text-sm transition-colors text-black hover:text-gray-600 tracking-wide"
                   onClick={() => setIsMenuOpen(false)}
                 >

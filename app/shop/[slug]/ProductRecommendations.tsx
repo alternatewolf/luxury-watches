@@ -27,6 +27,7 @@ export default function ProductRecommendations({
           <Link
             key={product.id}
             href={`/shop/${product.slug}`}
+            prefetch={false}
             className="group"
           >
             <div className="aspect-square relative bg-[#F8F5EE] rounded-lg overflow-hidden">

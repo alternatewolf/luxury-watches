@@ -203,6 +203,7 @@ export default function FilterDrawer({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                         onClick={() => setIsOpen(false)}
                       >
@@ -281,6 +282,7 @@ export default function FilterDrawer({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                         onClick={() => setIsOpen(false)}
                       >
@@ -357,6 +359,7 @@ export default function FilterDrawer({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                         onClick={() => setIsOpen(false)}
                       >
@@ -435,6 +438,7 @@ export default function FilterDrawer({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                         onClick={() => setIsOpen(false)}
                       >
@@ -511,6 +515,7 @@ export default function FilterDrawer({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                         onClick={() => setIsOpen(false)}
                       >

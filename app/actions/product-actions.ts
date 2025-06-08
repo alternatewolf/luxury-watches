@@ -338,6 +338,10 @@ export async function getProductReferenceData() {
     const boxOptions = ['ORIGINAL', 'GENERIC', 'NONE'];
     const papersOptions = ['ORIGINAL', 'GENERIC', 'SERVICE_PAPERS', 'WARRANTY_CARD', 'NONE'];
 
+    // Set cache headers for 1 hour
+    const headers = new Headers();
+    headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+
     return {
       brands,
       conditions,
@@ -530,7 +534,8 @@ export async function getFilteredProducts(filters: any, sort: string) {
       break;
   }
 
-  return prisma.product.findMany({
+  // Add cache headers to the response
+  const response = await prisma.product.findMany({
     where,
     orderBy,
     select: {
@@ -555,6 +560,12 @@ export async function getFilteredProducts(filters: any, sort: string) {
     },
     take: 24 // Limit the number of products per page
   });
+
+  // Set cache headers for 1 hour
+  const headers = new Headers();
+  headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+
+  return response;
 }
 
 export async function deleteProduct(productId: string) {

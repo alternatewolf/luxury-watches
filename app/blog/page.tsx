@@ -108,6 +108,7 @@ export default function BlogPage() {
             </p>
             <Link
               href="/shop"
+              prefetch={false}
               className="inline-block bg-black text-white px-8 py-3 hover:bg-gray-800 transition-colors"
             >
               Browse Watches

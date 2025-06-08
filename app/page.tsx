@@ -65,6 +65,7 @@ export default async function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/shop"
+                prefetch={false}
                 className="bg-white text-black px-8 py-3 text-sm font-medium tracking-wider uppercase hover:bg-gray-100 transition-colors duration-300"
               >
                 Browse Watches
@@ -152,6 +153,7 @@ export default async function Home() {
             {/* Rolex */}
             <Link
               href="/shop?brand=cmawb7z070002rcc4rxq214jz"
+              prefetch={false}
               className="flex flex-col items-center cursor-pointer w-full"
             >
               <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group mb-16 md:mb-0">
@@ -173,6 +175,7 @@ export default async function Home() {
             {/* Patek Philippe */}
             <Link
               href="/shop?brand=cmaz2zl8j000erc4bn7b39zxc"
+              prefetch={false}
               className="flex flex-col items-center cursor-pointer w-full"
             >
               <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
@@ -194,6 +197,7 @@ export default async function Home() {
             {/* Cartier */}
             <Link
               href="/shop?brand=cmawdkwv30034rcc49zoi7uhn"
+              prefetch={false}
               className="flex flex-col items-center cursor-pointer w-full"
             >
               <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
@@ -215,6 +219,7 @@ export default async function Home() {
             {/* Richard Mille - Hidden on Mobile */}
             <Link
               href="/shop?brand=cmaz2wicy0000rc4bgi9syncq"
+              prefetch={false}
               className="hidden md:flex flex-col items-center cursor-pointer w-full"
             >
               <div className="bg-[#232323] rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">
@@ -236,6 +241,7 @@ export default async function Home() {
             {/* Audemars Piguet */}
             <Link
               href="/shop?brand=cmaz34u6h0013rc4baxhttp46"
+              prefetch={false}
               className="flex flex-col items-center cursor-pointer w-full"
             >
               <div className="bg-[#232323] rounded-lg md:rounded-2xl w-full aspect-square flex flex-col items-center justify-end relative group">

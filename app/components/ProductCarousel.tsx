@@ -87,6 +87,7 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                 </div>
                 <Link
                   href={`/shop/${product.id}`}
+                  prefetch={false}
                   className="w-6/7 mx-auto flex justify-center mt-2 mb-2"
                 >
                   <button className="w-full bg-white text-black py-2 rounded-full font-extralight cursor-pointer">

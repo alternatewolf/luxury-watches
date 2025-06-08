@@ -58,6 +58,7 @@ export default function Header() {
           <nav className="hidden md:flex md:items-center space-x-8 relative">
             <Link
               href="/shop"
+              prefetch={false}
               className="text-xs transition-colors hover:text-gray-300"
             >
               Shop
@@ -76,6 +77,7 @@ export default function Header() {
                         <Link
                           key={brand.id}
                           href={`/shop?brand=${brand.id}`}
+                          prefetch={false}
                           className="block px-3 py-2.5 text-sm  text-gray-800 hover:text-black hover:bg-gray-100 transition-colors duration-150 text-center font-bold tracking-wide"
                         >
                           {brand.name}
@@ -164,6 +166,7 @@ export default function Header() {
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/shop"
+                prefetch={false}
                 className="text-sm transition-colors text-white md:text-black hover:text-gray-300 md:hover:text-gray-600"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -190,6 +193,7 @@ export default function Header() {
                       <Link
                         key={brand.id}
                         href={`/shop?brand=${brand.id}`}
+                        prefetch={false}
                         className="block text-sm transition-colors text-gray-300 md:text-gray-600 hover:text-white md:hover:text-gray-900"
                         onClick={() => {
                           setIsMenuOpen(false);

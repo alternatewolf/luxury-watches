@@ -345,6 +345,7 @@ export default function AdminPage() {
                       <div className="flex justify-end space-x-2">
                         <Link
                           href={`/shop/${product.id}`}
+                          prefetch={false}
                           className="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-md transition-colors"
                         >
                           View

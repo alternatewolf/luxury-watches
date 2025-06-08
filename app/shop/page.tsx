@@ -61,7 +61,8 @@ type BoxOption = string;
 type PapersOption = string;
 type ManufacturingYear = string;
 
-export const revalidate = 3600; // Revalidate every hour
+// Set revalidation time to 1 hour
+export const revalidate = 3600;
 
 export default async function ShopPage({
   searchParams,
@@ -75,40 +76,6 @@ export default async function ShopPage({
     year?: string;
   };
 }) {
-  const fetchReferenceData = async () => {
-    try {
-      // During build time, we can't make requests to localhost
-      if (!process.env.NEXT_PUBLIC_APP_URL) {
-        return {
-          brands: [],
-          conditions: [],
-          boxOptions: [],
-          papersOptions: [],
-          manufacturingYears: [],
-        };
-      }
-
-      const response = await fetch(
-        new URL("/api/admin/reference-data", process.env.NEXT_PUBLIC_APP_URL),
-        { next: { revalidate: 3600 } }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch reference data");
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching reference data:", error);
-      // Return fallback data if fetch fails
-      return {
-        brands: [],
-        conditions: [],
-        boxOptions: [],
-        papersOptions: [],
-        manufacturingYears: [],
-      };
-    }
-  };
-
   // Get sort and filter params from URL
   const sort = searchParams.sort || "newest";
   const selectedBrands = searchParams.brand
@@ -123,9 +90,9 @@ export default async function ShopPage({
     : [];
   const selectedYears = searchParams.year ? searchParams.year.split(",") : [];
 
-  // Fetch data in parallel
+  // Fetch data in parallel using direct database queries
   const [referenceData, products] = await Promise.all([
-    fetchReferenceData(),
+    getProductReferenceData(),
     getFilteredProducts(
       {
         brands: selectedBrands,
@@ -223,6 +190,7 @@ export default async function ShopPage({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                       >
                         <div
@@ -304,6 +272,7 @@ export default async function ShopPage({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                       >
                         <div
@@ -379,6 +348,7 @@ export default async function ShopPage({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                       >
                         <div
@@ -456,6 +426,7 @@ export default async function ShopPage({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                       >
                         <div
@@ -533,6 +504,7 @@ export default async function ShopPage({
                           pathname: "/shop",
                           query,
                         }}
+                        prefetch={false}
                         className="flex items-center gap-2 group"
                       >
                         <div
@@ -582,6 +554,7 @@ export default async function ShopPage({
                 <Link
                   key={product.id}
                   href={`/shop/${product.id}`}
+                  prefetch={false}
                   className="group bg-[#F8F5EE] hover:bg-black/5 relative overflow-hidden flex flex-col min-h-[300px] sm:min-h-[400px] lg:min-h-[28rem] rounded-xl cursor-pointer"
                 >
                   <div className="flex-1 flex items-center justify-center p-6">
@@ -595,7 +568,7 @@ export default async function ShopPage({
                           product.id === "cmb7iv3kp0003rcfkqevddz88" ||
                           product.id === "cmbavh2490002rc3tt4i2w6hn"
                             ? "scale-110"
-                            : product.brandId === "cmaz2zl8j000erc4bn7b39zxc" &&
+                            : product.brand.name === "Patek Philippe" &&
                               product.id !== "cmb3fvpio0010rc640ghwqbaw" &&
                               product.id !== "cmb7iv3kp0003rcfkqevddz88"
                             ? "scale-170"

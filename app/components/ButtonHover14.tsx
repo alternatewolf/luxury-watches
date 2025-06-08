@@ -11,7 +11,7 @@ const ButtonHover14 = ({
   children = "Browse All",
 }: ButtonHover14Props) => {
   return (
-    <Link href={href}>
+    <Link href={href} prefetch={false}>
       <button className="group cursor-pointer slide-anime px-5 py-3 rounded-full w-[180px] bg-white text-black border border-black flex justify-between items-center font-semibold ">
         {children}
         <div className="group-hover:translate-x-2 transition-all">
