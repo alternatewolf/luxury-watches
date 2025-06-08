@@ -61,6 +61,8 @@ type BoxOption = string;
 type PapersOption = string;
 type ManufacturingYear = string;
 
+export const revalidate = 3600; // Revalidate every hour
+
 export default async function ShopPage({
   searchParams,
 }: {
@@ -75,11 +77,19 @@ export default async function ShopPage({
 }) {
   const fetchReferenceData = async () => {
     try {
+      // During build time, we can't make requests to localhost
+      if (!process.env.NEXT_PUBLIC_APP_URL) {
+        return {
+          brands: [],
+          conditions: [],
+          boxOptions: [],
+          papersOptions: [],
+          manufacturingYears: [],
+        };
+      }
+
       const response = await fetch(
-        new URL(
-          "/api/admin/reference-data",
-          process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-        ),
+        new URL("/api/admin/reference-data", process.env.NEXT_PUBLIC_APP_URL),
         { next: { revalidate: 3600 } }
       );
       if (!response.ok) {
@@ -99,10 +109,6 @@ export default async function ShopPage({
     }
   };
 
-  const referenceData = await fetchReferenceData();
-  const { brands, conditions, boxOptions, papersOptions, manufacturingYears } =
-    referenceData;
-
   // Get sort and filter params from URL
   const sort = searchParams.sort || "newest";
   const selectedBrands = searchParams.brand
@@ -117,17 +123,23 @@ export default async function ShopPage({
     : [];
   const selectedYears = searchParams.year ? searchParams.year.split(",") : [];
 
-  // Fetch products with filters
-  const products = await getFilteredProducts(
-    {
-      brands: selectedBrands,
-      condition: selectedConditions,
-      box: selectedBox,
-      papers: selectedPapers,
-      manufacturingYears: selectedYears,
-    },
-    sort
-  );
+  // Fetch data in parallel
+  const [referenceData, products] = await Promise.all([
+    fetchReferenceData(),
+    getFilteredProducts(
+      {
+        brands: selectedBrands,
+        condition: selectedConditions,
+        box: selectedBox,
+        papers: selectedPapers,
+        manufacturingYears: selectedYears,
+      },
+      sort
+    ),
+  ]);
+
+  const { brands, conditions, boxOptions, papersOptions, manufacturingYears } =
+    referenceData;
 
   // Add this debug section
   if (process.env.NODE_ENV === "development") {

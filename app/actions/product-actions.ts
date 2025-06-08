@@ -300,51 +300,46 @@ export async function createProduct(data: any) {
 // Function to fetch reference data for dropdowns
 export async function getProductReferenceData() {
   try {
-    const [brands, materials, colors, watchStyles, claspTypes, complications] = await Promise.all([
-      prismaClient.brand.findMany({ orderBy: { name: 'asc' } }),
-      prismaClient.material.findMany({ orderBy: { name: 'asc' } }),
-      prismaClient.color.findMany({ orderBy: { name: 'asc' } }),
-      prismaClient.watchStyle.findMany({ orderBy: { name: 'asc' } }),
-      prismaClient.claspType.findMany({ orderBy: { name: 'asc' } }),
-      prismaClient.complication.findMany({ orderBy: { name: 'asc' } }),
+    // Use Promise.all to fetch all data in parallel
+    const [
+      brands,
+      conditionsResult,
+      yearsResult,
+    ] = await Promise.all([
+      prismaClient.brand.findMany({ 
+        orderBy: { name: 'asc' },
+        select: { id: true, name: true } // Only select needed fields
+      }),
+      prismaClient.product.findMany({
+        where: { 
+          status: 'PUBLISHED',
+          condition: { not: null }
+        },
+        select: { condition: true },
+        distinct: ['condition'],
+      }),
+      prismaClient.product.findMany({
+        where: { 
+          status: 'PUBLISHED',
+          yearOfManufacture: { not: null }
+        },
+        select: { yearOfManufacture: true },
+        distinct: ['yearOfManufacture'],
+      }),
     ]);
 
-    // Get unique conditions from products
-    const conditionsResult = await prismaClient.product.findMany({
-      where: { 
-        status: 'PUBLISHED',
-        condition: { not: null }
-      },
-      select: { condition: true },
-      distinct: ['condition'],
-    });
     const conditions = conditionsResult.map(p => p.condition).filter(Boolean);
-
-    // Get unique manufacturing years from products
-    const yearsResult = await prismaClient.product.findMany({
-      where: { 
-        status: 'PUBLISHED',
-        yearOfManufacture: { not: null }
-      },
-      select: { yearOfManufacture: true },
-      distinct: ['yearOfManufacture'],
-    });
     const manufacturingYears = yearsResult
       .map(p => p.yearOfManufacture)
       .filter((year): year is string => year !== null)
-      .sort((a, b) => parseInt(b) - parseInt(a)); // Sort descending
+      .sort((a, b) => parseInt(b) - parseInt(a));
 
-    // Define box and papers options based on schema enums
+    // Define static options
     const boxOptions = ['ORIGINAL', 'GENERIC', 'NONE'];
     const papersOptions = ['ORIGINAL', 'GENERIC', 'SERVICE_PAPERS', 'WARRANTY_CARD', 'NONE'];
 
     return {
       brands,
-      materials,
-      colors,
-      watchStyles,
-      claspTypes,
-      complications,
       conditions,
       manufacturingYears,
       boxOptions,
@@ -504,14 +499,6 @@ export async function getFilteredProducts(filters: any, sort: string) {
     where.brandId = { in: filters.brands };
   }
 
-  if (filters.gender?.length > 0) {
-    where.gender = { in: filters.gender };
-  }
-
-  if (filters.watchStyles?.length > 0) {
-    where.watchStyleId = { in: filters.watchStyles };
-  }
-
   if (filters.condition?.length > 0) {
     where.condition = { in: filters.condition };
   }
@@ -526,16 +513,6 @@ export async function getFilteredProducts(filters: any, sort: string) {
 
   if (filters.manufacturingYears?.length > 0) {
     where.yearOfManufacture = { in: filters.manufacturingYears };
-  }
-
-  if (filters.priceRange?.min || filters.priceRange?.max) {
-    where.price = {};
-    if (filters.priceRange.min) {
-      where.price.gte = parseFloat(filters.priceRange.min);
-    }
-    if (filters.priceRange.max) {
-      where.price.lte = parseFloat(filters.priceRange.max);
-    }
   }
 
   // Apply sorting
@@ -556,18 +533,27 @@ export async function getFilteredProducts(filters: any, sort: string) {
   return prisma.product.findMany({
     where,
     orderBy,
-    include: {
-      brand: true,
-      watchStyle: true,
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      brand: {
+        select: {
+          name: true
+        }
+      },
       images: {
         where: {
-          isPrimary: true,
+          isPrimary: true
         },
         select: {
-          url: true,
+          url: true
         },
+        take: 1
       },
+      condition: true
     },
+    take: 24 // Limit the number of products per page
   });
 }
 
