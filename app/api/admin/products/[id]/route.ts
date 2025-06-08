@@ -47,7 +47,12 @@ export async function GET(
       certifications: product.certifications || []
     };
 
-    return NextResponse.json(transformedProduct);
+    const response = NextResponse.json(transformedProduct);
+    
+    // Set cache headers for 5 minutes
+    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+    
+    return response;
   } catch (error) {
     console.error('Error fetching product:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

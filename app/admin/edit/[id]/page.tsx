@@ -157,29 +157,16 @@ export default function EditProductPage({
       const productData = await productRes.json();
       setProduct(productData);
 
-      // Fetch reference data
-      const [
-        brandsRes,
-        materialsRes,
-        colorsRes,
-        watchStylesRes,
-        claspTypesRes,
-        complicationsRes,
-      ] = await Promise.all([
-        fetch("/api/admin/brands"),
-        fetch("/api/admin/materials"),
-        fetch("/api/admin/colors"),
-        fetch("/api/admin/watch-styles"),
-        fetch("/api/admin/clasp-types"),
-        fetch("/api/admin/complications"),
-      ]);
+      // Fetch all reference data in a single call
+      const referenceDataRes = await fetch("/api/admin/reference-data");
+      const referenceData = await referenceDataRes.json();
 
-      setBrands(await brandsRes.json());
-      setMaterials(await materialsRes.json());
-      setColors(await colorsRes.json());
-      setWatchStyles(await watchStylesRes.json());
-      setClaspTypes(await claspTypesRes.json());
-      setComplications(await complicationsRes.json());
+      setBrands(referenceData.brands);
+      setMaterials(referenceData.materials);
+      setColors(referenceData.colors);
+      setWatchStyles(referenceData.watchStyles);
+      setClaspTypes(referenceData.claspTypes);
+      setComplications(referenceData.complications);
     } catch (error) {
       console.error("Error fetching data:", error);
       alert("Error loading product data");

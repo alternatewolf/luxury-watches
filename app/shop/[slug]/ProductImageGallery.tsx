@@ -55,11 +55,10 @@ function ProductImageGallery({ images }: ProductImageGalleryProps) {
                 },
               }}
             >
-              <Image
+              <img
                 src={activeItem.url}
-                width={1000}
-                height={1000}
                 alt={activeItem.altText || "Product image"}
+                loading="lazy"
                 className="object-contain h-96 mx-auto rounded-md"
               />
             </motion.div>
@@ -83,11 +82,10 @@ function ProductImageGallery({ images }: ProductImageGalleryProps) {
               className="relative p-2 flex-shrink-0"
               onClick={() => setActiveItem(itemData)}
             >
-              <Image
+              <img
                 src={itemData.url}
-                width={400}
-                height={400}
                 alt={itemData.altText || "Product thumbnail"}
+                loading="lazy"
                 className="w-28 h-16 object-cover cursor-pointer relative z-[2] rounded-md pointer-events-none"
               />
               {itemData.id === activeItem?.id && (

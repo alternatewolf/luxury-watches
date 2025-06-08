@@ -75,15 +75,18 @@ export default function HomeHeader() {
             </Link>
           </nav>
 
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo-home.png"
-              alt="Luxe"
-              width={120}
-              height={48}
-              className="h-20 w-auto object-contain mx-auto"
-            />
-          </Link>
+          <div className="flex justify-center">
+            <Link href="/" className="flex items-center">
+              <img
+                src="/logo.png"
+                alt="Luxury Watches"
+                width="40"
+                height="40"
+                loading="lazy"
+                className="h-10 w-auto"
+              />
+            </Link>
+          </div>
 
           <div className="flex items-center justify-end gap-8">
             <Link

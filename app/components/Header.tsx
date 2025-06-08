@@ -44,19 +44,13 @@ export default function Header() {
         <div className="flex justify-between items-center h-16 md:h-12 md:py-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image
-              src="/logo-home.png"
-              alt="Luxe"
-              width={80}
-              height={32}
-              className="h-10 w-auto object-contain hidden md:block"
-            />
-            <Image
-              src="/logo-home.png"
-              alt="Luxe"
-              width={80}
-              height={32}
-              className="h-10 w-auto object-contain block md:hidden"
+            <img
+              src="/logo.png"
+              alt="Luxury Watches"
+              width="40"
+              height="40"
+              loading="lazy"
+              className="h-10 w-auto"
             />
           </Link>
 

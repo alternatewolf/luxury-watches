@@ -3,7 +3,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
 import SwiperCore from "swiper";
-import Image from "next/image";
 
 // Import Swiper styles
 import "swiper/css";
@@ -101,12 +100,12 @@ export default function TestimonialsCarousel() {
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index} className="w-[350px] h-[550px]">
               <div className="w-full h-full bg-[#F8F5EE] flex flex-col items-center">
-                <div className="relative w-full h-[500px] mb-4">
-                  <Image
+                <div className="w-[350px] h-[400px] mb-4 overflow-hidden">
+                  <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    fill
-                    className="object-cover"
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <div className="p-6 flex flex-col items-center gap-4">
@@ -145,12 +144,12 @@ export default function TestimonialsCarousel() {
           {testimonials.map((testimonial, index) => (
             <SwiperSlide key={index} className="px-4">
               <div className="w-full h-full bg-[#F8F5EE] rounded-lg flex flex-col items-center overflow-hidden">
-                <div className="relative w-full h-[350px]">
-                  <Image
+                <div className="w-full h-[300px] overflow-hidden">
+                  <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    fill
-                    className="object-cover"
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <div className="p-6 flex flex-col items-center gap-3 flex-1 justify-center">

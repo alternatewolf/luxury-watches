@@ -3,7 +3,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
 type Product = {
@@ -63,6 +62,7 @@ function ProductCarousel({ products }: ProductCarouselProps) {
                     <img
                       src={product.primaryImageUrl}
                       alt={product.name}
+                      loading="lazy"
                       className={`w-2/3 h-auto object-fit pointer-events-none ${
                         product.id === "cmb7lntdh003wrcfk51xwuj6o" ||
                         product.id === "cmb7lh7zk0039rcfkgriaetr6" ||

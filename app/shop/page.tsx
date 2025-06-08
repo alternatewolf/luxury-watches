@@ -51,6 +51,16 @@ function formatInclusion(inclusion: string): string {
   }
 }
 
+type Brand = {
+  id: string;
+  name: string;
+};
+
+type Condition = string;
+type BoxOption = string;
+type PapersOption = string;
+type ManufacturingYear = string;
+
 export default async function ShopPage({
   searchParams,
 }: {
@@ -64,8 +74,17 @@ export default async function ShopPage({
   };
 }) {
   // Get all reference data for filters
+  const referenceDataRes = await fetch(
+    new URL(
+      "/api/admin/reference-data",
+      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+    ),
+    {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    }
+  );
   const { brands, conditions, manufacturingYears, boxOptions, papersOptions } =
-    await getProductReferenceData();
+    await referenceDataRes.json();
 
   // Get sort and filter params from URL
   const sort = searchParams.sort || "newest";
@@ -142,7 +161,7 @@ export default async function ShopPage({
                   Brands
                 </h3>
                 <div className="space-y-2">
-                  {brands.map((brand) => {
+                  {brands.map((brand: Brand) => {
                     const newBrands = selectedBrands.includes(brand.id)
                       ? selectedBrands.filter((id) => id !== brand.id)
                       : [...selectedBrands, brand.id];
@@ -220,7 +239,7 @@ export default async function ShopPage({
                 </h3>
                 <div className="space-y-2">
                   {(conditions.filter((c) => c !== null) as string[]).map(
-                    (condition) => {
+                    (condition: Condition) => {
                       const newConditions = selectedConditions.includes(
                         condition
                       )
@@ -300,7 +319,7 @@ export default async function ShopPage({
                   Original Box
                 </h3>
                 <div className="space-y-2">
-                  {boxOptions.map((box) => {
+                  {boxOptions.map((box: BoxOption) => {
                     const newBox = selectedBox.includes(box)
                       ? selectedBox.filter((b) => b !== box)
                       : [...selectedBox, box];
@@ -375,7 +394,7 @@ export default async function ShopPage({
                   Original Papers
                 </h3>
                 <div className="space-y-2">
-                  {papersOptions.map((papers) => {
+                  {papersOptions.map((papers: PapersOption) => {
                     const newPapers = selectedPapers.includes(papers)
                       ? selectedPapers.filter((p) => p !== papers)
                       : [...selectedPapers, papers];
@@ -452,7 +471,7 @@ export default async function ShopPage({
                   Year of Manufacture
                 </h3>
                 <div className="space-y-2">
-                  {manufacturingYears.map((year) => {
+                  {manufacturingYears.map((year: ManufacturingYear) => {
                     const newYears = selectedYears.includes(year)
                       ? selectedYears.filter((y) => y !== year)
                       : [...selectedYears, year];

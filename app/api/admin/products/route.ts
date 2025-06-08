@@ -26,7 +26,12 @@ export async function GET() {
       caseThicknessMm: product.caseThicknessMm?.toString()
     }));
 
-    return NextResponse.json(transformedProducts);
+    const response = NextResponse.json(transformedProducts);
+    
+    // Set cache headers for 5 minutes
+    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+    
+    return response;
   } catch (error) {
     console.error('Error fetching products:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

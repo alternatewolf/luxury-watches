@@ -308,83 +308,52 @@ export default async function Home() {
         <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <ul className="flex items-center justify-center md:justify-start sm:[&_li]:mx-8 [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll">
             <li>
-              <Image
+              <img
                 src="/logos/rolex.png"
                 alt="Rolex"
-                width={2398}
-                height={1198}
+                width="2398"
+                height="1198"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/panerai.png"
                 alt="Panerai"
-                width={2398}
-                height={284}
+                width="2398"
+                height="284"
+                loading="lazy"
                 className="h-4 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/omega.png"
                 alt="Omega"
-                width={5118}
-                height={2720}
+                width="5118"
+                height="2720"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/iwc.png"
                 alt="IWC"
-                width={5118}
-                height={2290}
+                width="5118"
+                height="2290"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/cartier.png"
                 alt="Cartier"
-                width={7678}
-                height={4318}
-                className="h-12 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/bvlgari.png"
-                alt="Bvlgari"
-                width={5998}
-                height={3998}
-                className="h-16 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/Patek_Philippe_SA_logo.svg.png"
-                alt="Patek Philippe"
-                width={2398}
-                height={1312}
-                className="h-12 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/Jaeger-LeCoultre.png"
-                alt="Jaeger-LeCoultre"
-                width={2558}
-                height={1438}
-                className="h-12 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/Audemars_Piguet_logo.png"
-                alt="Audemars Piguet"
-                width={6588}
-                height={1812}
+                width="7678"
+                height="4318"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
@@ -394,83 +363,52 @@ export default async function Home() {
             aria-hidden="true"
           >
             <li>
-              <Image
+              <img
                 src="/logos/rolex.png"
                 alt="Rolex"
-                width={2398}
-                height={1198}
+                width="2398"
+                height="1198"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/panerai.png"
                 alt="Panerai"
-                width={2398}
-                height={284}
+                width="2398"
+                height="284"
+                loading="lazy"
                 className="h-4 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/omega.png"
                 alt="Omega"
-                width={5118}
-                height={2720}
+                width="5118"
+                height="2720"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/iwc.png"
                 alt="IWC"
-                width={5118}
-                height={2290}
+                width="5118"
+                height="2290"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
             <li>
-              <Image
+              <img
                 src="/logos/cartier.png"
                 alt="Cartier"
-                width={7678}
-                height={4318}
-                className="h-12 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/bvlgari.png"
-                alt="Bvlgari"
-                width={5998}
-                height={3998}
-                className="h-16 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/Patek_Philippe_SA_logo.svg.png"
-                alt="Patek Philippe"
-                width={2398}
-                height={1312}
-                className="h-12 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/Jaeger-LeCoultre.png"
-                alt="Jaeger-LeCoultre"
-                width={2558}
-                height={1438}
-                className="h-12 w-auto object-contain"
-              />
-            </li>
-            <li>
-              <Image
-                src="/logos/Audemars_Piguet_logo.png"
-                alt="Audemars Piguet"
-                width={6588}
-                height={1812}
+                width="7678"
+                height="4318"
+                loading="lazy"
                 className="h-12 w-auto object-contain"
               />
             </li>
