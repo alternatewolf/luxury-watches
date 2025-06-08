@@ -73,18 +73,35 @@ export default async function ShopPage({
     year?: string;
   };
 }) {
-  // Get all reference data for filters
-  const referenceDataRes = await fetch(
-    new URL(
-      "/api/admin/reference-data",
-      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-    ),
-    {
-      next: { revalidate: 3600 }, // Revalidate every hour
+  const fetchReferenceData = async () => {
+    try {
+      const response = await fetch(
+        new URL(
+          "/api/admin/reference-data",
+          process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+        ),
+        { next: { revalidate: 3600 } }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch reference data");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching reference data:", error);
+      // Return fallback data if fetch fails
+      return {
+        brands: [],
+        conditions: [],
+        boxOptions: [],
+        papersOptions: [],
+        manufacturingYears: [],
+      };
     }
-  );
-  const { brands, conditions, manufacturingYears, boxOptions, papersOptions } =
-    await referenceDataRes.json();
+  };
+
+  const referenceData = await fetchReferenceData();
+  const { brands, conditions, boxOptions, papersOptions, manufacturingYears } =
+    referenceData;
 
   // Get sort and filter params from URL
   const sort = searchParams.sort || "newest";
@@ -132,7 +149,9 @@ export default async function ShopPage({
         <FilterDrawer
           brands={brands}
           selectedBrands={selectedBrands}
-          conditions={conditions.filter((c) => c !== null) as string[]}
+          conditions={
+            conditions.filter((c: string | null) => c !== null) as string[]
+          }
           selectedConditions={selectedConditions}
           boxOptions={boxOptions}
           selectedBox={selectedBox}
@@ -238,78 +257,78 @@ export default async function ShopPage({
                   Condition
                 </h3>
                 <div className="space-y-2">
-                  {(conditions.filter((c) => c !== null) as string[]).map(
-                    (condition: Condition) => {
-                      const newConditions = selectedConditions.includes(
-                        condition
-                      )
-                        ? selectedConditions.filter((c) => c !== condition)
-                        : [...selectedConditions, condition];
+                  {(
+                    conditions.filter(
+                      (c: string | null) => c !== null
+                    ) as string[]
+                  ).map((condition: Condition) => {
+                    const newConditions = selectedConditions.includes(condition)
+                      ? selectedConditions.filter((c) => c !== condition)
+                      : [...selectedConditions, condition];
 
-                      const query = {
-                        ...(sort !== "newest" && { sort }),
-                        ...(selectedBrands.length > 0 && {
-                          brand: selectedBrands.join(","),
-                        }),
-                        ...(newConditions.length > 0 && {
-                          condition: newConditions.join(","),
-                        }),
-                        ...(selectedBox.length > 0 && {
-                          box: selectedBox.join(","),
-                        }),
-                        ...(selectedPapers.length > 0 && {
-                          papers: selectedPapers.join(","),
-                        }),
-                        ...(selectedYears.length > 0 && {
-                          year: selectedYears.join(","),
-                        }),
-                      };
+                    const query = {
+                      ...(sort !== "newest" && { sort }),
+                      ...(selectedBrands.length > 0 && {
+                        brand: selectedBrands.join(","),
+                      }),
+                      ...(newConditions.length > 0 && {
+                        condition: newConditions.join(","),
+                      }),
+                      ...(selectedBox.length > 0 && {
+                        box: selectedBox.join(","),
+                      }),
+                      ...(selectedPapers.length > 0 && {
+                        papers: selectedPapers.join(","),
+                      }),
+                      ...(selectedYears.length > 0 && {
+                        year: selectedYears.join(","),
+                      }),
+                    };
 
-                      return (
-                        <Link
-                          key={condition}
-                          href={{
-                            pathname: "/shop",
-                            query,
-                          }}
-                          className="flex items-center gap-2 group"
+                    return (
+                      <Link
+                        key={condition}
+                        href={{
+                          pathname: "/shop",
+                          query,
+                        }}
+                        className="flex items-center gap-2 group"
+                      >
+                        <div
+                          className={`w-4 h-4 border rounded flex items-center justify-center ${
+                            selectedConditions.includes(condition)
+                              ? "bg-black border-black"
+                              : "border-gray-300 group-hover:border-black"
+                          }`}
                         >
-                          <div
-                            className={`w-4 h-4 border rounded flex items-center justify-center ${
-                              selectedConditions.includes(condition)
-                                ? "bg-black border-black"
-                                : "border-gray-300 group-hover:border-black"
-                            }`}
-                          >
-                            {selectedConditions.includes(condition) && (
-                              <svg
-                                className="w-3 h-3 text-white"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M5 13l4 4L19 7"
-                                />
-                              </svg>
-                            )}
-                          </div>
-                          <span
-                            className={`text-sm ${
-                              selectedConditions.includes(condition)
-                                ? "text-black font-medium"
-                                : "text-gray-600 group-hover:text-black"
-                            }`}
-                          >
-                            {formatCondition(condition)}
-                          </span>
-                        </Link>
-                      );
-                    }
-                  )}
+                          {selectedConditions.includes(condition) && (
+                            <svg
+                              className="w-3 h-3 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <span
+                          className={`text-sm ${
+                            selectedConditions.includes(condition)
+                              ? "text-black font-medium"
+                              : "text-gray-600 group-hover:text-black"
+                          }`}
+                        >
+                          {formatCondition(condition)}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -490,7 +509,9 @@ export default async function ShopPage({
                       ...(selectedPapers.length > 0 && {
                         papers: selectedPapers.join(","),
                       }),
-                      ...(newYears.length > 0 && { year: newYears.join(",") }),
+                      ...(newYears.length > 0 && {
+                        year: newYears.join(","),
+                      }),
                     };
 
                     return (
