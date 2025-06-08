@@ -1,25 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Filter, X } from "lucide-react";
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 import SortSelect from "./SortSelect";
-import Link from "next/link";
 
-type FilterDrawerProps = {
-  brands: { id: string; name: string }[];
-  selectedBrands: string[];
-  conditions: string[];
-  selectedConditions: string[];
-  boxOptions: string[];
-  selectedBox: string[];
-  papersOptions: string[];
-  selectedPapers: string[];
-  manufacturingYears: string[];
-  selectedYears: string[];
-  sort: string;
-};
-
-// Helper function to format condition names
+// Helper functions
 function formatCondition(condition: string): string {
   switch (condition) {
     case "NEW":
@@ -43,7 +31,6 @@ function formatCondition(condition: string): string {
   }
 }
 
-// Helper function to format inclusion options
 function formatInclusion(inclusion: string): string {
   switch (inclusion) {
     case "ORIGINAL":
@@ -61,6 +48,25 @@ function formatInclusion(inclusion: string): string {
   }
 }
 
+type Brand = {
+  id: string;
+  name: string;
+};
+
+interface FilterDrawerProps {
+  brands: Brand[];
+  selectedBrands: string[];
+  conditions: string[];
+  selectedConditions: string[];
+  boxOptions: string[];
+  selectedBox: string[];
+  papersOptions: string[];
+  selectedPapers: string[];
+  manufacturingYears: string[];
+  selectedYears: string[];
+  sort: string;
+}
+
 export default function FilterDrawer({
   brands,
   selectedBrands,
@@ -74,492 +80,398 @@ export default function FilterDrawer({
   selectedYears,
   sort,
 }: FilterDrawerProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
 
-  // Calculate total active filters
-  const totalActiveFilters =
-    selectedBrands.length +
-    selectedConditions.length +
-    selectedBox.length +
-    selectedPapers.length +
-    selectedYears.length;
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-  // Handle escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
+      // Get current values for this filter
+      const currentValues = params.getAll(name);
+
+      // If value exists, remove it; otherwise add it
+      if (currentValues.includes(value)) {
+        params.delete(name);
+        currentValues
+          .filter((v) => v !== value)
+          .forEach((v) => params.append(name, v));
+      } else {
+        params.append(name, value);
       }
-    };
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-    }
+      return params.toString();
+    },
+    [searchParams]
+  );
 
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [isOpen]);
-
-  // Prevent body scroll when drawer is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isOpen]);
+  const handleFilterChange = (name: string, value: string) => {
+    const queryString = createQueryString(name, value);
+    router.push(`${pathname}?${queryString}`);
+  };
 
   return (
-    <>
-      {/* Mobile Filter Header */}
-      <div className="lg:hidden mb-4 flex items-center justify-between bg-white p-4 border-b">
-        <button
-          type="button"
-          className="flex items-center gap-2 text-sm font-medium text-gray-900 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-          onClick={() => setIsOpen(true)}
-        >
-          <Filter className="w-4 h-4" />
-          Filters
-          {totalActiveFilters > 0 && (
-            <span className="ml-1.5 rounded-full bg-black px-2 py-0.5 text-xs text-white">
-              {totalActiveFilters}
-            </span>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Filter Drawer */}
-      <div
-        className={`fixed inset-0 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+    <div className="lg:hidden mb-4">
+      <button
+        type="button"
+        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+        onClick={() => setIsOpen(true)}
       >
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-black/20"
-          onClick={() => setIsOpen(false)}
-        />
+        Filters
+      </button>
 
-        {/* Drawer Content */}
-        <div className="absolute inset-y-0 left-0 w-80 bg-white shadow-xl">
-          <div className="h-full flex flex-col">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-medium">Filters</h2>
-              <button
-                type="button"
-                className="text-gray-500 hover:text-gray-700"
-                onClick={() => setIsOpen(false)}
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+      <Transition.Root show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={setIsOpen}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 transition-opacity" />
+          </Transition.Child>
 
-            {/* Filter Content */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-6">
-              {/* Sort Options */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  Sort By
-                </h3>
-                <SortSelect value={sort} />
-              </div>
-
-              {/* Brand Filter */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  Brands
-                </h3>
-                <div className="space-y-2">
-                  {brands.map((brand) => {
-                    const newBrands = selectedBrands.includes(brand.id)
-                      ? selectedBrands.filter((id) => id !== brand.id)
-                      : [...selectedBrands, brand.id];
-
-                    const query = {
-                      ...(sort !== "newest" && { sort }),
-                      ...(newBrands.length > 0 && {
-                        brand: newBrands.join(","),
-                      }),
-                      ...(selectedConditions.length > 0 && {
-                        condition: selectedConditions.join(","),
-                      }),
-                      ...(selectedBox.length > 0 && {
-                        box: selectedBox.join(","),
-                      }),
-                      ...(selectedPapers.length > 0 && {
-                        papers: selectedPapers.join(","),
-                      }),
-                      ...(selectedYears.length > 0 && {
-                        year: selectedYears.join(","),
-                      }),
-                    };
-
-                    return (
-                      <Link
-                        key={brand.id}
-                        href={{
-                          pathname: "/shop",
-                          query,
-                        }}
-                        prefetch={false}
-                        className="flex items-center gap-2 group"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <div
-                          className={`w-4 h-4 border rounded flex items-center justify-center ${
-                            selectedBrands.includes(brand.id)
-                              ? "bg-black border-black"
-                              : "border-gray-300 group-hover:border-black"
-                          }`}
-                        >
-                          {selectedBrands.includes(brand.id) && (
-                            <svg
-                              className="w-3 h-3 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
+          <div className="fixed inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-500"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                    <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                      <div className="px-4 sm:px-6">
+                        <div className="flex items-start justify-between">
+                          <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
+                            Filters
+                          </Dialog.Title>
+                          <div className="ml-3 flex h-7 items-center">
+                            <button
+                              type="button"
+                              className="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                              onClick={() => setIsOpen(false)}
                             >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 13l4 4L19 7"
+                              <span className="absolute -inset-2.5" />
+                              <span className="sr-only">Close panel</span>
+                              <XMarkIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
                               />
-                            </svg>
-                          )}
+                            </button>
+                          </div>
                         </div>
-                        <span
-                          className={`text-sm ${
-                            selectedBrands.includes(brand.id)
-                              ? "text-black font-medium"
-                              : "text-gray-600 group-hover:text-black"
-                          }`}
-                        >
-                          {brand.name}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
+                      </div>
+                      <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                        <div className="space-y-6">
+                          {/* Sort Options */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <h3 className="text-sm font-medium text-gray-900 mb-3">
+                              Sort By
+                            </h3>
+                            <SortSelect value={sort} />
+                          </div>
 
-              {/* Condition Filter */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  Condition
-                </h3>
-                <div className="space-y-2">
-                  {conditions.map((condition) => {
-                    const newConditions = selectedConditions.includes(condition)
-                      ? selectedConditions.filter((c) => c !== condition)
-                      : [...selectedConditions, condition];
+                          {/* Brand Filter */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <h3 className="text-sm font-medium text-gray-900 mb-3">
+                              Brands
+                            </h3>
+                            <div className="space-y-2">
+                              {brands.map((brand) => (
+                                <label
+                                  key={brand.id}
+                                  className="flex items-center gap-2 group cursor-pointer"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={selectedBrands.includes(brand.id)}
+                                    onChange={() =>
+                                      handleFilterChange("brand", brand.id)
+                                    }
+                                  />
+                                  <div
+                                    className={`w-4 h-4 border rounded flex items-center justify-center ${
+                                      selectedBrands.includes(brand.id)
+                                        ? "bg-black border-black"
+                                        : "border-gray-300 group-hover:border-black"
+                                    }`}
+                                  >
+                                    {selectedBrands.includes(brand.id) && (
+                                      <svg
+                                        className="w-3 h-3 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M5 13l4 4L19 7"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                  <span
+                                    className={`text-sm ${
+                                      selectedBrands.includes(brand.id)
+                                        ? "text-black font-medium"
+                                        : "text-gray-600 group-hover:text-black"
+                                    }`}
+                                  >
+                                    {brand.name}
+                                  </span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
 
-                    const query = {
-                      ...(sort !== "newest" && { sort }),
-                      ...(selectedBrands.length > 0 && {
-                        brand: selectedBrands.join(","),
-                      }),
-                      ...(newConditions.length > 0 && {
-                        condition: newConditions.join(","),
-                      }),
-                      ...(selectedBox.length > 0 && {
-                        box: selectedBox.join(","),
-                      }),
-                      ...(selectedPapers.length > 0 && {
-                        papers: selectedPapers.join(","),
-                      }),
-                      ...(selectedYears.length > 0 && {
-                        year: selectedYears.join(","),
-                      }),
-                    };
+                          {/* Condition Filter */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <h3 className="text-sm font-medium text-gray-900 mb-3">
+                              Condition
+                            </h3>
+                            <div className="space-y-2">
+                              {conditions.map((condition) => (
+                                <label
+                                  key={condition}
+                                  className="flex items-center gap-2 group cursor-pointer"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={selectedConditions.includes(
+                                      condition
+                                    )}
+                                    onChange={() =>
+                                      handleFilterChange("condition", condition)
+                                    }
+                                  />
+                                  <div
+                                    className={`w-4 h-4 border rounded flex items-center justify-center ${
+                                      selectedConditions.includes(condition)
+                                        ? "bg-black border-black"
+                                        : "border-gray-300 group-hover:border-black"
+                                    }`}
+                                  >
+                                    {selectedConditions.includes(condition) && (
+                                      <svg
+                                        className="w-3 h-3 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M5 13l4 4L19 7"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                  <span
+                                    className={`text-sm ${
+                                      selectedConditions.includes(condition)
+                                        ? "text-black font-medium"
+                                        : "text-gray-600 group-hover:text-black"
+                                    }`}
+                                  >
+                                    {formatCondition(condition)}
+                                  </span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
 
-                    return (
-                      <Link
-                        key={condition}
-                        href={{
-                          pathname: "/shop",
-                          query,
-                        }}
-                        prefetch={false}
-                        className="flex items-center gap-2 group"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <div
-                          className={`w-4 h-4 border rounded flex items-center justify-center ${
-                            selectedConditions.includes(condition)
-                              ? "bg-black border-black"
-                              : "border-gray-300 group-hover:border-black"
-                          }`}
-                        >
-                          {selectedConditions.includes(condition) && (
-                            <svg
-                              className="w-3 h-3 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
-                          )}
+                          {/* Box Filter */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <h3 className="text-sm font-medium text-gray-900 mb-3">
+                              Original Box
+                            </h3>
+                            <div className="space-y-2">
+                              {boxOptions.map((box) => (
+                                <label
+                                  key={box}
+                                  className="flex items-center gap-2 group cursor-pointer"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={selectedBox.includes(box)}
+                                    onChange={() =>
+                                      handleFilterChange("box", box)
+                                    }
+                                  />
+                                  <div
+                                    className={`w-4 h-4 border rounded flex items-center justify-center ${
+                                      selectedBox.includes(box)
+                                        ? "bg-black border-black"
+                                        : "border-gray-300 group-hover:border-black"
+                                    }`}
+                                  >
+                                    {selectedBox.includes(box) && (
+                                      <svg
+                                        className="w-3 h-3 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M5 13l4 4L19 7"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                  <span
+                                    className={`text-sm ${
+                                      selectedBox.includes(box)
+                                        ? "text-black font-medium"
+                                        : "text-gray-600 group-hover:text-black"
+                                    }`}
+                                  >
+                                    {formatInclusion(box)}
+                                  </span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Papers Filter */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <h3 className="text-sm font-medium text-gray-900 mb-3">
+                              Original Papers
+                            </h3>
+                            <div className="space-y-2">
+                              {papersOptions.map((papers) => (
+                                <label
+                                  key={papers}
+                                  className="flex items-center gap-2 group cursor-pointer"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={selectedPapers.includes(papers)}
+                                    onChange={() =>
+                                      handleFilterChange("papers", papers)
+                                    }
+                                  />
+                                  <div
+                                    className={`w-4 h-4 border rounded flex items-center justify-center ${
+                                      selectedPapers.includes(papers)
+                                        ? "bg-black border-black"
+                                        : "border-gray-300 group-hover:border-black"
+                                    }`}
+                                  >
+                                    {selectedPapers.includes(papers) && (
+                                      <svg
+                                        className="w-3 h-3 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M5 13l4 4L19 7"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                  <span
+                                    className={`text-sm ${
+                                      selectedPapers.includes(papers)
+                                        ? "text-black font-medium"
+                                        : "text-gray-600 group-hover:text-black"
+                                    }`}
+                                  >
+                                    {formatInclusion(papers)}
+                                  </span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Manufacturing Year Filter */}
+                          <div className="bg-gray-50 p-4 rounded-lg">
+                            <h3 className="text-sm font-medium text-gray-900 mb-3">
+                              Year of Manufacture
+                            </h3>
+                            <div className="space-y-2">
+                              {manufacturingYears.map((year) => (
+                                <label
+                                  key={year}
+                                  className="flex items-center gap-2 group cursor-pointer"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={selectedYears.includes(year)}
+                                    onChange={() =>
+                                      handleFilterChange("year", year)
+                                    }
+                                  />
+                                  <div
+                                    className={`w-4 h-4 border rounded flex items-center justify-center ${
+                                      selectedYears.includes(year)
+                                        ? "bg-black border-black"
+                                        : "border-gray-300 group-hover:border-black"
+                                    }`}
+                                  >
+                                    {selectedYears.includes(year) && (
+                                      <svg
+                                        className="w-3 h-3 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M5 13l4 4L19 7"
+                                        />
+                                      </svg>
+                                    )}
+                                  </div>
+                                  <span
+                                    className={`text-sm ${
+                                      selectedYears.includes(year)
+                                        ? "text-black font-medium"
+                                        : "text-gray-600 group-hover:text-black"
+                                    }`}
+                                  >
+                                    {year}
+                                  </span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                        <span
-                          className={`text-sm ${
-                            selectedConditions.includes(condition)
-                              ? "text-black font-medium"
-                              : "text-gray-600 group-hover:text-black"
-                          }`}
-                        >
-                          {formatCondition(condition)}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Box Filter */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  Original Box
-                </h3>
-                <div className="space-y-2">
-                  {boxOptions.map((box) => {
-                    const newBox = selectedBox.includes(box)
-                      ? selectedBox.filter((b) => b !== box)
-                      : [...selectedBox, box];
-
-                    const query = {
-                      ...(sort !== "newest" && { sort }),
-                      ...(selectedBrands.length > 0 && {
-                        brand: selectedBrands.join(","),
-                      }),
-                      ...(selectedConditions.length > 0 && {
-                        condition: selectedConditions.join(","),
-                      }),
-                      ...(newBox.length > 0 && { box: newBox.join(",") }),
-                      ...(selectedPapers.length > 0 && {
-                        papers: selectedPapers.join(","),
-                      }),
-                      ...(selectedYears.length > 0 && {
-                        year: selectedYears.join(","),
-                      }),
-                    };
-
-                    return (
-                      <Link
-                        key={box}
-                        href={{
-                          pathname: "/shop",
-                          query,
-                        }}
-                        prefetch={false}
-                        className="flex items-center gap-2 group"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <div
-                          className={`w-4 h-4 border rounded flex items-center justify-center ${
-                            selectedBox.includes(box)
-                              ? "bg-black border-black"
-                              : "border-gray-300 group-hover:border-black"
-                          }`}
-                        >
-                          {selectedBox.includes(box) && (
-                            <svg
-                              className="w-3 h-3 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
-                          )}
-                        </div>
-                        <span
-                          className={`text-sm ${
-                            selectedBox.includes(box)
-                              ? "text-black font-medium"
-                              : "text-gray-600 group-hover:text-black"
-                          }`}
-                        >
-                          {formatInclusion(box)}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Papers Filter */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  Original Papers
-                </h3>
-                <div className="space-y-2">
-                  {papersOptions.map((papers) => {
-                    const newPapers = selectedPapers.includes(papers)
-                      ? selectedPapers.filter((p) => p !== papers)
-                      : [...selectedPapers, papers];
-
-                    const query = {
-                      ...(sort !== "newest" && { sort }),
-                      ...(selectedBrands.length > 0 && {
-                        brand: selectedBrands.join(","),
-                      }),
-                      ...(selectedConditions.length > 0 && {
-                        condition: selectedConditions.join(","),
-                      }),
-                      ...(selectedBox.length > 0 && {
-                        box: selectedBox.join(","),
-                      }),
-                      ...(newPapers.length > 0 && {
-                        papers: newPapers.join(","),
-                      }),
-                      ...(selectedYears.length > 0 && {
-                        year: selectedYears.join(","),
-                      }),
-                    };
-
-                    return (
-                      <Link
-                        key={papers}
-                        href={{
-                          pathname: "/shop",
-                          query,
-                        }}
-                        prefetch={false}
-                        className="flex items-center gap-2 group"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <div
-                          className={`w-4 h-4 border rounded flex items-center justify-center ${
-                            selectedPapers.includes(papers)
-                              ? "bg-black border-black"
-                              : "border-gray-300 group-hover:border-black"
-                          }`}
-                        >
-                          {selectedPapers.includes(papers) && (
-                            <svg
-                              className="w-3 h-3 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
-                          )}
-                        </div>
-                        <span
-                          className={`text-sm ${
-                            selectedPapers.includes(papers)
-                              ? "text-black font-medium"
-                              : "text-gray-600 group-hover:text-black"
-                          }`}
-                        >
-                          {formatInclusion(papers)}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Manufacturing Year Filter */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-3">
-                  Year of Manufacture
-                </h3>
-                <div className="space-y-2">
-                  {manufacturingYears.map((year) => {
-                    const newYears = selectedYears.includes(year)
-                      ? selectedYears.filter((y) => y !== year)
-                      : [...selectedYears, year];
-
-                    const query = {
-                      ...(sort !== "newest" && { sort }),
-                      ...(selectedBrands.length > 0 && {
-                        brand: selectedBrands.join(","),
-                      }),
-                      ...(selectedConditions.length > 0 && {
-                        condition: selectedConditions.join(","),
-                      }),
-                      ...(selectedBox.length > 0 && {
-                        box: selectedBox.join(","),
-                      }),
-                      ...(selectedPapers.length > 0 && {
-                        papers: selectedPapers.join(","),
-                      }),
-                      ...(newYears.length > 0 && { year: newYears.join(",") }),
-                    };
-
-                    return (
-                      <Link
-                        key={year}
-                        href={{
-                          pathname: "/shop",
-                          query,
-                        }}
-                        prefetch={false}
-                        className="flex items-center gap-2 group"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <div
-                          className={`w-4 h-4 border rounded flex items-center justify-center ${
-                            selectedYears.includes(year)
-                              ? "bg-black border-black"
-                              : "border-gray-300 group-hover:border-black"
-                          }`}
-                        >
-                          {selectedYears.includes(year) && (
-                            <svg
-                              className="w-3 h-3 text-white"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
-                          )}
-                        </div>
-                        <span
-                          className={`text-sm ${
-                            selectedYears.includes(year)
-                              ? "text-black font-medium"
-                              : "text-gray-600 group-hover:text-black"
-                          }`}
-                        >
-                          {year}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
+                      </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </>
+        </Dialog>
+      </Transition.Root>
+    </div>
   );
 }

@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow filtered shop URLs
+Disallow: /shop?*
+
+# Disallow admin and API routes
+Disallow: /admin
+Disallow: /api 
