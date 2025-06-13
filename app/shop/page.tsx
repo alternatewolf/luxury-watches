@@ -78,16 +78,30 @@ export default async function ShopPage({
 }) {
   const sort = searchParams.sort || "newest";
   const selectedBrands = searchParams.brand
-    ? searchParams.brand.split(",")
+    ? Array.isArray(searchParams.brand)
+      ? searchParams.brand
+      : searchParams.brand.split(",")
     : [];
   const selectedConditions = searchParams.condition
-    ? searchParams.condition.split(",")
+    ? Array.isArray(searchParams.condition)
+      ? searchParams.condition
+      : searchParams.condition.split(",")
     : [];
-  const selectedBox = searchParams.box ? searchParams.box.split(",") : [];
+  const selectedBox = searchParams.box
+    ? Array.isArray(searchParams.box)
+      ? searchParams.box
+      : searchParams.box.split(",")
+    : [];
   const selectedPapers = searchParams.papers
-    ? searchParams.papers.split(",")
+    ? Array.isArray(searchParams.papers)
+      ? searchParams.papers
+      : searchParams.papers.split(",")
     : [];
-  const selectedYears = searchParams.year ? searchParams.year.split(",") : [];
+  const selectedYears = searchParams.year
+    ? Array.isArray(searchParams.year)
+      ? searchParams.year
+      : searchParams.year.split(",")
+    : [];
   const currentPage = Number(searchParams.page) || 1;
 
   // Fetch data in parallel using direct database queries
